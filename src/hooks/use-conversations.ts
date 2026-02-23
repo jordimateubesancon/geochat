@@ -1,0 +1,74 @@
+import { useCallback, useEffect, useRef, useState } from "react";
+import { supabase } from "@/lib/supabase";
+import type { Conversation, MapBounds } from "@/types";
+import type { RealtimeChannel } from "@supabase/supabase-js";
+
+export function useConversations(bounds: MapBounds | null) {
+  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [loading, setLoading] = useState(false);
+  const channelRef = useRef<RealtimeChannel | null>(null);
+
+  // Fetch conversations within the current viewport bounds
+  const fetchConversations = useCallback(async (b: MapBounds) => {
+    setLoading(true);
+    const { data, error } = await supabase.rpc("conversations_in_bounds", {
+      min_lng: b.min_lng,
+      min_lat: b.min_lat,
+      max_lng: b.max_lng,
+      max_lat: b.max_lat,
+    });
+
+    if (error) {
+      console.error("Failed to fetch conversations:", error);
+    } else {
+      setConversations(data as Conversation[]);
+    }
+    setLoading(false);
+  }, []);
+
+  // Refetch when bounds change
+  useEffect(() => {
+    if (bounds) {
+      fetchConversations(bounds);
+    }
+  }, [bounds, fetchConversations]);
+
+  // Subscribe to realtime conversation changes (INSERT + UPDATE)
+  useEffect(() => {
+    const channel = supabase
+      .channel("map-conversations")
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "conversations" },
+        (payload) => {
+          const newConv = payload.new as Conversation;
+          setConversations((prev) => {
+            // Avoid duplicates
+            if (prev.some((c) => c.id === newConv.id)) return prev;
+            return [...prev, newConv];
+          });
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "conversations" },
+        (payload) => {
+          const updated = payload.new as Conversation;
+          setConversations((prev) =>
+            prev.map((c) => (c.id === updated.id ? updated : c))
+          );
+        }
+      )
+      .subscribe();
+
+    channelRef.current = channel;
+
+    return () => {
+      if (channelRef.current) {
+        supabase.removeChannel(channelRef.current);
+      }
+    };
+  }, []);
+
+  return { conversations, loading };
+}

@@ -54,12 +54,12 @@
 
 ### Implementation for User Story 1
 
-- [ ] T014 [P] [US1] Create map wrapper client component in `src/components/map.tsx` — marks `"use client"`, uses `next/dynamic` to import map-inner with `ssr: false` and a dark loading placeholder
-- [ ] T015 [P] [US1] Create `useMapViewport` hook in `src/hooks/use-map-viewport.ts` — tracks current map bounds (min_lng, min_lat, max_lng, max_lat), debounces updates (300ms) on map `moveend` event, exposes bounds and a `refreshBounds` callback
-- [ ] T016 [US1] Create `useConversations` hook in `src/hooks/use-conversations.ts` — calls `supabase.rpc('conversations_in_bounds', bounds)` when viewport bounds change; subscribes to Supabase Realtime `postgres_changes` on conversations table (INSERT and UPDATE events) on a `map-conversations` channel; merges realtime updates into state; cleans up subscription on unmount
-- [ ] T017 [US1] Create marker component in `src/components/marker.tsx` — renders a Leaflet marker at conversation coordinates with a custom popup/tooltip showing title, message count, and relative last activity time (e.g., "12 messages · 5 min ago"); accepts `onClick` callback
-- [ ] T018 [US1] Create map inner implementation in `src/components/map-inner.tsx` — renders `<MapContainer>` full-screen with CARTO Dark Matter `<TileLayer>` (URL: `https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png`); requests geolocation on mount (center on user if granted, world view zoom 2 if denied); imports `leaflet-defaulticon-compatibility`; uses `useMapViewport` to track bounds; uses `useConversations` to fetch and display markers; renders empty-state hint text (FR-016) when no conversations exist and no panel is open
-- [ ] T019 [US1] Create main page in `src/app/page.tsx` — server component that renders the Map wrapper component full-screen
+- [x] T014 [P] [US1] Create map wrapper client component in `src/components/map.tsx` — marks `"use client"`, uses `next/dynamic` to import map-inner with `ssr: false` and a dark loading placeholder
+- [x] T015 [P] [US1] Create `useMapViewport` hook in `src/hooks/use-map-viewport.ts` — tracks current map bounds (min_lng, min_lat, max_lng, max_lat), debounces updates (300ms) on map `moveend` event, exposes bounds and a `refreshBounds` callback
+- [x] T016 [US1] Create `useConversations` hook in `src/hooks/use-conversations.ts` — calls `supabase.rpc('conversations_in_bounds', bounds)` when viewport bounds change; subscribes to Supabase Realtime `postgres_changes` on conversations table (INSERT and UPDATE events) on a `map-conversations` channel; merges realtime updates into state; cleans up subscription on unmount
+- [x] T017 [US1] Create marker component in `src/components/marker.tsx` — renders a Leaflet marker at conversation coordinates with a custom popup/tooltip showing title, message count, and relative last activity time (e.g., "12 messages · 5 min ago"); accepts `onClick` callback
+- [x] T018 [US1] Create map inner implementation in `src/components/map-inner.tsx` — renders `<MapContainer>` full-screen with CARTO Dark Matter `<TileLayer>` (URL: `https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png`); requests geolocation on mount (center on user if granted, world view zoom 2 if denied); imports `leaflet-defaulticon-compatibility`; uses `useMapViewport` to track bounds; uses `useConversations` to fetch and display markers; renders empty-state hint text (FR-016) when no conversations exist and no panel is open
+- [x] T019 [US1] Create main page in `src/app/page.tsx` — server component that renders the Map wrapper component full-screen
 
 **Checkpoint**: Map loads with conversation markers. Real-time marker updates work. This is the first testable increment.
 
