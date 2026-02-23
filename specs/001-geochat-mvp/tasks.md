@@ -35,12 +35,12 @@
 
 **CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T008 Create migration `supabase/migrations/001_enable_postgis.sql` — enable PostGIS extension
-- [ ] T009 Create migration `supabase/migrations/002_create_conversations.sql` — conversations table with columns: id (UUID PK), title (TEXT), location (GEOGRAPHY(Point,4326)), latitude (DOUBLE PRECISION), longitude (DOUBLE PRECISION), creator_name (TEXT), message_count (INTEGER DEFAULT 0), last_message_at (TIMESTAMPTZ), created_at (TIMESTAMPTZ DEFAULT now()); GiST index on location; B-tree index on created_at
-- [ ] T010 Create migration `supabase/migrations/003_create_messages.sql` — messages table with columns: id (UUID PK), conversation_id (UUID FK → conversations.id), author_name (TEXT), body (TEXT), created_at (TIMESTAMPTZ DEFAULT now()); composite index on (conversation_id, created_at DESC)
-- [ ] T011 Create migration `supabase/migrations/004_create_rpc_functions.sql` — three RPC functions: `conversations_in_bounds(min_lng, min_lat, max_lng, max_lat)` using ST_MakeEnvelope; `conversations_nearby(lng, lat, radius_meters DEFAULT 1000)` using ST_DWithin; `messages_for_conversation(conv_id, page_size DEFAULT 50, before_timestamp TIMESTAMPTZ DEFAULT NULL)` with cursor-based pagination
-- [ ] T012 Create migration `supabase/migrations/005_create_triggers.sql` — trigger `update_conversation_stats` AFTER INSERT on messages that increments `message_count` and sets `last_message_at` on the parent conversation; also a trigger on conversations INSERT that populates `location` from `latitude` and `longitude`
-- [ ] T013 Create migration `supabase/migrations/006_enable_rls.sql` — enable RLS on both tables; policies: allow all SELECT and INSERT on conversations and messages for V1
+- [x] T008 Create migration `supabase/migrations/001_enable_postgis.sql` — enable PostGIS extension
+- [x] T009 Create migration `supabase/migrations/002_create_conversations.sql` — conversations table with columns: id (UUID PK), title (TEXT), location (GEOGRAPHY(Point,4326)), latitude (DOUBLE PRECISION), longitude (DOUBLE PRECISION), creator_name (TEXT), message_count (INTEGER DEFAULT 0), last_message_at (TIMESTAMPTZ), created_at (TIMESTAMPTZ DEFAULT now()); GiST index on location; B-tree index on created_at
+- [x] T010 Create migration `supabase/migrations/003_create_messages.sql` — messages table with columns: id (UUID PK), conversation_id (UUID FK → conversations.id), author_name (TEXT), body (TEXT), created_at (TIMESTAMPTZ DEFAULT now()); composite index on (conversation_id, created_at DESC)
+- [x] T011 Create migration `supabase/migrations/004_create_rpc_functions.sql` — three RPC functions: `conversations_in_bounds(min_lng, min_lat, max_lng, max_lat)` using ST_MakeEnvelope; `conversations_nearby(lng, lat, radius_meters DEFAULT 1000)` using ST_DWithin; `messages_for_conversation(conv_id, page_size DEFAULT 50, before_timestamp TIMESTAMPTZ DEFAULT NULL)` with cursor-based pagination
+- [x] T012 Create migration `supabase/migrations/005_create_triggers.sql` — trigger `update_conversation_stats` AFTER INSERT on messages that increments `message_count` and sets `last_message_at` on the parent conversation; also a trigger on conversations INSERT that populates `location` from `latitude` and `longitude`
+- [x] T013 Create migration `supabase/migrations/006_enable_rls.sql` — enable RLS on both tables; policies: allow all SELECT and INSERT on conversations and messages for V1
 
 **Checkpoint**: Database ready — user story implementation can now begin
 
