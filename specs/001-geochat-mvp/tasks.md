@@ -19,13 +19,13 @@
 
 **Purpose**: Project initialization, dependencies, and base structure
 
-- [ ] T001 Initialize Next.js 14 project with App Router, TypeScript strict mode, and Tailwind CSS in the repository root
-- [ ] T002 Install dependencies: `react-leaflet`, `leaflet`, `@types/leaflet`, `leaflet-defaulticon-compatibility`, `@supabase/supabase-js`
-- [ ] T003 Configure Tailwind CSS for dark-only theme with `darkMode: 'class'` in `tailwind.config.ts`
-- [ ] T004 [P] Create TypeScript type definitions for Conversation, Message, and UserSession in `src/types/index.ts`
-- [ ] T005 [P] Create Supabase client initialization in `src/lib/supabase.ts` reading from `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` environment variables
-- [ ] T006 [P] Create `.env.local.example` with placeholder Supabase environment variables
-- [ ] T007 Create root layout in `src/app/layout.tsx` with dark theme class on `<html>`, metadata (title: "GeoChat"), and global Tailwind styles
+- [x] T001 Initialize Next.js 14 project with App Router, TypeScript strict mode, and Tailwind CSS in the repository root
+- [x] T002 Install dependencies: `react-leaflet@4`, `leaflet`, `@types/leaflet`, `leaflet-defaulticon-compatibility`, `@supabase/supabase-js`
+- [x] T003 Configure Tailwind CSS for dark-only theme with `darkMode: 'class'` in `tailwind.config.ts`
+- [x] T004 [P] Create TypeScript type definitions for Conversation, Message, and UserSession in `src/types/index.ts`
+- [x] T005 [P] Create Supabase client initialization in `src/lib/supabase.ts` reading from `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` environment variables
+- [x] T006 [P] Create `.env.local.example` with placeholder Supabase environment variables
+- [x] T007 Create root layout in `src/app/layout.tsx` with dark theme class on `<html>`, metadata (title: "GeoChat"), and global Tailwind styles
 
 ---
 
