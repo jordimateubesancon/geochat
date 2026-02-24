@@ -12,6 +12,7 @@ import { useCreateConversation } from "@/hooks/use-create-conversation";
 import ConversationMarker from "@/components/marker";
 import NearbyWarning from "@/components/nearby-warning";
 import CreateDialog from "@/components/create-dialog";
+import ConversationPanel from "@/components/conversation-panel";
 import type { Conversation } from "@/types";
 import type { Map as LeafletMap, LeafletMouseEvent } from "leaflet";
 
@@ -90,10 +91,14 @@ export default function MapInner() {
     setSelectedConversation(conversation);
   }, []);
 
+  const handleClosePanel = useCallback(() => {
+    setSelectedConversation(null);
+  }, []);
+
   const handleMapClick = useCallback(
     async (e: LeafletMouseEvent) => {
-      // Don't start create flow if a dialog is already open
-      if (createFlow.step !== "idle") return;
+      // Don't start create flow if a dialog or panel is already open
+      if (createFlow.step !== "idle" || selectedConversation !== null) return;
 
       const lat = e.latlng.lat;
       const lng = e.latlng.lng;
@@ -108,7 +113,7 @@ export default function MapInner() {
         setCreateFlow({ step: "create-dialog", lat, lng });
       }
     },
-    [createFlow.step, checkProximity]
+    [createFlow.step, selectedConversation, checkProximity]
   );
 
   const handleCancelCreate = useCallback(() => {
@@ -215,6 +220,14 @@ export default function MapInner() {
           loading={createLoading}
           onSubmit={handleSubmitCreate}
           onCancel={handleCancelCreate}
+        />
+      )}
+
+      {selectedConversation && (
+        <ConversationPanel
+          conversation={selectedConversation}
+          currentAuthor="Anonymous"
+          onClose={handleClosePanel}
         />
       )}
     </div>
