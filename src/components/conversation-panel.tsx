@@ -112,29 +112,29 @@ export default function ConversationPanel({
     >
       <div
         ref={panelRef}
-        className="absolute bottom-0 right-0 top-0 flex w-full flex-col bg-neutral-900 shadow-2xl md:max-w-md md:border-l md:border-neutral-700"
+        className="absolute bottom-0 right-0 top-0 flex w-full flex-col bg-white shadow-2xl md:max-w-md md:border-l md:border-neutral-200"
         role="dialog"
         aria-modal="true"
         aria-label={`Conversation: ${conversation.title}`}
       >
         {/* Header */}
-        <div className="flex items-start justify-between border-b border-neutral-700 p-4">
+        <div className="flex items-start justify-between border-b border-neutral-200 p-4">
           <div className="min-w-0 flex-1">
-            <h2 className="truncate text-lg font-semibold text-neutral-100">
+            <h2 className="truncate text-lg font-semibold text-neutral-900">
               {conversation.title}
             </h2>
-            <div className="mt-1 text-xs text-neutral-500">
+            <div className="mt-1 text-xs text-neutral-400">
               {conversation.latitude.toFixed(4)},{" "}
               {conversation.longitude.toFixed(4)}
             </div>
-            <div className="mt-0.5 text-xs text-neutral-500">
+            <div className="mt-0.5 text-xs text-neutral-400">
               Started by {conversation.creator_name} ·{" "}
               {formatRelativeTime(conversation.created_at)}
             </div>
           </div>
           <button
             onClick={onClose}
-            className="ml-2 rounded-md p-1.5 text-neutral-400 transition-colors hover:bg-neutral-800 hover:text-neutral-200"
+            className="ml-2 rounded-md p-1.5 text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-800"
             aria-label="Close conversation panel"
           >
             <svg
