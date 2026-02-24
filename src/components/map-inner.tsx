@@ -19,10 +19,10 @@ import { useUserSession } from "@/hooks/use-user-session";
 import type { Conversation } from "@/types";
 import type { Map as LeafletMap, LeafletMouseEvent } from "leaflet";
 
-const CARTO_DARK_URL =
-  "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png";
-const CARTO_ATTRIBUTION =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>';
+const OPENTOPOMAP_URL =
+  "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png";
+const OPENTOPOMAP_ATTRIBUTION =
+  'Map data: &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)';
 
 const DEFAULT_CENTER: [number, number] = [20, 0];
 const DEFAULT_ZOOM = 2;
@@ -191,7 +191,7 @@ export default function MapInner() {
         zoomControl={true}
         keyboard={true}
       >
-        <TileLayer url={CARTO_DARK_URL} attribution={CARTO_ATTRIBUTION} />
+        <TileLayer url={OPENTOPOMAP_URL} attribution={OPENTOPOMAP_ATTRIBUTION} maxZoom={17} />
         <MapEventHandler
           onMoveEnd={handleMoveEnd}
           onMapClick={handleMapClick}
@@ -209,7 +209,7 @@ export default function MapInner() {
 
       {showHint && (
         <div className="pointer-events-none absolute bottom-8 left-0 right-0 z-[1000] text-center">
-          <span className="rounded-full bg-neutral-800/80 px-4 py-2 text-sm text-neutral-400">
+          <span className="rounded-full bg-white/80 px-4 py-2 text-sm text-neutral-600 shadow-sm backdrop-blur-sm">
             Click anywhere on the map to start a conversation
           </span>
         </div>
