@@ -13,6 +13,8 @@ import ConversationMarker from "@/components/marker";
 import NearbyWarning from "@/components/nearby-warning";
 import CreateDialog from "@/components/create-dialog";
 import ConversationPanel from "@/components/conversation-panel";
+import TopBar from "@/components/top-bar";
+import { useUserSession } from "@/hooks/use-user-session";
 import type { Conversation } from "@/types";
 import type { Map as LeafletMap, LeafletMouseEvent } from "leaflet";
 
@@ -73,6 +75,7 @@ type CreateFlowState =
   | { step: "create-dialog"; lat: number; lng: number };
 
 export default function MapInner() {
+  const { displayName } = useUserSession();
   const { bounds, handleMoveEnd } = useMapViewport();
   const { conversations } = useConversations(bounds);
   const {
@@ -146,8 +149,7 @@ export default function MapInner() {
     async (title: string, body: string) => {
       if (createFlow.step !== "create-dialog") return;
 
-      // TODO: use actual display name from user session (Phase 6)
-      const creatorName = "Anonymous";
+      const creatorName = displayName || "Anonymous";
 
       const conversation = await createConversation({
         lat: createFlow.lat,
@@ -163,7 +165,7 @@ export default function MapInner() {
         setSelectedConversation(conversation);
       }
     },
-    [createFlow, createConversation, clearNearby]
+    [createFlow, createConversation, clearNearby, displayName]
   );
 
   const isPanelOpen = selectedConversation !== null;
@@ -173,6 +175,7 @@ export default function MapInner() {
 
   return (
     <div className="relative h-screen w-screen">
+      <TopBar displayName={displayName} />
       <MapContainer
         center={DEFAULT_CENTER}
         zoom={DEFAULT_ZOOM}
@@ -226,7 +229,7 @@ export default function MapInner() {
       {selectedConversation && (
         <ConversationPanel
           conversation={selectedConversation}
-          currentAuthor="Anonymous"
+          currentAuthor={displayName || "Anonymous"}
           onClose={handleClosePanel}
         />
       )}

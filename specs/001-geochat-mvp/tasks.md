@@ -109,9 +109,9 @@
 
 ### Implementation for User Story 4
 
-- [ ] T030 [US4] Create `useUserSession` hook in `src/hooks/use-user-session.ts` — on mount, checks `localStorage` for existing `display_name` and `session_id`; if not found, generates a random display name (two-word format, e.g., "BlueFox", "RedOwl") and a UUID session_id, stores both in localStorage; returns `{displayName, sessionId}`; handles SSR safety (check `typeof window !== 'undefined'` before accessing localStorage)
-- [ ] T031 [US4] Create top bar component in `src/components/top-bar.tsx` — fixed position at top of screen over the map; shows "GeoChat" app name on the left and the user's display name on the right; dark theme styling with semi-transparent background so map is visible behind; z-index above map but below modals; ARIA label (AR-003)
-- [ ] T032 [US4] Wire user session into map-inner, create-dialog, and send-message — in `src/components/map-inner.tsx` render TopBar and pass displayName; in create-dialog pass displayName as creator_name; in useSendMessage pass displayName as author_name and sessionId for own-message detection
+- [x] T030 [US4] Create `useUserSession` hook in `src/hooks/use-user-session.ts` — on mount, checks `localStorage` for existing `display_name` and `session_id`; if not found, generates a random display name (two-word format, e.g., "BlueFox", "RedOwl") and a UUID session_id, stores both in localStorage; returns `{displayName, sessionId}`; handles SSR safety (check `typeof window !== 'undefined'` before accessing localStorage)
+- [x] T031 [US4] Create top bar component in `src/components/top-bar.tsx` — fixed position at top of screen over the map; shows "GeoChat" app name on the left and the user's display name on the right; dark theme styling with semi-transparent background so map is visible behind; z-index above map but below modals; ARIA label (AR-003)
+- [x] T032 [US4] Wire user session into map-inner, create-dialog, and send-message — in `src/components/map-inner.tsx` render TopBar and pass displayName; in create-dialog pass displayName as creator_name; in useSendMessage pass displayName as author_name and sessionId for own-message detection
 
 **Checkpoint**: Anonymous identity system complete. Display names appear everywhere consistently.
 
