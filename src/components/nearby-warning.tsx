@@ -99,7 +99,7 @@ export default function NearbyWarning({
     >
       <div
         ref={dialogRef}
-        className="mx-4 w-full max-w-md rounded-lg bg-neutral-800 p-6 shadow-xl"
+        className="mx-3 w-full max-w-md rounded-lg bg-neutral-800 p-4 shadow-xl sm:mx-4 sm:p-6"
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="mb-2 text-lg font-semibold text-neutral-100">
@@ -116,7 +116,7 @@ export default function NearbyWarning({
           {conversations.map((conv) => (
             <li key={conv.id}>
               <button
-                className="w-full rounded-md bg-neutral-700 px-3 py-2 text-left transition-colors hover:bg-neutral-600"
+                className="min-h-[44px] w-full rounded-md bg-neutral-700 px-3 py-2.5 text-left transition-colors hover:bg-neutral-600"
                 onClick={() => handleConversationClick(conv)}
               >
                 <div className="font-medium text-neutral-100">
@@ -137,15 +137,15 @@ export default function NearbyWarning({
           ))}
         </ul>
 
-        <div className="flex gap-3">
+        <div className="flex flex-col-reverse gap-2 sm:flex-row sm:gap-3">
           <button
-            className="flex-1 rounded-md bg-neutral-700 px-4 py-2 text-sm font-medium text-neutral-300 transition-colors hover:bg-neutral-600"
+            className="flex-1 rounded-md bg-neutral-700 px-4 py-2.5 text-sm font-medium text-neutral-300 transition-colors hover:bg-neutral-600"
             onClick={onCancel}
           >
             Cancel
           </button>
           <button
-            className="flex-1 rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-500"
+            className="flex-1 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-500"
             onClick={onCreateAnyway}
           >
             Create anyway

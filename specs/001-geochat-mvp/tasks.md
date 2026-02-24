@@ -125,10 +125,10 @@
 
 ### Implementation for User Story 5
 
-- [ ] T033 [P] [US5] Add responsive styles to conversation panel in `src/components/conversation-panel.tsx` — below 768px breakpoint, panel takes full screen width instead of side panel; close button remains accessible; smooth transition between layouts
-- [ ] T034 [P] [US5] Add responsive styles to create dialog in `src/components/create-dialog.tsx` — on screens below 768px, dialog takes full width with appropriate padding; all fields visible without horizontal scrolling; buttons stack vertically if needed
-- [ ] T035 [P] [US5] Add responsive styles to nearby warning in `src/components/nearby-warning.tsx` — on screens below 768px, warning dialog takes full width; conversation list remains scrollable and tappable
-- [ ] T036 [US5] Verify touch interactions on map in `src/components/map-inner.tsx` — ensure Leaflet touch handlers are enabled (pinch-to-zoom, drag-to-pan); adjust tap targets for markers to be at least 44x44px on mobile; ensure top bar does not interfere with map gestures
+- [x] T033 [P] [US5] Add responsive styles to conversation panel in `src/components/conversation-panel.tsx` — below 768px breakpoint, panel takes full screen width instead of side panel; close button remains accessible; smooth transition between layouts
+- [x] T034 [P] [US5] Add responsive styles to create dialog in `src/components/create-dialog.tsx` — on screens below 768px, dialog takes full width with appropriate padding; all fields visible without horizontal scrolling; buttons stack vertically if needed
+- [x] T035 [P] [US5] Add responsive styles to nearby warning in `src/components/nearby-warning.tsx` — on screens below 768px, warning dialog takes full width; conversation list remains scrollable and tappable
+- [x] T036 [US5] Verify touch interactions on map in `src/components/map-inner.tsx` — ensure Leaflet touch handlers are enabled (pinch-to-zoom, drag-to-pan); adjust tap targets for markers to be at least 44x44px on mobile; ensure top bar does not interfere with map gestures
 
 **Checkpoint**: App is fully usable on mobile browsers. All previous stories still work at 375px width.
 

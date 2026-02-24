@@ -109,7 +109,7 @@ export default function ConversationPanel({
     >
       <div
         ref={panelRef}
-        className="absolute bottom-0 right-0 top-0 flex w-full max-w-md flex-col border-l border-neutral-700 bg-neutral-900 shadow-2xl"
+        className="absolute bottom-0 right-0 top-0 flex w-full flex-col bg-neutral-900 shadow-2xl md:max-w-md md:border-l md:border-neutral-700"
         role="dialog"
         aria-modal="true"
         aria-label={`Conversation: ${conversation.title}`}
