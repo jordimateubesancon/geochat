@@ -3,10 +3,19 @@ import { supabase } from "@/lib/supabase";
 import type { Conversation, MapBounds } from "@/types";
 import type { RealtimeChannel } from "@supabase/supabase-js";
 
-export function useConversations(bounds: MapBounds | null) {
+export function useConversations(
+  bounds: MapBounds | null,
+  onToast?: (text: string, type: "error" | "info") => void
+) {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loading, setLoading] = useState(false);
   const channelRef = useRef<RealtimeChannel | null>(null);
+  const boundsRef = useRef<MapBounds | null>(null);
+
+  // Keep latest bounds in ref for reconnection refetch
+  useEffect(() => {
+    boundsRef.current = bounds;
+  }, [bounds]);
 
   // Fetch conversations within the current viewport bounds
   const fetchConversations = useCallback(async (b: MapBounds) => {
@@ -43,7 +52,6 @@ export function useConversations(bounds: MapBounds | null) {
         (payload) => {
           const newConv = payload.new as Conversation;
           setConversations((prev) => {
-            // Avoid duplicates
             if (prev.some((c) => c.id === newConv.id)) return prev;
             return [...prev, newConv];
           });
@@ -59,7 +67,17 @@ export function useConversations(bounds: MapBounds | null) {
           );
         }
       )
-      .subscribe();
+      .subscribe((status) => {
+        if (status === "CHANNEL_ERROR") {
+          onToast?.("Connection lost. Reconnecting...", "error");
+        }
+        if (status === "SUBSCRIBED") {
+          // Refetch data on reconnect to catch up on missed events
+          if (boundsRef.current) {
+            fetchConversations(boundsRef.current);
+          }
+        }
+      });
 
     channelRef.current = channel;
 
@@ -68,7 +86,7 @@ export function useConversations(bounds: MapBounds | null) {
         supabase.removeChannel(channelRef.current);
       }
     };
-  }, []);
+  }, [fetchConversations, onToast]);
 
   return { conversations, loading };
 }

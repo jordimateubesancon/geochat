@@ -24,12 +24,14 @@ interface ConversationPanelProps {
   conversation: Conversation;
   currentAuthor: string;
   onClose: () => void;
+  onToast?: (text: string, type: "error" | "info") => void;
 }
 
 export default function ConversationPanel({
   conversation,
   currentAuthor,
   onClose,
+  onToast,
 }: ConversationPanelProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   const {
@@ -41,7 +43,7 @@ export default function ConversationPanel({
     addOptimisticMessage,
     confirmMessage,
     failMessage,
-  } = useMessages(conversation.id);
+  } = useMessages(conversation.id, onToast);
 
   const { sendMessage } = useSendMessage({
     conversationId: conversation.id,
@@ -49,6 +51,7 @@ export default function ConversationPanel({
     onOptimistic: addOptimisticMessage,
     onConfirm: confirmMessage,
     onFail: failMessage,
+    onToast,
   });
 
   // Click outside panel to close (FR-017)

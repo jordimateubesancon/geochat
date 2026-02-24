@@ -138,12 +138,12 @@
 
 **Purpose**: Accessibility, error handling, and final quality improvements across all stories
 
-- [ ] T037 [P] Add keyboard navigation support to the map in `src/components/map-inner.tsx` — ensure map is focusable and navigable with arrow keys, +/- for zoom (AR-001); add `tabIndex` and ARIA role
-- [ ] T038 [P] Add ARIA labels and roles to all interactive elements across `src/components/*.tsx` — verify every button, input, and interactive element has an appropriate `aria-label` or `aria-labelledby` (AR-003)
-- [ ] T039 [P] Verify color contrast in dark theme across all components — ensure all text meets WCAG AA contrast ratio (4.5:1 for normal text, 3:1 for large text) against the dark backgrounds (AR-004)
-- [ ] T040 Add toast notification system for error messages in `src/components/map-inner.tsx` or a new `src/components/toast.tsx` — non-intrusive notification for failed message sends (FR-010), network disconnection, and reconnection events; auto-dismiss after 5 seconds; positioned to not overlap map controls
-- [ ] T041 Add Supabase Realtime reconnection handling in `src/hooks/use-conversations.ts` and `src/hooks/use-messages.ts` — detect channel disconnection; show toast notification; attempt automatic reconnection; refetch data on reconnect to catch up on missed events
-- [ ] T042 Run quickstart.md validation — follow every step in `specs/001-geochat-mvp/quickstart.md` to verify the setup guide is accurate and complete
+- [x] T037 [P] Add keyboard navigation support to the map in `src/components/map-inner.tsx` — ensure map is focusable and navigable with arrow keys, +/- for zoom (AR-001); add `tabIndex` and ARIA role
+- [x] T038 [P] Add ARIA labels and roles to all interactive elements across `src/components/*.tsx` — verify every button, input, and interactive element has an appropriate `aria-label` or `aria-labelledby` (AR-003)
+- [x] T039 [P] Verify color contrast in dark theme across all components — ensure all text meets WCAG AA contrast ratio (4.5:1 for normal text, 3:1 for large text) against the dark backgrounds (AR-004)
+- [x] T040 Add toast notification system for error messages in `src/components/map-inner.tsx` or a new `src/components/toast.tsx` — non-intrusive notification for failed message sends (FR-010), network disconnection, and reconnection events; auto-dismiss after 5 seconds; positioned to not overlap map controls
+- [x] T041 Add Supabase Realtime reconnection handling in `src/hooks/use-conversations.ts` and `src/hooks/use-messages.ts` — detect channel disconnection; show toast notification; attempt automatic reconnection; refetch data on reconnect to catch up on missed events
+- [x] T042 Run quickstart.md validation — follow every step in `specs/001-geochat-mvp/quickstart.md` to verify the setup guide is accurate and complete
 
 ---
 

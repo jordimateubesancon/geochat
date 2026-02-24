@@ -141,12 +141,14 @@ export default function NearbyWarning({
           <button
             className="flex-1 rounded-md bg-neutral-700 px-4 py-2.5 text-sm font-medium text-neutral-300 transition-colors hover:bg-neutral-600"
             onClick={onCancel}
+            aria-label="Cancel"
           >
             Cancel
           </button>
           <button
             className="flex-1 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-500"
             onClick={onCreateAnyway}
+            aria-label="Create conversation anyway"
           >
             Create anyway
           </button>

@@ -16,7 +16,10 @@ interface UseMessagesReturn {
   failMessage: (id: string) => void;
 }
 
-export function useMessages(conversationId: string): UseMessagesReturn {
+export function useMessages(
+  conversationId: string,
+  onToast?: (text: string, type: "error" | "info") => void
+): UseMessagesReturn {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadingOlder, setLoadingOlder] = useState(false);
@@ -25,42 +28,35 @@ export function useMessages(conversationId: string): UseMessagesReturn {
   const optimisticIdsRef = useRef<Set<string>>(new Set());
 
   // Fetch initial messages
-  useEffect(() => {
-    let cancelled = false;
+  const fetchMessages = useCallback(async () => {
+    setLoading(true);
+    setMessages([]);
+    setHasOlder(true);
+    optimisticIdsRef.current.clear();
 
-    async function fetchInitial() {
-      setLoading(true);
-      setMessages([]);
-      setHasOlder(true);
-      optimisticIdsRef.current.clear();
-
-      const { data, error } = await supabase.rpc(
-        "messages_for_conversation",
-        {
-          conv_id: conversationId,
-          page_size: PAGE_SIZE,
-        }
-      );
-
-      if (cancelled) return;
-
-      if (error) {
-        console.error("Failed to fetch messages:", error);
-      } else {
-        const msgs = (data as Message[]) ?? [];
-        // RPC returns DESC order, reverse to chronological (oldest first)
-        msgs.reverse();
-        setMessages(msgs);
-        setHasOlder(msgs.length >= PAGE_SIZE);
+    const { data, error } = await supabase.rpc(
+      "messages_for_conversation",
+      {
+        conv_id: conversationId,
+        page_size: PAGE_SIZE,
       }
-      setLoading(false);
-    }
+    );
 
-    fetchInitial();
-    return () => {
-      cancelled = true;
-    };
+    if (error) {
+      console.error("Failed to fetch messages:", error);
+    } else {
+      const msgs = (data as Message[]) ?? [];
+      // RPC returns DESC order, reverse to chronological (oldest first)
+      msgs.reverse();
+      setMessages(msgs);
+      setHasOlder(msgs.length >= PAGE_SIZE);
+    }
+    setLoading(false);
   }, [conversationId]);
+
+  useEffect(() => {
+    fetchMessages();
+  }, [fetchMessages]);
 
   // Load older messages (cursor-based pagination)
   const loadOlderMessages = useCallback(async () => {
@@ -108,16 +104,22 @@ export function useMessages(conversationId: string): UseMessagesReturn {
             // Deduplicate against optimistic messages
             if (optimisticIdsRef.current.has(newMsg.id)) {
               optimisticIdsRef.current.delete(newMsg.id);
-              // Replace optimistic with confirmed server version
               return prev.map((m) => (m.id === newMsg.id ? newMsg : m));
             }
-            // Avoid duplicates from re-subscriptions
             if (prev.some((m) => m.id === newMsg.id)) return prev;
             return [...prev, newMsg];
           });
         }
       )
-      .subscribe();
+      .subscribe((status) => {
+        if (status === "CHANNEL_ERROR") {
+          onToast?.("Message connection lost. Reconnecting...", "error");
+        }
+        if (status === "SUBSCRIBED") {
+          // Refetch on reconnect to catch up on missed messages
+          fetchMessages();
+        }
+      });
 
     channelRef.current = channel;
 
@@ -126,7 +128,7 @@ export function useMessages(conversationId: string): UseMessagesReturn {
         supabase.removeChannel(channelRef.current);
       }
     };
-  }, [conversationId]);
+  }, [conversationId, fetchMessages, onToast]);
 
   // Add an optimistic message (called by useSendMessage)
   const addOptimisticMessage = useCallback((message: Message) => {

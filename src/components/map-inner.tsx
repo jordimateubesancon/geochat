@@ -14,6 +14,7 @@ import NearbyWarning from "@/components/nearby-warning";
 import CreateDialog from "@/components/create-dialog";
 import ConversationPanel from "@/components/conversation-panel";
 import TopBar from "@/components/top-bar";
+import { ToastContainer, useToasts } from "@/components/toast";
 import { useUserSession } from "@/hooks/use-user-session";
 import type { Conversation } from "@/types";
 import type { Map as LeafletMap, LeafletMouseEvent } from "leaflet";
@@ -76,8 +77,9 @@ type CreateFlowState =
 
 export default function MapInner() {
   const { displayName } = useUserSession();
+  const { toasts, addToast, dismissToast } = useToasts();
   const { bounds, handleMoveEnd } = useMapViewport();
-  const { conversations } = useConversations(bounds);
+  const { conversations } = useConversations(bounds, addToast);
   const {
     loading: createLoading,
     checkProximity,
@@ -176,11 +178,18 @@ export default function MapInner() {
   return (
     <div className="relative h-screen w-screen">
       <TopBar displayName={displayName} />
+      <div
+        role="application"
+        aria-label="Interactive map showing conversations"
+        tabIndex={0}
+        className="h-full w-full"
+      >
       <MapContainer
         center={DEFAULT_CENTER}
         zoom={DEFAULT_ZOOM}
         className="h-full w-full"
         zoomControl={true}
+        keyboard={true}
       >
         <TileLayer url={CARTO_DARK_URL} attribution={CARTO_ATTRIBUTION} />
         <MapEventHandler
@@ -196,6 +205,7 @@ export default function MapInner() {
           />
         ))}
       </MapContainer>
+      </div>
 
       {showHint && (
         <div className="pointer-events-none absolute bottom-8 left-0 right-0 z-[1000] text-center">
@@ -231,8 +241,11 @@ export default function MapInner() {
           conversation={selectedConversation}
           currentAuthor={displayName || "Anonymous"}
           onClose={handleClosePanel}
+          onToast={addToast}
         />
       )}
+
+      <ToastContainer toasts={toasts} onDismiss={dismissToast} />
     </div>
   );
 }

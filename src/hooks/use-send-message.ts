@@ -8,6 +8,7 @@ interface UseSendMessageParams {
   onOptimistic: (message: Message) => void;
   onConfirm: (id: string) => void;
   onFail: (id: string) => void;
+  onToast?: (text: string, type: "error" | "info") => void;
 }
 
 export function useSendMessage({
@@ -16,6 +17,7 @@ export function useSendMessage({
   onOptimistic,
   onConfirm,
   onFail,
+  onToast,
 }: UseSendMessageParams) {
   const sendMessage = useCallback(
     async (body: string) => {
@@ -41,11 +43,12 @@ export function useSendMessage({
       if (error) {
         console.error("Failed to send message:", error);
         onFail(id);
+        onToast?.("Failed to send message. Please try again.", "error");
       } else {
         onConfirm(id);
       }
     },
-    [conversationId, authorName, onOptimistic, onConfirm, onFail]
+    [conversationId, authorName, onOptimistic, onConfirm, onFail, onToast]
   );
 
   return { sendMessage };

@@ -108,7 +108,7 @@ export default function MessageList({
       )}
 
       {!hasOlder && messages.length > 0 && (
-        <div className="mb-3 text-center text-xs text-neutral-600">
+        <div className="mb-3 text-center text-xs text-neutral-500">
           Beginning of conversation
         </div>
       )}
@@ -129,7 +129,7 @@ export default function MessageList({
                 }`}
               >
                 {!isOwn && (
-                  <div className="mb-0.5 text-xs font-semibold text-neutral-400">
+                  <div className="mb-0.5 text-xs font-semibold text-neutral-300">
                     {msg.author_name}
                   </div>
                 )}
@@ -138,7 +138,7 @@ export default function MessageList({
                 </div>
                 <div
                   className={`mt-1 text-xs ${
-                    isOwn ? "text-blue-200" : "text-neutral-500"
+                    isOwn ? "text-blue-200" : "text-neutral-400"
                   }`}
                 >
                   {formatRelativeTime(msg.created_at)}

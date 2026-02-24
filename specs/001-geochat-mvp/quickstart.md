@@ -89,7 +89,8 @@ src/
 │   ├── marker.tsx          # Conversation marker component
 │   ├── message-list.tsx    # Scrollable message list with pagination
 │   ├── message-input.tsx   # Text input with send button
-│   └── top-bar.tsx         # App name + display name
+│   ├── top-bar.tsx         # App name + display name
+│   └── toast.tsx           # Toast notification system
 ├── hooks/
 │   ├── use-conversations.ts    # Fetch + subscribe to conversations
 │   ├── use-messages.ts         # Fetch + subscribe to messages

@@ -156,6 +156,7 @@ export default function CreateDialog({
           <button
             className="flex-1 rounded-md bg-neutral-700 px-4 py-2.5 text-sm font-medium text-neutral-300 transition-colors hover:bg-neutral-600"
             onClick={onCancel}
+            aria-label="Cancel creating conversation"
           >
             Cancel
           </button>
@@ -163,6 +164,7 @@ export default function CreateDialog({
             className="flex-1 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
             onClick={handleSubmit}
             disabled={!isValid || loading}
+            aria-label="Create conversation"
           >
             {loading ? "Creating..." : "Create"}
           </button>
