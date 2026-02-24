@@ -8,9 +8,12 @@ import "leaflet-defaulticon-compatibility";
 
 import { useMapViewport } from "@/hooks/use-map-viewport";
 import { useConversations } from "@/hooks/use-conversations";
+import { useCreateConversation } from "@/hooks/use-create-conversation";
 import ConversationMarker from "@/components/marker";
+import NearbyWarning from "@/components/nearby-warning";
+import CreateDialog from "@/components/create-dialog";
 import type { Conversation } from "@/types";
-import type { Map as LeafletMap } from "leaflet";
+import type { Map as LeafletMap, LeafletMouseEvent } from "leaflet";
 
 const CARTO_DARK_URL =
   "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png";
@@ -22,11 +25,14 @@ const DEFAULT_ZOOM = 2;
 
 function MapEventHandler({
   onMoveEnd,
+  onMapClick,
 }: {
   onMoveEnd: (map: LeafletMap) => void;
+  onMapClick: (e: LeafletMouseEvent) => void;
 }) {
   const map = useMapEvents({
     moveend: () => onMoveEnd(map),
+    click: (e) => onMapClick(e),
   });
 
   // Set initial bounds on mount
@@ -54,18 +60,111 @@ function MapEventHandler({
   return null;
 }
 
+type CreateFlowState =
+  | { step: "idle" }
+  | { step: "checking"; lat: number; lng: number }
+  | {
+      step: "nearby-warning";
+      lat: number;
+      lng: number;
+      nearby: Conversation[];
+    }
+  | { step: "create-dialog"; lat: number; lng: number };
+
 export default function MapInner() {
   const { bounds, handleMoveEnd } = useMapViewport();
   const { conversations } = useConversations(bounds);
+  const {
+    loading: createLoading,
+    checkProximity,
+    createConversation,
+    clearNearby,
+  } = useCreateConversation();
   const [selectedConversation, setSelectedConversation] =
     useState<Conversation | null>(null);
+  const [createFlow, setCreateFlow] = useState<CreateFlowState>({
+    step: "idle",
+  });
 
   const handleMarkerClick = useCallback((conversation: Conversation) => {
     setSelectedConversation(conversation);
   }, []);
 
+  const handleMapClick = useCallback(
+    async (e: LeafletMouseEvent) => {
+      // Don't start create flow if a dialog is already open
+      if (createFlow.step !== "idle") return;
+
+      const lat = e.latlng.lat;
+      const lng = e.latlng.lng;
+
+      setCreateFlow({ step: "checking", lat, lng });
+
+      const nearby = await checkProximity(lat, lng);
+
+      if (nearby.length > 0) {
+        setCreateFlow({ step: "nearby-warning", lat, lng, nearby });
+      } else {
+        setCreateFlow({ step: "create-dialog", lat, lng });
+      }
+    },
+    [createFlow.step, checkProximity]
+  );
+
+  const handleCancelCreate = useCallback(() => {
+    setCreateFlow({ step: "idle" });
+    clearNearby();
+  }, [clearNearby]);
+
+  const handleCreateAnyway = useCallback(() => {
+    if (
+      createFlow.step === "nearby-warning"
+    ) {
+      setCreateFlow({
+        step: "create-dialog",
+        lat: createFlow.lat,
+        lng: createFlow.lng,
+      });
+    }
+  }, [createFlow]);
+
+  const handleSelectNearbyConversation = useCallback(
+    (conversation: Conversation) => {
+      setCreateFlow({ step: "idle" });
+      clearNearby();
+      setSelectedConversation(conversation);
+    },
+    [clearNearby]
+  );
+
+  const handleSubmitCreate = useCallback(
+    async (title: string, body: string) => {
+      if (createFlow.step !== "create-dialog") return;
+
+      // TODO: use actual display name from user session (Phase 6)
+      const creatorName = "Anonymous";
+
+      const conversation = await createConversation({
+        lat: createFlow.lat,
+        lng: createFlow.lng,
+        title,
+        body,
+        creatorName,
+      });
+
+      if (conversation) {
+        setCreateFlow({ step: "idle" });
+        clearNearby();
+        setSelectedConversation(conversation);
+      }
+    },
+    [createFlow, createConversation, clearNearby]
+  );
+
   const isPanelOpen = selectedConversation !== null;
-  const showHint = conversations.length === 0 && !isPanelOpen;
+  const isDialogOpen = createFlow.step !== "idle";
+  const showHint =
+    conversations.length === 0 && !isPanelOpen && !isDialogOpen;
 
   return (
     <div className="relative h-screen w-screen">
@@ -76,7 +175,10 @@ export default function MapInner() {
         zoomControl={true}
       >
         <TileLayer url={CARTO_DARK_URL} attribution={CARTO_ATTRIBUTION} />
-        <MapEventHandler onMoveEnd={handleMoveEnd} />
+        <MapEventHandler
+          onMoveEnd={handleMoveEnd}
+          onMapClick={handleMapClick}
+        />
 
         {conversations.map((conv) => (
           <ConversationMarker
@@ -93,6 +195,27 @@ export default function MapInner() {
             Click anywhere on the map to start a conversation
           </span>
         </div>
+      )}
+
+      {createFlow.step === "nearby-warning" && (
+        <NearbyWarning
+          conversations={createFlow.nearby}
+          clickLat={createFlow.lat}
+          clickLng={createFlow.lng}
+          onSelectConversation={handleSelectNearbyConversation}
+          onCreateAnyway={handleCreateAnyway}
+          onCancel={handleCancelCreate}
+        />
+      )}
+
+      {createFlow.step === "create-dialog" && (
+        <CreateDialog
+          lat={createFlow.lat}
+          lng={createFlow.lng}
+          loading={createLoading}
+          onSubmit={handleSubmitCreate}
+          onCancel={handleCancelCreate}
+        />
       )}
     </div>
   );
