@@ -22,7 +22,7 @@ export default function Toolbox({ open, onToggle, children }: ToolboxProps) {
   }, [open]);
 
   return (
-    <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-[1100]">
+    <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-[1600]">
       {/* Panel */}
       <div
         ref={panelRef}

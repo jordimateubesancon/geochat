@@ -7,7 +7,7 @@ interface TopBarProps {
 export default function TopBar({ displayName, onSearchToggle, searchOpen }: TopBarProps) {
   return (
     <div
-      className="pointer-events-none absolute right-0 top-0 z-[1000] flex flex-col items-end gap-2 p-3"
+      className="pointer-events-none absolute left-0 top-0 z-[1600] flex flex-col items-start gap-2 p-3"
       role="banner"
       aria-label="Application header"
     >
@@ -21,7 +21,7 @@ export default function TopBar({ displayName, onSearchToggle, searchOpen }: TopB
       )}
       {onSearchToggle && !searchOpen && (
         <button
-          onClick={onSearchToggle}
+          onClick={(e) => { e.stopPropagation(); onSearchToggle?.(); }}
           aria-label="Open map tools"
           aria-expanded={false}
           className="pointer-events-auto rounded-md bg-white/80 p-2 shadow-sm backdrop-blur-sm transition-colors hover:bg-white"

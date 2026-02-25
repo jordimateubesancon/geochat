@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
+import { MapContainer, TileLayer, useMapEvents, ZoomControl } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
 import "leaflet-defaulticon-compatibility";
@@ -182,14 +182,7 @@ export default function MapInner() {
   );
 
   const handleToolboxToggle = useCallback(() => {
-    setToolboxOpen((prev) => {
-      const next = !prev;
-      // On mobile, close conversation panel when opening toolbox
-      if (next && window.innerWidth < 768) {
-        setSelectedConversation(null);
-      }
-      return next;
-    });
+    setToolboxOpen((prev) => !prev);
   }, []);
 
   const handleLocationSelect = useCallback(
@@ -270,9 +263,10 @@ export default function MapInner() {
         center={DEFAULT_CENTER}
         zoom={DEFAULT_ZOOM}
         className="h-full w-full"
-        zoomControl={true}
+        zoomControl={false}
         keyboard={true}
       >
+        <ZoomControl position="bottomleft" />
         <TileLayer url={OPENTOPOMAP_URL} attribution={OPENTOPOMAP_ATTRIBUTION} maxZoom={17} />
         <MapEventHandler
           onMoveEnd={handleMoveEnd}
