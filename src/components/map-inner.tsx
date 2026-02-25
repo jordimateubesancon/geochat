@@ -80,17 +80,23 @@ type CreateFlowState =
     }
   | { step: "create-dialog"; lat: number; lng: number };
 
-export default function MapInner() {
+interface MapInnerProps {
+  channelId: string;
+  channelName: string;
+  channelSlug: string;
+}
+
+export default function MapInner({ channelId, channelName, channelSlug }: MapInnerProps) {
   const { displayName } = useUserSession();
   const { toasts, addToast, dismissToast } = useToasts();
   const { bounds, handleMoveEnd } = useMapViewport();
-  const { conversations } = useConversations(bounds, addToast);
+  const { conversations } = useConversations(bounds, channelId, addToast);
   const {
     loading: createLoading,
     checkProximity,
     createConversation,
     clearNearby,
-  } = useCreateConversation();
+  } = useCreateConversation(channelId);
   const [selectedConversation, setSelectedConversation] =
     useState<Conversation | null>(null);
   const [createFlow, setCreateFlow] = useState<CreateFlowState>({
@@ -249,9 +255,9 @@ export default function MapInner() {
 
   return (
     <div className="relative h-screen w-screen">
-      <TopBar displayName={displayName} onSearchToggle={handleToolboxToggle} searchOpen={toolboxOpen} />
+      <TopBar displayName={displayName} onSearchToggle={handleToolboxToggle} searchOpen={toolboxOpen} channelName={channelName} channelSlug={channelSlug} />
       <Toolbox open={toolboxOpen} onToggle={handleToolboxToggle}>
-        <LocationSearch onSelectLocation={handleLocationSelect} onSelectConversation={handleConversationSelect} />
+        <LocationSearch onSelectLocation={handleLocationSelect} onSelectConversation={handleConversationSelect} channelId={channelId} />
       </Toolbox>
       <div
         role="application"

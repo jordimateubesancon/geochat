@@ -8,7 +8,7 @@ const DEBOUNCE_MS = 300;
 const MIN_QUERY_LENGTH = 2;
 const RESULT_LIMIT = 10;
 
-export function useConversationSearch() {
+export function useConversationSearch(channelId?: string) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Conversation[]>([]);
   const [loading, setLoading] = useState(false);
@@ -31,12 +31,18 @@ export function useConversationSearch() {
       abortControllerRef.current = controller;
 
       try {
-        const { data, error: supabaseError } = await supabase
+        let queryBuilder = supabase
           .from("conversations")
           .select("*")
           .ilike("title", `%${query}%`)
           .limit(RESULT_LIMIT)
-          .order("created_at", { ascending: false })
+          .order("created_at", { ascending: false });
+
+        if (channelId) {
+          queryBuilder = queryBuilder.eq("channel_id", channelId);
+        }
+
+        const { data, error: supabaseError } = await queryBuilder
           .abortSignal(controller.signal);
 
         if (supabaseError) {
@@ -65,7 +71,7 @@ export function useConversationSearch() {
       clearTimeout(timer);
       abortControllerRef.current?.abort();
     };
-  }, [query]);
+  }, [query, channelId]);
 
   useEffect(() => {
     return () => {

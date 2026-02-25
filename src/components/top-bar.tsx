@@ -1,19 +1,36 @@
+import Link from "next/link";
+
 interface TopBarProps {
   displayName: string;
   onSearchToggle?: () => void;
   searchOpen?: boolean;
+  channelName?: string;
+  channelSlug?: string;
 }
 
-export default function TopBar({ displayName, onSearchToggle, searchOpen }: TopBarProps) {
+export default function TopBar({ displayName, onSearchToggle, searchOpen, channelName }: TopBarProps) {
   return (
     <div
       className="pointer-events-none absolute left-0 top-0 z-[1600] flex flex-col items-start gap-2 p-3"
       role="banner"
       aria-label="Application header"
     >
-      <span className="pointer-events-auto rounded-md bg-white/80 px-3 py-1 text-sm font-bold text-neutral-900 shadow-sm backdrop-blur-sm">
-        GeoChat
-      </span>
+      <div className="pointer-events-auto flex items-center gap-2">
+        <Link
+          href="/"
+          className="rounded-md bg-white/80 px-3 py-1 text-sm font-bold text-neutral-900 shadow-sm backdrop-blur-sm transition-colors hover:bg-white"
+        >
+          GeoChat
+        </Link>
+        {channelName && (
+          <>
+            <span className="text-sm text-neutral-400" aria-hidden="true">/</span>
+            <span className="rounded-md bg-white/80 px-3 py-1 text-sm font-medium text-neutral-700 shadow-sm backdrop-blur-sm">
+              {channelName}
+            </span>
+          </>
+        )}
+      </div>
       {displayName && (
         <span className="pointer-events-auto rounded-md bg-white/80 px-3 py-1 text-sm text-neutral-500 shadow-sm backdrop-blur-sm">
           {displayName}

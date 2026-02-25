@@ -5,6 +5,7 @@ import type { RealtimeChannel } from "@supabase/supabase-js";
 
 export function useConversations(
   bounds: MapBounds | null,
+  channelId: string,
   onToast?: (text: string, type: "error" | "info") => void
 ) {
   const [conversations, setConversations] = useState<Conversation[]>([]);
@@ -17,7 +18,7 @@ export function useConversations(
     boundsRef.current = bounds;
   }, [bounds]);
 
-  // Fetch conversations within the current viewport bounds
+  // Fetch conversations within the current viewport bounds, filtered by channel
   const fetchConversations = useCallback(async (b: MapBounds) => {
     setLoading(true);
     const { data, error } = await supabase.rpc("conversations_in_bounds", {
@@ -25,6 +26,7 @@ export function useConversations(
       min_lat: b.min_lat,
       max_lng: b.max_lng,
       max_lat: b.max_lat,
+      p_channel_id: channelId,
     });
 
     if (error) {
@@ -33,7 +35,7 @@ export function useConversations(
       setConversations(data as Conversation[]);
     }
     setLoading(false);
-  }, []);
+  }, [channelId]);
 
   // Refetch when bounds change
   useEffect(() => {
@@ -42,13 +44,18 @@ export function useConversations(
     }
   }, [bounds, fetchConversations]);
 
-  // Subscribe to realtime conversation changes (INSERT + UPDATE)
+  // Subscribe to realtime conversation changes (INSERT + UPDATE), filtered by channel
   useEffect(() => {
-    const channel = supabase
-      .channel("map-conversations")
+    const realtimeChannel = supabase
+      .channel(`map-conversations-${channelId}`)
       .on(
         "postgres_changes",
-        { event: "INSERT", schema: "public", table: "conversations" },
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "conversations",
+          filter: `channel_id=eq.${channelId}`,
+        },
         (payload) => {
           const newConv = payload.new as Conversation;
           setConversations((prev) => {
@@ -59,7 +66,12 @@ export function useConversations(
       )
       .on(
         "postgres_changes",
-        { event: "UPDATE", schema: "public", table: "conversations" },
+        {
+          event: "UPDATE",
+          schema: "public",
+          table: "conversations",
+          filter: `channel_id=eq.${channelId}`,
+        },
         (payload) => {
           const updated = payload.new as Conversation;
           setConversations((prev) =>
@@ -79,14 +91,14 @@ export function useConversations(
         }
       });
 
-    channelRef.current = channel;
+    channelRef.current = realtimeChannel;
 
     return () => {
       if (channelRef.current) {
         supabase.removeChannel(channelRef.current);
       }
     };
-  }, [fetchConversations, onToast]);
+  }, [channelId, fetchConversations, onToast]);
 
   return { conversations, loading };
 }

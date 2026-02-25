@@ -14,15 +14,17 @@ interface LocationSearchProps {
     boundingbox: [number, number, number, number]
   ) => void;
   onSelectConversation: (conversation: Conversation) => void;
+  channelId?: string;
 }
 
 export default function LocationSearch({
   onSelectLocation,
   onSelectConversation,
+  channelId,
 }: LocationSearchProps) {
   const [mode, setMode] = useState<SearchMode>("places");
   const nominatim = useNominatimSearch();
-  const chatSearch = useConversationSearch();
+  const chatSearch = useConversationSearch(channelId);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
 
