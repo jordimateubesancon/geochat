@@ -1,5 +1,21 @@
+export interface Channel {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  icon: string | null;
+  sort_order: number;
+  is_active: boolean;
+  created_at: string;
+}
+
+export interface ChannelWithCount extends Channel {
+  conversations: [{ count: number }];
+}
+
 export interface Conversation {
   id: string;
+  channel_id: string;
   title: string;
   latitude: number;
   longitude: number;

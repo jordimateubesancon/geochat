@@ -9,6 +9,12 @@ const MapInner = dynamic(() => import("./map-inner"), {
   ),
 });
 
-export default function Map() {
-  return <MapInner />;
+interface MapProps {
+  channelId: string;
+  channelName: string;
+  channelSlug: string;
+}
+
+export default function Map({ channelId, channelName, channelSlug }: MapProps) {
+  return <MapInner channelId={channelId} channelName={channelName} channelSlug={channelSlug} />;
 }
