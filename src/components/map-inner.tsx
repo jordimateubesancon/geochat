@@ -223,6 +223,21 @@ export default function MapInner() {
     []
   );
 
+  const handleConversationSelect = useCallback(
+    (conversation: Conversation) => {
+      const map = mapRef.current;
+      if (map) {
+        map.flyTo([conversation.latitude, conversation.longitude], 15);
+      }
+      setSelectedConversation(conversation);
+      // Close toolbox on mobile after selection
+      if (window.innerWidth < 768) {
+        setToolboxOpen(false);
+      }
+    },
+    []
+  );
+
   // Close toolbox on Escape
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -243,7 +258,7 @@ export default function MapInner() {
     <div className="relative h-screen w-screen">
       <TopBar displayName={displayName} onSearchToggle={handleToolboxToggle} searchOpen={toolboxOpen} />
       <Toolbox open={toolboxOpen} onToggle={handleToolboxToggle}>
-        <LocationSearch onSelect={handleLocationSelect} />
+        <LocationSearch onSelectLocation={handleLocationSelect} onSelectConversation={handleConversationSelect} />
       </Toolbox>
       <div
         role="application"
