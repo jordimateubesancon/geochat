@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
@@ -13,11 +13,13 @@ import ConversationMarker from "@/components/marker";
 import NearbyWarning from "@/components/nearby-warning";
 import CreateDialog from "@/components/create-dialog";
 import ConversationPanel from "@/components/conversation-panel";
+import Toolbox from "@/components/toolbox";
+import LocationSearch from "@/components/location-search";
 import TopBar from "@/components/top-bar";
 import { ToastContainer, useToasts } from "@/components/toast";
 import { useUserSession } from "@/hooks/use-user-session";
 import type { Conversation } from "@/types";
-import type { Map as LeafletMap, LeafletMouseEvent } from "leaflet";
+import type { Map as LeafletMap, LatLngBoundsExpression, LeafletMouseEvent } from "leaflet";
 
 const OPENTOPOMAP_URL =
   "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png";
@@ -30,19 +32,22 @@ const DEFAULT_ZOOM = 2;
 function MapEventHandler({
   onMoveEnd,
   onMapClick,
+  onMapReady,
 }: {
   onMoveEnd: (map: LeafletMap) => void;
   onMapClick: (e: LeafletMouseEvent) => void;
+  onMapReady?: (map: LeafletMap) => void;
 }) {
   const map = useMapEvents({
     moveend: () => onMoveEnd(map),
     click: (e) => onMapClick(e),
   });
 
-  // Set initial bounds on mount
+  // Set initial bounds on mount and notify parent of map instance
   useEffect(() => {
     onMoveEnd(map);
-  }, [map, onMoveEnd]);
+    onMapReady?.(map);
+  }, [map, onMoveEnd, onMapReady]);
 
   // Request geolocation on mount
   useEffect(() => {
@@ -91,9 +96,15 @@ export default function MapInner() {
   const [createFlow, setCreateFlow] = useState<CreateFlowState>({
     step: "idle",
   });
+  const [toolboxOpen, setToolboxOpen] = useState(false);
+  const mapRef = useRef<LeafletMap | null>(null);
 
   const handleMarkerClick = useCallback((conversation: Conversation) => {
     setSelectedConversation(conversation);
+    // On mobile, close toolbox when opening conversation panel
+    if (window.innerWidth < 768) {
+      setToolboxOpen(false);
+    }
   }, []);
 
   const handleClosePanel = useCallback(() => {
@@ -170,6 +181,59 @@ export default function MapInner() {
     [createFlow, createConversation, clearNearby, displayName]
   );
 
+  const handleToolboxToggle = useCallback(() => {
+    setToolboxOpen((prev) => {
+      const next = !prev;
+      // On mobile, close conversation panel when opening toolbox
+      if (next && window.innerWidth < 768) {
+        setSelectedConversation(null);
+      }
+      return next;
+    });
+  }, []);
+
+  const handleLocationSelect = useCallback(
+    (
+      lat: number,
+      lng: number,
+      boundingbox: [number, number, number, number]
+    ) => {
+      const map = mapRef.current;
+      if (!map) return;
+
+      const [south, north, west, east] = boundingbox;
+      const hasBounds =
+        south !== north && west !== east;
+
+      if (hasBounds) {
+        const bounds: LatLngBoundsExpression = [
+          [south, west],
+          [north, east],
+        ];
+        map.flyToBounds(bounds, { padding: [20, 20] });
+      } else {
+        map.flyTo([lat, lng], 15);
+      }
+
+      // Close toolbox on mobile after selection
+      if (window.innerWidth < 768) {
+        setToolboxOpen(false);
+      }
+    },
+    []
+  );
+
+  // Close toolbox on Escape
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && toolboxOpen) {
+        setToolboxOpen(false);
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [toolboxOpen]);
+
   const isPanelOpen = selectedConversation !== null;
   const isDialogOpen = createFlow.step !== "idle";
   const showHint =
@@ -177,7 +241,10 @@ export default function MapInner() {
 
   return (
     <div className="relative h-screen w-screen">
-      <TopBar displayName={displayName} />
+      <TopBar displayName={displayName} onSearchToggle={handleToolboxToggle} searchOpen={toolboxOpen} />
+      <Toolbox open={toolboxOpen} onToggle={handleToolboxToggle}>
+        <LocationSearch onSelect={handleLocationSelect} />
+      </Toolbox>
       <div
         role="application"
         aria-label="Interactive map showing conversations"
@@ -195,6 +262,7 @@ export default function MapInner() {
         <MapEventHandler
           onMoveEnd={handleMoveEnd}
           onMapClick={handleMapClick}
+          onMapReady={useCallback((map: LeafletMap) => { mapRef.current = map; }, [])}
         />
 
         {conversations.map((conv) => (

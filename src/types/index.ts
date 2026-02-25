@@ -32,3 +32,11 @@ export interface MapBounds {
   max_lng: number;
   max_lat: number;
 }
+
+export interface NominatimResult {
+  place_id: number;
+  display_name: string;
+  lat: string;
+  lon: string;
+  boundingbox: [string, string, string, string];
+}
