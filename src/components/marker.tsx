@@ -39,7 +39,7 @@ export default function ConversationMarker({
       <Tooltip direction="top" offset={[0, -10]} permanent={false}>
         <div className="text-sm">
           <div className="font-semibold">{conversation.title}</div>
-          <div className="text-xs text-neutral-400">
+          <div className="text-xs text-neutral-500">
             {conversation.message_count}{" "}
             {conversation.message_count === 1 ? "message" : "messages"} ·{" "}
             {formatRelativeTime(conversation.last_message_at)}

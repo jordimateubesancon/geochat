@@ -99,13 +99,13 @@ export default function NearbyWarning({
     >
       <div
         ref={dialogRef}
-        className="mx-3 w-full max-w-md rounded-lg bg-neutral-800 p-4 shadow-xl sm:mx-4 sm:p-6"
+        className="mx-3 w-full max-w-md rounded-lg bg-white p-4 shadow-xl sm:mx-4 sm:p-6"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="mb-2 text-lg font-semibold text-neutral-100">
+        <h2 className="mb-2 text-lg font-semibold text-neutral-900">
           Nearby Conversations
         </h2>
-        <p className="mb-4 text-sm text-neutral-400">
+        <p className="mb-4 text-sm text-neutral-500">
           There {conversations.length === 1 ? "is" : "are"}{" "}
           {conversations.length} existing conversation
           {conversations.length !== 1 && "s"} within 1 km. Would you like to
@@ -116,13 +116,13 @@ export default function NearbyWarning({
           {conversations.map((conv) => (
             <li key={conv.id}>
               <button
-                className="min-h-[44px] w-full rounded-md bg-neutral-700 px-3 py-2.5 text-left transition-colors hover:bg-neutral-600"
+                className="min-h-[44px] w-full rounded-md bg-neutral-50 px-3 py-2.5 text-left transition-colors hover:bg-neutral-100"
                 onClick={() => handleConversationClick(conv)}
               >
-                <div className="font-medium text-neutral-100">
+                <div className="font-medium text-neutral-900">
                   {conv.title}
                 </div>
-                <div className="text-xs text-neutral-400">
+                <div className="text-xs text-neutral-500">
                   {formatDistance(
                     conv.latitude,
                     conv.longitude,
@@ -139,7 +139,7 @@ export default function NearbyWarning({
 
         <div className="flex flex-col-reverse gap-2 sm:flex-row sm:gap-3">
           <button
-            className="flex-1 rounded-md bg-neutral-700 px-4 py-2.5 text-sm font-medium text-neutral-300 transition-colors hover:bg-neutral-600"
+            className="flex-1 rounded-md bg-neutral-100 px-4 py-2.5 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-200"
             onClick={onCancel}
             aria-label="Cancel"
           >

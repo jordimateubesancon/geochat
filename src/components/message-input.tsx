@@ -28,14 +28,14 @@ export default function MessageInput({ onSend, disabled }: MessageInputProps) {
   );
 
   return (
-    <div className="flex gap-2 border-t border-neutral-700 bg-neutral-800 p-3">
+    <div className="flex gap-2 border-t border-neutral-200 bg-neutral-50 p-3">
       <textarea
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="Type a message..."
         rows={1}
-        className="flex-1 resize-none rounded-md border border-neutral-600 bg-neutral-700 px-3 py-2 text-sm text-neutral-100 placeholder-neutral-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+        className="flex-1 resize-none rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder-neutral-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
         aria-label="Message input"
         disabled={disabled}
       />

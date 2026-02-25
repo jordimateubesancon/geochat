@@ -93,21 +93,21 @@ export default function CreateDialog({
     >
       <div
         ref={dialogRef}
-        className="mx-3 w-full max-w-md rounded-lg bg-neutral-800 p-4 shadow-xl sm:mx-4 sm:p-6"
+        className="mx-3 w-full max-w-md rounded-lg bg-white p-4 shadow-xl sm:mx-4 sm:p-6"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="mb-4 text-lg font-semibold text-neutral-100">
+        <h2 className="mb-4 text-lg font-semibold text-neutral-900">
           New Conversation
         </h2>
 
-        <div className="mb-3 rounded-md bg-neutral-700/50 px-3 py-2 text-xs text-neutral-400">
+        <div className="mb-3 rounded-md bg-neutral-100 px-3 py-2 text-xs text-neutral-500">
           Location: {lat.toFixed(4)}, {lng.toFixed(4)}
         </div>
 
         <div className="mb-3">
           <label
             htmlFor="conv-title"
-            className="mb-1 block text-sm font-medium text-neutral-300"
+            className="mb-1 block text-sm font-medium text-neutral-600"
           >
             Title
           </label>
@@ -120,10 +120,10 @@ export default function CreateDialog({
               setTitle(e.target.value.slice(0, TITLE_MAX))
             }
             placeholder="What's this conversation about?"
-            className="w-full rounded-md border border-neutral-600 bg-neutral-700 px-3 py-2 text-sm text-neutral-100 placeholder-neutral-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full rounded-md border border-neutral-300 bg-neutral-50 px-3 py-2 text-sm text-neutral-900 placeholder-neutral-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             aria-label="Conversation title"
           />
-          <div className="mt-1 text-right text-xs text-neutral-500">
+          <div className="mt-1 text-right text-xs text-neutral-400">
             {title.length}/{TITLE_MAX}
           </div>
         </div>
@@ -131,7 +131,7 @@ export default function CreateDialog({
         <div className="mb-4">
           <label
             htmlFor="conv-body"
-            className="mb-1 block text-sm font-medium text-neutral-300"
+            className="mb-1 block text-sm font-medium text-neutral-600"
           >
             First message
           </label>
@@ -144,17 +144,17 @@ export default function CreateDialog({
             onKeyDown={handleBodyKeyDown}
             placeholder="Start the conversation..."
             rows={3}
-            className="w-full resize-none rounded-md border border-neutral-600 bg-neutral-700 px-3 py-2 text-sm text-neutral-100 placeholder-neutral-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full resize-none rounded-md border border-neutral-300 bg-neutral-50 px-3 py-2 text-sm text-neutral-900 placeholder-neutral-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             aria-label="First message"
           />
-          <div className="mt-1 text-right text-xs text-neutral-500">
+          <div className="mt-1 text-right text-xs text-neutral-400">
             {body.length}/{BODY_MAX}
           </div>
         </div>
 
         <div className="flex flex-col-reverse gap-2 sm:flex-row sm:gap-3">
           <button
-            className="flex-1 rounded-md bg-neutral-700 px-4 py-2.5 text-sm font-medium text-neutral-300 transition-colors hover:bg-neutral-600"
+            className="flex-1 rounded-md bg-neutral-100 px-4 py-2.5 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-200"
             onClick={onCancel}
             aria-label="Cancel creating conversation"
           >
