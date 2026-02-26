@@ -255,7 +255,7 @@ export default function MapInner({ channelId, channelName, channelSlug }: MapInn
 
   return (
     <div className="relative h-screen w-screen">
-      <TopBar displayName={displayName} onSearchToggle={handleToolboxToggle} searchOpen={toolboxOpen} channelName={channelName} channelSlug={channelSlug} />
+      <TopBar displayName={displayName} onSearchToggle={handleToolboxToggle} searchOpen={toolboxOpen} channelName={channelName} channelSlug={channelSlug} hidden={isPanelOpen} />
       <Toolbox open={toolboxOpen} onToggle={handleToolboxToggle}>
         <LocationSearch onSelectLocation={handleLocationSelect} onSelectConversation={handleConversationSelect} channelId={channelId} />
       </Toolbox>
@@ -291,7 +291,7 @@ export default function MapInner({ channelId, channelName, channelSlug }: MapInn
       </div>
 
       {showHint && (
-        <div className="pointer-events-none absolute bottom-8 left-0 right-0 z-[1000] text-center">
+        <div className="pointer-events-none absolute bottom-20 left-0 right-0 z-[1000] text-center sm:bottom-8">
           <span className="rounded-full bg-white/80 px-4 py-2 text-sm text-neutral-600 shadow-sm backdrop-blur-sm">
             Click anywhere on the map to start a conversation
           </span>

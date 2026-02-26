@@ -6,12 +6,15 @@ interface TopBarProps {
   searchOpen?: boolean;
   channelName?: string;
   channelSlug?: string;
+  hidden?: boolean;
 }
 
-export default function TopBar({ displayName, onSearchToggle, searchOpen, channelName }: TopBarProps) {
+export default function TopBar({ displayName, onSearchToggle, searchOpen, channelName, hidden }: TopBarProps) {
   return (
     <div
-      className="pointer-events-none absolute left-0 top-0 z-[1600] flex flex-col items-start gap-2 p-3"
+      className={`pointer-events-none absolute left-0 top-0 z-[1600] flex flex-col items-start gap-2 p-3 ${
+        hidden ? "hidden md:flex" : ""
+      }`}
       role="banner"
       aria-label="Application header"
     >

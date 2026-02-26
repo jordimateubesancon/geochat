@@ -9,3 +9,12 @@ body {
   padding: 0;
   overflow: hidden;
 }
+
+/* Compact Leaflet attribution on small screens to avoid overlapping zoom controls */
+@media (max-width: 639px) {
+  .leaflet-control-attribution {
+    max-width: 70vw;
+    font-size: 9px;
+    line-height: 1.2;
+  }
+}
