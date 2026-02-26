@@ -8,6 +8,7 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  touch-action: manipulation;
 }
 
 /* Compact Leaflet attribution on small screens to avoid overlapping zoom controls */

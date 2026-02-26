@@ -6,6 +6,7 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
 import "leaflet-defaulticon-compatibility";
 
+import { supabase } from "@/lib/supabase";
 import { useMapViewport } from "@/hooks/use-map-viewport";
 import { useConversations } from "@/hooks/use-conversations";
 import { useCreateConversation } from "@/hooks/use-create-conversation";
@@ -84,9 +85,10 @@ interface MapInnerProps {
   channelId: string;
   channelName: string;
   channelSlug: string;
+  initialConversationId?: string;
 }
 
-export default function MapInner({ channelId, channelName, channelSlug }: MapInnerProps) {
+export default function MapInner({ channelId, channelName, channelSlug, initialConversationId }: MapInnerProps) {
   const { displayName } = useUserSession();
   const { toasts, addToast, dismissToast } = useToasts();
   const { bounds, handleMoveEnd } = useMapViewport();
@@ -237,6 +239,36 @@ export default function MapInner({ channelId, channelName, channelSlug }: MapInn
     []
   );
 
+  // Deep link: fetch and open conversation from ?c= query param
+  useEffect(() => {
+    if (!initialConversationId) return;
+
+    async function openDeepLinkedConversation() {
+      const { data, error } = await supabase
+        .from("conversations")
+        .select("*")
+        .eq("id", initialConversationId)
+        .eq("channel_id", channelId)
+        .single();
+
+      if (error || !data) {
+        addToast("Conversation not found", "error");
+        return;
+      }
+
+      const conversation = data as Conversation;
+      setSelectedConversation(conversation);
+
+      // Center map on conversation once map is ready
+      const map = mapRef.current;
+      if (map) {
+        map.setView([conversation.latitude, conversation.longitude], 15);
+      }
+    }
+
+    openDeepLinkedConversation();
+  }, [initialConversationId, channelId, addToast]);
+
   // Close toolbox on Escape
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -254,7 +286,7 @@ export default function MapInner({ channelId, channelName, channelSlug }: MapInn
     conversations.length === 0 && !isPanelOpen && !isDialogOpen;
 
   return (
-    <div className="relative h-screen w-screen">
+    <div className="relative h-dvh w-dvw">
       <TopBar displayName={displayName} onSearchToggle={handleToolboxToggle} searchOpen={toolboxOpen} channelName={channelName} channelSlug={channelSlug} hidden={isPanelOpen} />
       <Toolbox open={toolboxOpen} onToggle={handleToolboxToggle}>
         <LocationSearch onSelectLocation={handleLocationSelect} onSelectConversation={handleConversationSelect} channelId={channelId} />
@@ -323,6 +355,7 @@ export default function MapInner({ channelId, channelName, channelSlug }: MapInn
         <ConversationPanel
           conversation={selectedConversation}
           currentAuthor={displayName || "Anonymous"}
+          channelSlug={channelSlug}
           onClose={handleClosePanel}
           onToast={addToast}
         />

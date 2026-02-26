@@ -28,7 +28,7 @@ export default function Toolbox({ open, onToggle, children }: ToolboxProps) {
         ref={panelRef}
         role="region"
         aria-label="Map tools"
-        className={`absolute left-0 top-0 bottom-0 w-screen bg-white/95 shadow-lg backdrop-blur-sm transition-transform duration-200 ease-in-out sm:w-72 ${
+        className={`absolute left-0 top-0 bottom-0 w-dvw bg-white/95 shadow-lg backdrop-blur-sm transition-transform duration-200 ease-in-out sm:w-72 ${
           open ? "pointer-events-auto translate-x-0" : "pointer-events-none -translate-x-full"
         }`}
       >
