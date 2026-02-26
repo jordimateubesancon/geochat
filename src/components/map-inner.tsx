@@ -80,17 +80,23 @@ type CreateFlowState =
     }
   | { step: "create-dialog"; lat: number; lng: number };
 
-export default function MapInner() {
+interface MapInnerProps {
+  channelId: string;
+  channelName: string;
+  channelSlug: string;
+}
+
+export default function MapInner({ channelId, channelName, channelSlug }: MapInnerProps) {
   const { displayName } = useUserSession();
   const { toasts, addToast, dismissToast } = useToasts();
   const { bounds, handleMoveEnd } = useMapViewport();
-  const { conversations } = useConversations(bounds, addToast);
+  const { conversations } = useConversations(bounds, channelId, addToast);
   const {
     loading: createLoading,
     checkProximity,
     createConversation,
     clearNearby,
-  } = useCreateConversation();
+  } = useCreateConversation(channelId);
   const [selectedConversation, setSelectedConversation] =
     useState<Conversation | null>(null);
   const [createFlow, setCreateFlow] = useState<CreateFlowState>({
@@ -249,9 +255,9 @@ export default function MapInner() {
 
   return (
     <div className="relative h-screen w-screen">
-      <TopBar displayName={displayName} onSearchToggle={handleToolboxToggle} searchOpen={toolboxOpen} />
+      <TopBar displayName={displayName} onSearchToggle={handleToolboxToggle} searchOpen={toolboxOpen} channelName={channelName} channelSlug={channelSlug} hidden={isPanelOpen} />
       <Toolbox open={toolboxOpen} onToggle={handleToolboxToggle}>
-        <LocationSearch onSelectLocation={handleLocationSelect} onSelectConversation={handleConversationSelect} />
+        <LocationSearch onSelectLocation={handleLocationSelect} onSelectConversation={handleConversationSelect} channelId={channelId} />
       </Toolbox>
       <div
         role="application"
@@ -285,7 +291,7 @@ export default function MapInner() {
       </div>
 
       {showHint && (
-        <div className="pointer-events-none absolute bottom-8 left-0 right-0 z-[1000] text-center">
+        <div className="pointer-events-none absolute bottom-20 left-0 right-0 z-[1000] text-center sm:bottom-8">
           <span className="rounded-full bg-white/80 px-4 py-2 text-sm text-neutral-600 shadow-sm backdrop-blur-sm">
             Click anywhere on the map to start a conversation
           </span>

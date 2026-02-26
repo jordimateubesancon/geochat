@@ -20,7 +20,7 @@ interface UseCreateConversationReturn {
   clearNearby: () => void;
 }
 
-export function useCreateConversation(): UseCreateConversationReturn {
+export function useCreateConversation(channelId: string): UseCreateConversationReturn {
   const [nearbyConversations, setNearbyConversations] = useState<
     Conversation[]
   >([]);
@@ -33,6 +33,7 @@ export function useCreateConversation(): UseCreateConversationReturn {
         lng,
         lat,
         radius_meters: 1000,
+        p_channel_id: channelId,
       });
 
       setLoading(false);
@@ -46,7 +47,7 @@ export function useCreateConversation(): UseCreateConversationReturn {
       setNearbyConversations(nearby);
       return nearby;
     },
-    []
+    [channelId]
   );
 
   const createConversation = useCallback(
@@ -62,6 +63,7 @@ export function useCreateConversation(): UseCreateConversationReturn {
         .from("conversations")
         .insert({
           id: conversationId,
+          channel_id: channelId,
           title: params.title,
           latitude: params.lat,
           longitude: params.lng,
@@ -92,7 +94,7 @@ export function useCreateConversation(): UseCreateConversationReturn {
       setLoading(false);
       return convData as Conversation;
     },
-    []
+    [channelId]
   );
 
   const clearNearby = useCallback(() => {
