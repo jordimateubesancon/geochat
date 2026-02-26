@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import type { Channel } from "@/types";
 import Map from "@/components/map";
 
 export default function ChannelPage() {
   const params = useParams<{ slug: string }>();
+  const searchParams = useSearchParams();
   const router = useRouter();
   const [channel, setChannel] = useState<Channel | null>(null);
   const [loading, setLoading] = useState(true);
@@ -43,7 +44,7 @@ export default function ChannelPage() {
 
   return (
     <main className="h-screen w-screen">
-      <Map channelId={channel.id} channelName={channel.name} channelSlug={channel.slug} />
+      <Map channelId={channel.id} channelName={channel.name} channelSlug={channel.slug} initialConversationId={searchParams.get("c") ?? undefined} />
     </main>
   );
 }

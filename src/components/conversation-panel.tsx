@@ -3,6 +3,7 @@ import { useMessages } from "@/hooks/use-messages";
 import { useSendMessage } from "@/hooks/use-send-message";
 import MessageList from "@/components/message-list";
 import MessageInput from "@/components/message-input";
+import ShareButton from "@/components/share-button";
 import type { Conversation } from "@/types";
 
 function formatRelativeTime(dateString: string): string {
@@ -23,6 +24,7 @@ function formatRelativeTime(dateString: string): string {
 interface ConversationPanelProps {
   conversation: Conversation;
   currentAuthor: string;
+  channelSlug: string;
   onClose: () => void;
   onToast?: (text: string, type: "error" | "info") => void;
 }
@@ -30,6 +32,7 @@ interface ConversationPanelProps {
 export default function ConversationPanel({
   conversation,
   currentAuthor,
+  channelSlug,
   onClose,
   onToast,
 }: ConversationPanelProps) {
@@ -132,9 +135,18 @@ export default function ConversationPanel({
               {formatRelativeTime(conversation.created_at)}
             </div>
           </div>
+          <div className="ml-2 flex items-center gap-1">
+            <ShareButton
+              conversationId={conversation.id}
+              title={conversation.title}
+              latitude={conversation.latitude}
+              longitude={conversation.longitude}
+              channelSlug={channelSlug}
+              onToast={onToast}
+            />
           <button
             onClick={onClose}
-            className="ml-2 rounded-md p-1.5 text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-800"
+            className="rounded-md p-1.5 text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-800"
             aria-label="Close conversation panel"
           >
             <svg
@@ -152,6 +164,7 @@ export default function ConversationPanel({
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </button>
+          </div>
         </div>
 
         {/* Messages */}
