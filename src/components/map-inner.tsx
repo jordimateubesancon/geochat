@@ -254,7 +254,7 @@ export default function MapInner({ channelId, channelName, channelSlug }: MapInn
     conversations.length === 0 && !isPanelOpen && !isDialogOpen;
 
   return (
-    <div className="relative h-screen w-screen">
+    <div className="relative h-dvh w-dvw">
       <TopBar displayName={displayName} onSearchToggle={handleToolboxToggle} searchOpen={toolboxOpen} channelName={channelName} channelSlug={channelSlug} hidden={isPanelOpen} />
       <Toolbox open={toolboxOpen} onToggle={handleToolboxToggle}>
         <LocationSearch onSelectLocation={handleLocationSelect} onSelectConversation={handleConversationSelect} channelId={channelId} />
