@@ -15,6 +15,10 @@ export const metadata: Metadata = {
   title: "GeoChat",
   description:
     "Location-based conversations anchored to real-world coordinates",
+  manifest: "/manifest.webmanifest",
+  icons: {
+    apple: "/icons/icon-192x192.png",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
