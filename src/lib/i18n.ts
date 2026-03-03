@@ -23,12 +23,25 @@ export function detectLocale(): SupportedLocale {
   return DEFAULT_LOCALE;
 }
 
+// Explicit imports so webpack can resolve them at build time.
+// Template-literal dynamic imports (import(`@/messages/${locale}.json`))
+// fail silently in production builds on Vercel.
+const MESSAGE_LOADERS: Record<
+  SupportedLocale,
+  () => Promise<{ default: Record<string, string> }>
+> = {
+  en: () => import("@/messages/en.json"),
+  es: () => import("@/messages/es.json"),
+  fr: () => import("@/messages/fr.json"),
+  ca: () => import("@/messages/ca.json"),
+};
+
 export async function loadMessages(
   locale: SupportedLocale
 ): Promise<Record<string, string>> {
   try {
-    return (await import(`@/messages/${locale}.json`)).default;
+    return (await MESSAGE_LOADERS[locale]()).default;
   } catch {
-    return (await import(`@/messages/${DEFAULT_LOCALE}.json`)).default;
+    return (await MESSAGE_LOADERS[DEFAULT_LOCALE]()).default;
   }
 }
