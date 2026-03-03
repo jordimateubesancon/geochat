@@ -43,7 +43,7 @@ export function useSendMessage({
       if (error) {
         console.error("Failed to send message:", error);
         onFail(id);
-        onToast?.("Failed to send message. Please try again.", "error");
+        onToast?.("errors.sendFailed", "error");
       } else {
         onConfirm(id);
       }

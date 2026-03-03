@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { useNominatimSearch } from "@/hooks/use-nominatim-search";
 import { useConversationSearch } from "@/hooks/use-conversation-search";
 import type { Conversation } from "@/types";
@@ -22,6 +23,7 @@ export default function LocationSearch({
   onSelectConversation,
   channelId,
 }: LocationSearchProps) {
+  const t = useTranslations();
   const [mode, setMode] = useState<SearchMode>("places");
   const nominatim = useNominatimSearch();
   const chatSearch = useConversationSearch(channelId);
@@ -134,11 +136,11 @@ export default function LocationSearch({
 
   const placeholder =
     mode === "places"
-      ? "City, address, or place..."
-      : "Search conversations...";
+      ? t("locationSearch.placesPlaceholder")
+      : t("locationSearch.chatsPlaceholder");
 
   const noResultsMessage =
-    mode === "places" ? "No results found" : "No conversations found";
+    mode === "places" ? t("locationSearch.noPlaces") : t("locationSearch.noChats");
 
   return (
     <div className="flex flex-col gap-2">
@@ -153,7 +155,7 @@ export default function LocationSearch({
               : "text-neutral-500 hover:text-neutral-700"
           }`}
         >
-          Places
+          {t("locationSearch.places")}
         </button>
         <button
           type="button"
@@ -164,7 +166,7 @@ export default function LocationSearch({
               : "text-neutral-500 hover:text-neutral-700"
           }`}
         >
-          Chats
+          {t("locationSearch.chats")}
         </button>
       </div>
 
@@ -181,7 +183,7 @@ export default function LocationSearch({
           }}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          aria-label={mode === "places" ? "Search for a location" : "Search for a conversation"}
+          aria-label={mode === "places" ? t("locationSearch.placesAriaLabel") : t("locationSearch.chatsAriaLabel")}
           aria-autocomplete="list"
           aria-controls={showResults ? "search-results" : undefined}
           aria-activedescendant={activeDescendant}
@@ -234,7 +236,7 @@ export default function LocationSearch({
       )}
 
       {showError && (
-        <p className="px-1 text-sm text-red-600">{error}</p>
+        <p className="px-1 text-sm text-red-600">{error ? t(error) : error}</p>
       )}
     </div>
   );

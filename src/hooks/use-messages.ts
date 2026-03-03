@@ -113,7 +113,7 @@ export function useMessages(
       )
       .subscribe((status) => {
         if (status === "CHANNEL_ERROR") {
-          onToast?.("Message connection lost. Reconnecting...", "error");
+          onToast?.("errors.messageConnectionLost", "error");
         }
         if (status === "SUBSCRIBED") {
           // Refetch on reconnect to catch up on missed messages

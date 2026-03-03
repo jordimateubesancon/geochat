@@ -1,9 +1,11 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useChannels } from "@/hooks/use-channels";
 import ChannelCard from "@/components/channel-card";
 
 export default function ChannelGrid() {
+  const t = useTranslations();
   const { channels, loading, error } = useChannels();
 
   if (loading) {
@@ -22,7 +24,7 @@ export default function ChannelGrid() {
   if (error) {
     return (
       <div className="rounded-lg bg-red-50 p-4 text-center text-sm text-red-600">
-        {error}. Please try refreshing the page.
+        {t("channelGrid.error", { error: t(error) })}
       </div>
     );
   }
@@ -30,7 +32,7 @@ export default function ChannelGrid() {
   if (channels.length === 0) {
     return (
       <div className="rounded-lg bg-neutral-50 p-8 text-center text-sm text-neutral-500">
-        No channels available yet. Check back soon!
+        {t("channelGrid.empty")}
       </div>
     );
   }

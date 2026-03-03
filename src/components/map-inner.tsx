@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { MapContainer, TileLayer, useMapEvents, ZoomControl } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
@@ -89,8 +90,14 @@ interface MapInnerProps {
 }
 
 export default function MapInner({ channelId, channelName, channelSlug, initialConversationId }: MapInnerProps) {
+  const t = useTranslations();
   const { displayName } = useUserSession();
-  const { toasts, addToast, dismissToast } = useToasts();
+  const { toasts, addToast: rawAddToast, dismissToast } = useToasts();
+  const addToast = useCallback((text: string, type: "error" | "info") => {
+    // Translate i18n keys (strings starting with "errors." or other namespaces)
+    const translated = text.includes(".") ? t(text) : text;
+    rawAddToast(translated, type);
+  }, [rawAddToast, t]);
   const { bounds, handleMoveEnd } = useMapViewport();
   const { conversations } = useConversations(bounds, channelId, addToast);
   const {
@@ -252,7 +259,7 @@ export default function MapInner({ channelId, channelName, channelSlug, initialC
         .single();
 
       if (error || !data) {
-        addToast("Conversation not found", "error");
+        addToast("mapInner.notFound", "error");
         return;
       }
 
@@ -293,7 +300,7 @@ export default function MapInner({ channelId, channelName, channelSlug, initialC
       </Toolbox>
       <div
         role="application"
-        aria-label="Interactive map showing conversations"
+        aria-label={t("mapInner.mapAriaLabel")}
         tabIndex={0}
         className="h-full w-full"
       >
@@ -325,7 +332,7 @@ export default function MapInner({ channelId, channelName, channelSlug, initialC
       {showHint && (
         <div className="pointer-events-none absolute bottom-20 left-0 right-0 z-[1000] text-center sm:bottom-8">
           <span className="rounded-full bg-white/80 px-4 py-2 text-sm text-neutral-600 shadow-sm backdrop-blur-sm">
-            Click anywhere on the map to start a conversation
+            {t("mapInner.hint")}
           </span>
         </div>
       )}
