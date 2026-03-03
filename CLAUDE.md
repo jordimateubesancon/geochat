@@ -14,6 +14,8 @@ Auto-generated from all feature plans. Last updated: 2026-02-23
 - N/A — no database changes, client-side URL construction only (006-share-chat)
 - TypeScript 5.x (strict mode) + Next.js 14, React 18+ + next-intl (new), existing: react-leaflet 4, Tailwind CSS 3, @supabase/supabase-js (007-auto-i18n)
 - N/A — no database changes, static JSON translation files only (007-auto-i18n)
+- TypeScript 5.x (strict mode) + Next.js 14 (App Router) + react 18, react-leaflet 4, @supabase/supabase-js 2.97, next-intl 4.8, idb (new) (008-offline-mode)
+- Supabase (PostgreSQL + PostGIS) server-side; IndexedDB + Cache Storage API client-side (new) (008-offline-mode)
 
 - TypeScript 5.x (strict mode, no `any` types) + Next.js 14, React 18+, react-leaflet 4, (001-geochat-mvp)
 
@@ -57,9 +59,9 @@ Tracking state is stored in `src/messages/.tracking.json` (commit this file).
 TypeScript 5.x (strict mode, no `any` types): Follow standard conventions
 
 ## Recent Changes
+- 008-offline-mode: Added TypeScript 5.x (strict mode) + Next.js 14 (App Router) + react 18, react-leaflet 4, @supabase/supabase-js 2.97, next-intl 4.8, idb (new)
 - 007-auto-i18n: Added TypeScript 5.x (strict mode) + Next.js 14, React 18+ + next-intl (new), existing: react-leaflet 4, Tailwind CSS 3, @supabase/supabase-js
 - 006-share-chat: Added TypeScript 5.x (strict mode, no `any` types) + Next.js 14, React 18+, Tailwind CSS 3, @supabase/supabase-js (no new dependencies)
-- 005-topic-channels: Added TypeScript 5.x (strict mode, no `any` types) + Next.js 14, React 18+, react-leaflet 4, Tailwind CSS 3, @supabase/supabase-js
 
 
 <!-- MANUAL ADDITIONS START -->

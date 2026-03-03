@@ -104,5 +104,12 @@
   "errors.connectionLost": "Connexi\u00f3 perduda. Reconnectant...",
   "errors.messageConnectionLost": "Connexi\u00f3 de missatges perduda. Reconnectant...",
   "errors.sendFailed": "Error en enviar el missatge. Torna-ho a provar.",
-  "errors.searchUnavailable": "La cerca no est\u00e0 disponible temporalment"
+  "errors.searchUnavailable": "La cerca no est\u00e0 disponible temporalment",
+
+  "offline.indicator": "Est\u00e0s fora de l\u00ednia",
+  "offline.messagePending": "S'enviar\u00e0 quan tornis a estar en l\u00ednia...",
+  "offline.messageFailed": "Error en enviar",
+  "offline.messageRetry": "Reintentar",
+  "offline.createDisabled": "Crear converses requereix connexi\u00f3 a internet",
+  "offline.syncComplete": "Missatges sincronitzats"
 }

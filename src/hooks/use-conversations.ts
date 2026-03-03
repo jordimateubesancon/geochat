@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { useOnlineStatus } from "@/hooks/use-online-status";
+import { cacheConversations } from "@/hooks/use-offline-cache";
+import { getConversationsByChannel } from "@/lib/offline-db";
 import type { Conversation, MapBounds } from "@/types";
 import type { RealtimeChannel } from "@supabase/supabase-js";
 
@@ -12,6 +15,7 @@ export function useConversations(
   const [loading, setLoading] = useState(false);
   const channelRef = useRef<RealtimeChannel | null>(null);
   const boundsRef = useRef<MapBounds | null>(null);
+  const { isOnline } = useOnlineStatus();
 
   // Keep latest bounds in ref for reconnection refetch
   useEffect(() => {
@@ -21,6 +25,18 @@ export function useConversations(
   // Fetch conversations within the current viewport bounds, filtered by channel
   const fetchConversations = useCallback(async (b: MapBounds) => {
     setLoading(true);
+
+    if (!navigator.onLine) {
+      try {
+        const cached = await getConversationsByChannel(channelId);
+        setConversations(cached);
+      } catch (err) {
+        console.warn("Failed to read cached conversations:", err);
+      }
+      setLoading(false);
+      return;
+    }
+
     const { data, error } = await supabase.rpc("conversations_in_bounds", {
       min_lng: b.min_lng,
       min_lat: b.min_lat,
@@ -32,17 +48,19 @@ export function useConversations(
     if (error) {
       console.error("Failed to fetch conversations:", error);
     } else {
-      setConversations(data as Conversation[]);
+      const convs = data as Conversation[];
+      setConversations(convs);
+      cacheConversations(convs);
     }
     setLoading(false);
   }, [channelId]);
 
-  // Refetch when bounds change
+  // Refetch when bounds change or when coming back online
   useEffect(() => {
     if (bounds) {
       fetchConversations(bounds);
     }
-  }, [bounds, fetchConversations]);
+  }, [bounds, fetchConversations, isOnline]);
 
   // Subscribe to realtime conversation changes (INSERT + UPDATE), filtered by channel
   useEffect(() => {

@@ -104,5 +104,12 @@
   "errors.connectionLost": "Conexión perdida. Reconectando...",
   "errors.messageConnectionLost": "Conexión de mensajes perdida. Reconectando...",
   "errors.sendFailed": "Error al enviar el mensaje. Inténtalo de nuevo.",
-  "errors.searchUnavailable": "La búsqueda no está disponible temporalmente"
+  "errors.searchUnavailable": "La búsqueda no está disponible temporalmente",
+
+  "offline.indicator": "Sin conexión",
+  "offline.messagePending": "Se enviará cuando vuelvas a estar en línea...",
+  "offline.messageFailed": "Error al enviar",
+  "offline.messageRetry": "Reintentar",
+  "offline.createDisabled": "Crear conversaciones requiere conexión a internet",
+  "offline.syncComplete": "Mensajes sincronizados"
 }

@@ -104,5 +104,12 @@
   "errors.connectionLost": "Connection lost. Reconnecting...",
   "errors.messageConnectionLost": "Message connection lost. Reconnecting...",
   "errors.sendFailed": "Failed to send message. Please try again.",
-  "errors.searchUnavailable": "Search is temporarily unavailable"
+  "errors.searchUnavailable": "Search is temporarily unavailable",
+
+  "offline.indicator": "You are offline",
+  "offline.messagePending": "Sending when back online...",
+  "offline.messageFailed": "Failed to send",
+  "offline.messageRetry": "Retry",
+  "offline.createDisabled": "Creating conversations requires an internet connection",
+  "offline.syncComplete": "Messages synced"
 }
