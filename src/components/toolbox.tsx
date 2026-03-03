@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 
 interface ToolboxProps {
   open: boolean;
@@ -9,6 +10,7 @@ interface ToolboxProps {
 }
 
 export default function Toolbox({ open, onToggle, children }: ToolboxProps) {
+  const t = useTranslations();
   const panelRef = useRef<HTMLDivElement>(null);
 
   // Focus management: auto-focus first input when opening
@@ -35,10 +37,10 @@ export default function Toolbox({ open, onToggle, children }: ToolboxProps) {
         <div className="flex h-full flex-col overflow-y-auto px-4 pt-4 pb-4">
           {/* Panel header with close button */}
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-neutral-900">Tools</h2>
+            <h2 className="text-sm font-semibold text-neutral-900">{t("common.tools")}</h2>
             <button
               onClick={onToggle}
-              aria-label="Close map tools"
+              aria-label={t("topBar.closeTools")}
               className="rounded-md p-1 text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-600"
             >
               <svg

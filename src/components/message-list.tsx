@@ -1,19 +1,23 @@
 import { useCallback, useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 import type { Message } from "@/types";
 
-function formatRelativeTime(dateString: string): string {
-  const now = Date.now();
-  const then = new Date(dateString).getTime();
-  const diffMs = now - then;
-  const diffSec = Math.floor(diffMs / 1000);
-  const diffMin = Math.floor(diffSec / 60);
-  const diffHour = Math.floor(diffMin / 60);
-  const diffDay = Math.floor(diffHour / 24);
+function useFormatRelativeTime() {
+  const t = useTranslations();
+  return (dateString: string): string => {
+    const now = Date.now();
+    const then = new Date(dateString).getTime();
+    const diffMs = now - then;
+    const diffSec = Math.floor(diffMs / 1000);
+    const diffMin = Math.floor(diffSec / 60);
+    const diffHour = Math.floor(diffMin / 60);
+    const diffDay = Math.floor(diffHour / 24);
 
-  if (diffSec < 60) return "just now";
-  if (diffMin < 60) return `${diffMin}m ago`;
-  if (diffHour < 24) return `${diffHour}h ago`;
-  return `${diffDay}d ago`;
+    if (diffSec < 60) return t("time.justNow");
+    if (diffMin < 60) return t("time.minutesAgo", { count: diffMin });
+    if (diffHour < 24) return t("time.hoursAgo", { count: diffHour });
+    return t("time.daysAgo", { count: diffDay });
+  };
 }
 
 interface MessageListProps {
@@ -33,6 +37,8 @@ export default function MessageList({
   currentAuthor,
   onLoadOlder,
 }: MessageListProps) {
+  const t = useTranslations();
+  const formatRelativeTime = useFormatRelativeTime();
   const containerRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const prevMessageCountRef = useRef(0);
@@ -80,7 +86,7 @@ export default function MessageList({
   if (loading) {
     return (
       <div className="flex flex-1 items-center justify-center text-sm text-neutral-400">
-        Loading messages...
+        {t("messageList.loading")}
       </div>
     );
   }
@@ -88,7 +94,7 @@ export default function MessageList({
   if (messages.length === 0) {
     return (
       <div className="flex flex-1 items-center justify-center text-sm text-neutral-400">
-        No messages yet. Be the first to say something!
+        {t("messageList.empty")}
       </div>
     );
   }
@@ -99,17 +105,17 @@ export default function MessageList({
       onScroll={handleScroll}
       className="flex-1 overflow-y-auto p-4"
       role="log"
-      aria-label="Message history"
+      aria-label={t("messageList.ariaLabel")}
     >
       {loadingOlder && (
         <div className="mb-3 text-center text-xs text-neutral-400">
-          Loading older messages...
+          {t("messageList.loadingOlder")}
         </div>
       )}
 
       {!hasOlder && messages.length > 0 && (
         <div className="mb-3 text-center text-xs text-neutral-400">
-          Beginning of conversation
+          {t("messageList.beginning")}
         </div>
       )}
 

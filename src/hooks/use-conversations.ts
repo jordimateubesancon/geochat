@@ -81,7 +81,7 @@ export function useConversations(
       )
       .subscribe((status) => {
         if (status === "CHANNEL_ERROR") {
-          onToast?.("Connection lost. Reconnecting...", "error");
+          onToast?.("errors.connectionLost", "error");
         }
         if (status === "SUBSCRIBED") {
           // Refetch data on reconnect to catch up on missed events

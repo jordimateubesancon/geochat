@@ -1,26 +1,30 @@
 import { useCallback, useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 import type { Conversation } from "@/types";
 
-function formatDistance(
-  convLat: number,
-  convLng: number,
-  clickLat: number,
-  clickLng: number
-): string {
-  const R = 6371000; // Earth radius in meters
-  const dLat = ((convLat - clickLat) * Math.PI) / 180;
-  const dLng = ((convLng - clickLng) * Math.PI) / 180;
-  const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos((clickLat * Math.PI) / 180) *
-      Math.cos((convLat * Math.PI) / 180) *
-      Math.sin(dLng / 2) *
-      Math.sin(dLng / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  const distance = R * c;
+function useFormatDistance() {
+  const t = useTranslations();
+  return (
+    convLat: number,
+    convLng: number,
+    clickLat: number,
+    clickLng: number
+  ): string => {
+    const R = 6371000;
+    const dLat = ((convLat - clickLat) * Math.PI) / 180;
+    const dLng = ((convLng - clickLng) * Math.PI) / 180;
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos((clickLat * Math.PI) / 180) *
+        Math.cos((convLat * Math.PI) / 180) *
+        Math.sin(dLng / 2) *
+        Math.sin(dLng / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c;
 
-  if (distance < 100) return `${Math.round(distance)}m away`;
-  return `${(distance / 1000).toFixed(1)}km away`;
+    if (distance < 100) return t("nearbyWarning.metersAway", { distance: Math.round(distance) });
+    return t("nearbyWarning.kmAway", { distance: (distance / 1000).toFixed(1) });
+  };
 }
 
 interface NearbyWarningProps {
@@ -40,6 +44,8 @@ export default function NearbyWarning({
   onCreateAnyway,
   onCancel,
 }: NearbyWarningProps) {
+  const t = useTranslations();
+  const formatDistance = useFormatDistance();
   const dialogRef = useRef<HTMLDivElement>(null);
 
   // Focus trap + Escape to close
@@ -95,7 +101,7 @@ export default function NearbyWarning({
       onClick={onCancel}
       role="dialog"
       aria-modal="true"
-      aria-label="Nearby conversations warning"
+      aria-label={t("nearbyWarning.dialogAriaLabel")}
     >
       <div
         ref={dialogRef}
@@ -103,13 +109,10 @@ export default function NearbyWarning({
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="mb-2 text-lg font-semibold text-neutral-900">
-          Nearby Conversations
+          {t("nearbyWarning.title")}
         </h2>
         <p className="mb-4 text-sm text-neutral-500">
-          There {conversations.length === 1 ? "is" : "are"}{" "}
-          {conversations.length} existing conversation
-          {conversations.length !== 1 && "s"} within 1 km. Would you like to
-          join one instead?
+          {t("nearbyWarning.description", { count: conversations.length })}
         </p>
 
         <ul className="mb-4 max-h-48 space-y-2 overflow-y-auto">
@@ -129,8 +132,7 @@ export default function NearbyWarning({
                     clickLat,
                     clickLng
                   )}{" "}
-                  · {conv.message_count}{" "}
-                  {conv.message_count === 1 ? "message" : "messages"}
+                  · {t("nearbyWarning.messages", { count: conv.message_count })}
                 </div>
               </button>
             </li>
@@ -141,16 +143,16 @@ export default function NearbyWarning({
           <button
             className="flex-1 rounded-md bg-neutral-100 px-4 py-2.5 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-200"
             onClick={onCancel}
-            aria-label="Cancel"
+            aria-label={t("nearbyWarning.cancelAriaLabel")}
           >
-            Cancel
+            {t("common.cancel")}
           </button>
           <button
             className="flex-1 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-500"
             onClick={onCreateAnyway}
-            aria-label="Create conversation anyway"
+            aria-label={t("nearbyWarning.createAriaLabel")}
           >
-            Create anyway
+            {t("nearbyWarning.createAnyway")}
           </button>
         </div>
       </div>

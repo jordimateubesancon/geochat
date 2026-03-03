@@ -46,7 +46,7 @@ export function useConversationSearch(channelId?: string) {
           .abortSignal(controller.signal);
 
         if (supabaseError) {
-          setError("Search is temporarily unavailable");
+          setError("errors.searchUnavailable");
           setResults([]);
           setLoading(false);
           return;

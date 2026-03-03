@@ -6,13 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "i18n": "node scripts/translate.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.97.0",
     "leaflet": "^1.9.4",
     "leaflet-defaulticon-compatibility": "^0.1.2",
     "next": "14.2.35",
+    "next-intl": "^4.8.3",
     "react": "^18",
     "react-dom": "^18",
     "react-leaflet": "^4.2.1"

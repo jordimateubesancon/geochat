@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import type { ChannelDisplay } from "@/hooks/use-channels";
 
 interface ChannelCardProps {
@@ -6,6 +9,17 @@ interface ChannelCardProps {
 }
 
 export default function ChannelCard({ channel }: ChannelCardProps) {
+  const t = useTranslations();
+  const tChannels = useTranslations("channels");
+
+  // Use translated name/description if available, fall back to database values
+  const name = tChannels.has(`${channel.slug}.name`)
+    ? tChannels(`${channel.slug}.name`)
+    : channel.name;
+  const description = tChannels.has(`${channel.slug}.description`)
+    ? tChannels(`${channel.slug}.description`)
+    : channel.description;
+
   return (
     <Link
       href={`/channel/${channel.slug}`}
@@ -18,15 +32,14 @@ export default function ChannelCard({ channel }: ChannelCardProps) {
           </span>
         )}
         <h2 className="text-base font-semibold text-neutral-900 group-hover:text-blue-700">
-          {channel.name}
+          {name}
         </h2>
       </div>
       <p className="text-sm text-neutral-500 line-clamp-2">
-        {channel.description}
+        {description}
       </p>
       <div className="mt-auto pt-2 text-xs text-neutral-400">
-        {channel.conversationCount}{" "}
-        {channel.conversationCount === 1 ? "conversation" : "conversations"}
+        {t("channelCard.conversations", { count: channel.conversationCount })}
       </div>
     </Link>
   );
