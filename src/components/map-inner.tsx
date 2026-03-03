@@ -312,7 +312,7 @@ export default function MapInner({ channelId, channelName, channelSlug, initialC
         keyboard={true}
       >
         <ZoomControl position="bottomleft" />
-        <TileLayer url={OPENTOPOMAP_URL} attribution={OPENTOPOMAP_ATTRIBUTION} maxZoom={17} />
+        <TileLayer url={OPENTOPOMAP_URL} attribution={OPENTOPOMAP_ATTRIBUTION} maxZoom={17} errorTileUrl="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAIAAADPMOyrAAAAOElEQVR42u3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA7waVOAABJMdBbgAAAABJRU5ErkJggg==" />
         <MapEventHandler
           onMoveEnd={handleMoveEnd}
           onMapClick={handleMapClick}

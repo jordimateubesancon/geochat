@@ -104,5 +104,12 @@
   "errors.connectionLost": "Connexion perdue. Reconnexion...",
   "errors.messageConnectionLost": "Connexion des messages perdue. Reconnexion...",
   "errors.sendFailed": "Échec de l'envoi du message. Veuillez réessayer.",
-  "errors.searchUnavailable": "La recherche est temporairement indisponible"
+  "errors.searchUnavailable": "La recherche est temporairement indisponible",
+
+  "offline.indicator": "Vous êtes hors ligne",
+  "offline.messagePending": "Envoi dès le retour en ligne...",
+  "offline.messageFailed": "Échec de l'envoi",
+  "offline.messageRetry": "Réessayer",
+  "offline.createDisabled": "La création de conversations nécessite une connexion internet",
+  "offline.syncComplete": "Messages synchronisés"
 }

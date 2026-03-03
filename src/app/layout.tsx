@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import I18nProvider from "@/components/i18n-provider";
+import OfflineIndicator from "@/components/offline-indicator";
+import SwRegister from "@/components/sw-register";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -13,6 +15,11 @@ export const metadata: Metadata = {
   title: "GeoChat",
   description:
     "Location-based conversations anchored to real-world coordinates",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "GeoChat",
+  },
 };
 
 export default function RootLayout({
@@ -23,7 +30,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="bg-white text-neutral-900 antialiased">
-        <I18nProvider>{children}</I18nProvider>
+        <SwRegister />
+        <I18nProvider>
+          <OfflineIndicator />
+          {children}
+        </I18nProvider>
       </body>
     </html>
   );

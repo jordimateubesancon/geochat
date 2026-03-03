@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { useMessages } from "@/hooks/use-messages";
 import { useSendMessage } from "@/hooks/use-send-message";
+import { usePendingMessages } from "@/hooks/use-pending-messages";
 import MessageList from "@/components/message-list";
 import MessageInput from "@/components/message-input";
 import ShareButton from "@/components/share-button";
@@ -54,12 +55,18 @@ export default function ConversationPanel({
     failMessage,
   } = useMessages(conversation.id, onToast);
 
+  const { pendingMessages, addPending, retryMessage } = usePendingMessages(
+    conversation.id,
+    onToast
+  );
+
   const { sendMessage } = useSendMessage({
     conversationId: conversation.id,
     authorName: currentAuthor,
     onOptimistic: addOptimisticMessage,
     onConfirm: confirmMessage,
     onFail: failMessage,
+    onPending: addPending,
     onToast,
   });
 
@@ -180,6 +187,8 @@ export default function ConversationPanel({
           hasOlder={hasOlder}
           currentAuthor={currentAuthor}
           onLoadOlder={loadOlderMessages}
+          pendingMessages={pendingMessages}
+          onRetryMessage={retryMessage}
         />
 
         {/* Input */}

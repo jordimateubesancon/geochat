@@ -89,7 +89,13 @@
     "errors.connectionLost": "c29a9c3fda",
     "errors.messageConnectionLost": "de0da4d8a5",
     "errors.sendFailed": "5b7c984e1e",
-    "errors.searchUnavailable": "0c6ad06879"
+    "errors.searchUnavailable": "0c6ad06879",
+    "offline.indicator": "b4704afd66",
+    "offline.messagePending": "4bbcbf26aa",
+    "offline.messageFailed": "cb4ce1779d",
+    "offline.messageRetry": "9f5cd8a2e8",
+    "offline.createDisabled": "c2ff8a83f8",
+    "offline.syncComplete": "6ececdc111"
   },
   "fr": {
     "common.cancel": "77dfd2135f",
@@ -181,7 +187,13 @@
     "errors.connectionLost": "c29a9c3fda",
     "errors.messageConnectionLost": "de0da4d8a5",
     "errors.sendFailed": "5b7c984e1e",
-    "errors.searchUnavailable": "0c6ad06879"
+    "errors.searchUnavailable": "0c6ad06879",
+    "offline.indicator": "b4704afd66",
+    "offline.messagePending": "4bbcbf26aa",
+    "offline.messageFailed": "cb4ce1779d",
+    "offline.messageRetry": "9f5cd8a2e8",
+    "offline.createDisabled": "c2ff8a83f8",
+    "offline.syncComplete": "6ececdc111"
   },
   "ca": {
     "common.cancel": "77dfd2135f",
@@ -273,6 +285,12 @@
     "errors.connectionLost": "c29a9c3fda",
     "errors.messageConnectionLost": "de0da4d8a5",
     "errors.sendFailed": "5b7c984e1e",
-    "errors.searchUnavailable": "0c6ad06879"
+    "errors.searchUnavailable": "0c6ad06879",
+    "offline.indicator": "b4704afd66",
+    "offline.messagePending": "4bbcbf26aa",
+    "offline.messageFailed": "cb4ce1779d",
+    "offline.messageRetry": "9f5cd8a2e8",
+    "offline.createDisabled": "c2ff8a83f8",
+    "offline.syncComplete": "6ececdc111"
   }
 }

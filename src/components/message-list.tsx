@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import type { Message } from "@/types";
+import type { PendingMessage } from "@/lib/offline-db";
 
 function useFormatRelativeTime() {
   const t = useTranslations();
@@ -27,6 +28,8 @@ interface MessageListProps {
   hasOlder: boolean;
   currentAuthor: string;
   onLoadOlder: () => void;
+  pendingMessages?: PendingMessage[];
+  onRetryMessage?: (id: string) => void;
 }
 
 export default function MessageList({
@@ -36,6 +39,8 @@ export default function MessageList({
   hasOlder,
   currentAuthor,
   onLoadOlder,
+  pendingMessages = [],
+  onRetryMessage,
 }: MessageListProps) {
   const t = useTranslations();
   const formatRelativeTime = useFormatRelativeTime();
@@ -153,6 +158,45 @@ export default function MessageList({
             </div>
           );
         })}
+
+        {pendingMessages
+          .filter((pm) => !messages.some((m) => m.id === pm.id))
+          .map((pm) => (
+            <div key={pm.id} className="flex justify-end">
+              <div className="max-w-[80%] rounded-lg bg-blue-500/60 px-3 py-2 text-white">
+                <div className="whitespace-pre-wrap break-words text-sm">
+                  {pm.body}
+                </div>
+                <div className="mt-1 flex items-center gap-1.5 text-xs text-blue-100">
+                  {pm.status === "pending" && (
+                    <>
+                      <span className="inline-block h-3 w-3">&#9201;</span>
+                      {t("offline.messagePending")}
+                    </>
+                  )}
+                  {pm.status === "sending" && (
+                    <>
+                      <span className="inline-block h-3 w-3 animate-spin">&#8635;</span>
+                      {t("offline.messagePending")}
+                    </>
+                  )}
+                  {pm.status === "failed" && (
+                    <>
+                      <span className="text-red-300">{t("offline.messageFailed")}</span>
+                      {onRetryMessage && (
+                        <button
+                          onClick={() => onRetryMessage(pm.id)}
+                          className="ml-1 underline text-red-200 hover:text-white"
+                        >
+                          {t("offline.messageRetry")}
+                        </button>
+                      )}
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
       </div>
 
       <div ref={bottomRef} />

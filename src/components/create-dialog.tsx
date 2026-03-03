@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
+import { useOnlineStatus } from "@/hooks/use-online-status";
 
 const TITLE_MAX = 120;
 const BODY_MAX = 2000;
@@ -20,6 +21,7 @@ export default function CreateDialog({
   onCancel,
 }: CreateDialogProps) {
   const t = useTranslations();
+  const { isOnline } = useOnlineStatus();
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -154,6 +156,12 @@ export default function CreateDialog({
           </div>
         </div>
 
+        {!isOnline && (
+          <div className="mb-3 rounded-md bg-amber-50 border border-amber-200 px-3 py-2 text-xs text-amber-700">
+            {t("offline.createDisabled")}
+          </div>
+        )}
+
         <div className="flex flex-col-reverse gap-2 sm:flex-row sm:gap-3">
           <button
             className="flex-1 rounded-md bg-neutral-100 px-4 py-2.5 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-200"
@@ -165,7 +173,7 @@ export default function CreateDialog({
           <button
             className="flex-1 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
             onClick={handleSubmit}
-            disabled={!isValid || loading}
+            disabled={!isValid || loading || !isOnline}
             aria-label={t("createDialog.createAriaLabel")}
           >
             {loading ? t("createDialog.creating") : t("createDialog.create")}

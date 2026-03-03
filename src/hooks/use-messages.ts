@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { cacheMessages } from "@/hooks/use-offline-cache";
+import { getMessagesByConversation } from "@/lib/offline-db";
 import type { Message } from "@/types";
 import type { RealtimeChannel } from "@supabase/supabase-js";
 
@@ -34,6 +36,23 @@ export function useMessages(
     setHasOlder(true);
     optimisticIdsRef.current.clear();
 
+    if (!navigator.onLine) {
+      try {
+        const cached = await getMessagesByConversation(conversationId);
+        cached.sort(
+          (a, b) =>
+            new Date(a.created_at).getTime() -
+            new Date(b.created_at).getTime()
+        );
+        setMessages(cached);
+        setHasOlder(false);
+      } catch (err) {
+        console.warn("Failed to read cached messages:", err);
+      }
+      setLoading(false);
+      return;
+    }
+
     const { data, error } = await supabase.rpc(
       "messages_for_conversation",
       {
@@ -50,6 +69,7 @@ export function useMessages(
       msgs.reverse();
       setMessages(msgs);
       setHasOlder(msgs.length >= PAGE_SIZE);
+      cacheMessages(msgs);
     }
     setLoading(false);
   }, [conversationId]);
