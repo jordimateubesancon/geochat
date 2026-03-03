@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 interface TopBarProps {
   displayName: string;
@@ -10,6 +13,7 @@ interface TopBarProps {
 }
 
 export default function TopBar({ displayName, onSearchToggle, searchOpen, channelName, hidden }: TopBarProps) {
+  const t = useTranslations();
   return (
     <div
       className={`pointer-events-none absolute left-0 top-0 z-[1600] flex flex-col items-start gap-2 p-3 ${
@@ -23,7 +27,7 @@ export default function TopBar({ displayName, onSearchToggle, searchOpen, channe
           href="/"
           className="rounded-md bg-white/80 px-3 py-1 text-sm font-bold text-neutral-900 shadow-sm backdrop-blur-sm transition-colors hover:bg-white"
         >
-          GeoChat
+          {t("topBar.appName")}
         </Link>
         {channelName && (
           <>
@@ -42,7 +46,7 @@ export default function TopBar({ displayName, onSearchToggle, searchOpen, channe
       {onSearchToggle && !searchOpen && (
         <button
           onClick={(e) => { e.stopPropagation(); onSearchToggle?.(); }}
-          aria-label="Open map tools"
+          aria-label={t("topBar.openTools")}
           aria-expanded={false}
           className="pointer-events-auto rounded-md bg-white/80 p-2 shadow-sm backdrop-blur-sm transition-colors hover:bg-white"
         >

@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface MessageInputProps {
   onSend: (body: string) => void;
@@ -6,6 +7,7 @@ interface MessageInputProps {
 }
 
 export default function MessageInput({ onSend, disabled }: MessageInputProps) {
+  const t = useTranslations();
   const [value, setValue] = useState("");
 
   const trimmed = value.trim();
@@ -33,7 +35,7 @@ export default function MessageInput({ onSend, disabled }: MessageInputProps) {
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder="Type a message..."
+        placeholder={t("messageInput.placeholder")}
         rows={1}
         className="flex-1 resize-none rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder-neutral-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
         aria-label="Message input"
@@ -45,7 +47,7 @@ export default function MessageInput({ onSend, disabled }: MessageInputProps) {
         className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
         aria-label="Send message"
       >
-        Send
+        {t("common.send")}
       </button>
     </div>
   );

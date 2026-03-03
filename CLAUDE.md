@@ -12,6 +12,8 @@ Auto-generated from all feature plans. Last updated: 2026-02-23
 - Supabase (PostgreSQL + PostGIS) — new `channels` table + FK on `conversations` (005-topic-channels)
 - TypeScript 5.x (strict mode, no `any` types) + Next.js 14, React 18+, Tailwind CSS 3, @supabase/supabase-js (no new dependencies) (006-share-chat)
 - N/A — no database changes, client-side URL construction only (006-share-chat)
+- TypeScript 5.x (strict mode) + Next.js 14, React 18+ + next-intl (new), existing: react-leaflet 4, Tailwind CSS 3, @supabase/supabase-js (007-auto-i18n)
+- N/A — no database changes, static JSON translation files only (007-auto-i18n)
 
 - TypeScript 5.x (strict mode, no `any` types) + Next.js 14, React 18+, react-leaflet 4, (001-geochat-mvp)
 
@@ -26,14 +28,38 @@ tests/
 
 npm test && npm run lint
 
+### i18n Translation Tracking
+
+The project uses `next-intl` with manual translations. English (`src/messages/en.json`) is the source of truth, with Spanish (`es.json`) and French (`fr.json`) as targets.
+
+A tracking script detects missing, stale, and orphan translation keys:
+
+```bash
+npm run i18n              # Show status report (missing/stale/orphan keys per locale)
+npm run i18n -- --sync    # Snapshot en.json hashes after updating translations
+```
+
+**Workflow when changing UI strings:**
+1. Add or edit strings in `src/messages/en.json`
+2. Run `npm run i18n` to see what needs translating
+3. Update `es.json` and `fr.json` manually
+4. Run `npm run i18n -- --sync` to mark translations as current
+
+**Key categories:**
+- **MISSING** — key exists in en.json but not in locale file
+- **STALE** — English value changed since last sync; translation may be outdated
+- **ORPHAN** — key in locale file was removed from en.json; safe to delete
+
+Tracking state is stored in `src/messages/.tracking.json` (commit this file).
+
 ## Code Style
 
 TypeScript 5.x (strict mode, no `any` types): Follow standard conventions
 
 ## Recent Changes
+- 007-auto-i18n: Added TypeScript 5.x (strict mode) + Next.js 14, React 18+ + next-intl (new), existing: react-leaflet 4, Tailwind CSS 3, @supabase/supabase-js
 - 006-share-chat: Added TypeScript 5.x (strict mode, no `any` types) + Next.js 14, React 18+, Tailwind CSS 3, @supabase/supabase-js (no new dependencies)
 - 005-topic-channels: Added TypeScript 5.x (strict mode, no `any` types) + Next.js 14, React 18+, react-leaflet 4, Tailwind CSS 3, @supabase/supabase-js
-- 004-chat-title-search: Added TypeScript 5.x (strict mode, no `any` types) + Next.js 14, React 18+, react-leaflet 4, Tailwind CSS 3, @supabase/supabase-js
 
 
 <!-- MANUAL ADDITIONS START -->

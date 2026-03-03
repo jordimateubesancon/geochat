@@ -43,7 +43,7 @@ export function useNominatimSearch() {
         });
 
         if (!response.ok) {
-          setError("Search is temporarily unavailable");
+          setError("errors.searchUnavailable");
           setResults([]);
           setLoading(false);
           return;

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 import { useMessages } from "@/hooks/use-messages";
 import { useSendMessage } from "@/hooks/use-send-message";
 import MessageList from "@/components/message-list";
@@ -6,19 +7,22 @@ import MessageInput from "@/components/message-input";
 import ShareButton from "@/components/share-button";
 import type { Conversation } from "@/types";
 
-function formatRelativeTime(dateString: string): string {
-  const now = Date.now();
-  const then = new Date(dateString).getTime();
-  const diffMs = now - then;
-  const diffSec = Math.floor(diffMs / 1000);
-  const diffMin = Math.floor(diffSec / 60);
-  const diffHour = Math.floor(diffMin / 60);
-  const diffDay = Math.floor(diffHour / 24);
+function useFormatRelativeTime() {
+  const t = useTranslations();
+  return (dateString: string): string => {
+    const now = Date.now();
+    const then = new Date(dateString).getTime();
+    const diffMs = now - then;
+    const diffSec = Math.floor(diffMs / 1000);
+    const diffMin = Math.floor(diffSec / 60);
+    const diffHour = Math.floor(diffMin / 60);
+    const diffDay = Math.floor(diffHour / 24);
 
-  if (diffSec < 60) return "just now";
-  if (diffMin < 60) return `${diffMin}m ago`;
-  if (diffHour < 24) return `${diffHour}h ago`;
-  return `${diffDay}d ago`;
+    if (diffSec < 60) return t("time.justNow");
+    if (diffMin < 60) return t("time.minutesAgo", { count: diffMin });
+    if (diffHour < 24) return t("time.hoursAgo", { count: diffHour });
+    return t("time.daysAgo", { count: diffDay });
+  };
 }
 
 interface ConversationPanelProps {
@@ -36,6 +40,8 @@ export default function ConversationPanel({
   onClose,
   onToast,
 }: ConversationPanelProps) {
+  const t = useTranslations();
+  const formatRelativeTime = useFormatRelativeTime();
   const panelRef = useRef<HTMLDivElement>(null);
   const {
     messages,
@@ -111,14 +117,14 @@ export default function ConversationPanel({
     <div
       className="fixed inset-0 z-[1500]"
       onClick={handleBackdropClick}
-      aria-label="Conversation panel backdrop"
+      aria-label={t("conversationPanel.backdropAriaLabel")}
     >
       <div
         ref={panelRef}
         className="absolute bottom-0 right-0 top-0 flex w-full flex-col bg-white shadow-2xl md:max-w-md md:border-l md:border-neutral-200"
         role="dialog"
         aria-modal="true"
-        aria-label={`Conversation: ${conversation.title}`}
+        aria-label={t("conversationPanel.ariaLabel", { title: conversation.title })}
       >
         {/* Header */}
         <div className="flex items-start justify-between border-b border-neutral-200 p-4">
@@ -131,8 +137,7 @@ export default function ConversationPanel({
               {conversation.longitude.toFixed(4)}
             </div>
             <div className="mt-0.5 text-xs text-neutral-400">
-              Started by {conversation.creator_name} ·{" "}
-              {formatRelativeTime(conversation.created_at)}
+              {t("conversationPanel.startedBy", { name: conversation.creator_name, time: formatRelativeTime(conversation.created_at) })}
             </div>
           </div>
           <div className="ml-2 flex items-center gap-1">
@@ -147,7 +152,7 @@ export default function ConversationPanel({
           <button
             onClick={onClose}
             className="rounded-md p-1.5 text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-800"
-            aria-label="Close conversation panel"
+            aria-label={t("conversationPanel.closeAriaLabel")}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

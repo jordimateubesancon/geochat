@@ -24,7 +24,7 @@ export function useChannels() {
 
       if (fetchError) {
         console.error("Failed to fetch channels:", fetchError);
-        setError("Failed to load channels");
+        setError("errors.loadChannels");
         setLoading(false);
         return;
       }
