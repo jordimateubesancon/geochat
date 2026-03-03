@@ -49,7 +49,11 @@ export function useToasts() {
 
   const addToast = useCallback((text: string, type: "error" | "info" = "info") => {
     const id = crypto.randomUUID();
-    setToasts((prev) => [...prev, { id, text, type }]);
+    setToasts((prev) => {
+      // Deduplicate: don't add if same text is already showing
+      if (prev.some((t) => t.text === text)) return prev;
+      return [...prev, { id, text, type }];
+    });
     return id;
   }, []);
 
