@@ -3,7 +3,7 @@
 /**
  * i18n translation status tracker.
  *
- * Compares target locale files (es.json, fr.json) against the source (en.json)
+ * Compares target locale files (es.json, fr.json, ca.json) against the source (en.json)
  * and reports:
  *   - Missing keys  (in en.json but not in the locale file)
  *   - Stale keys    (en.json value changed since translation was last synced)
@@ -23,7 +23,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const MESSAGES_DIR = resolve(__dirname, "../src/messages");
 const TRACKING_FILE = resolve(MESSAGES_DIR, ".tracking.json");
 const SOURCE_LOCALE = "en";
-const TARGET_LOCALES = ["es", "fr"];
+const TARGET_LOCALES = ["es", "fr", "ca"];
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
