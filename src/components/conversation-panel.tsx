@@ -3,6 +3,8 @@ import { useTranslations } from "next-intl";
 import { useMessages } from "@/hooks/use-messages";
 import { useSendMessage } from "@/hooks/use-send-message";
 import { usePendingMessages } from "@/hooks/use-pending-messages";
+import { useReactions } from "@/hooks/use-reactions";
+import { useUserSession } from "@/hooks/use-user-session";
 import MessageList from "@/components/message-list";
 import MessageInput from "@/components/message-input";
 import ShareButton from "@/components/share-button";
@@ -54,6 +56,9 @@ export default function ConversationPanel({
     confirmMessage,
     failMessage,
   } = useMessages(conversation.id, onToast);
+
+  const { sessionId, displayName } = useUserSession();
+  const reactions = useReactions(conversation.id, sessionId, displayName);
 
   const { pendingMessages, addPending, retryMessage } = usePendingMessages(
     conversation.id,
@@ -186,9 +191,12 @@ export default function ConversationPanel({
           loadingOlder={loadingOlder}
           hasOlder={hasOlder}
           currentAuthor={currentAuthor}
+          conversationId={conversation.id}
           onLoadOlder={loadOlderMessages}
           pendingMessages={pendingMessages}
           onRetryMessage={retryMessage}
+          reactions={reactions}
+          onToast={onToast}
         />
 
         {/* Input */}

@@ -130,5 +130,18 @@
   "settings.reducedMotionDescription": "Disable animations",
   "settings.reset": "Reset to defaults",
   "settings.ariaLabel": "Accessibility settings",
-  "settings.closeAriaLabel": "Close accessibility settings"
+  "settings.closeAriaLabel": "Close accessibility settings",
+
+  "reactions.thumbsUp": "Like",
+  "reactions.thumbsDown": "Dislike",
+  "reactions.viewReactors": "View who reacted",
+  "reactions.reactorsTitle": "Reactions",
+  "reactions.andMore": "+{count} more",
+
+  "pins.pin": "Pin message",
+  "pins.unpin": "Unpin message",
+  "pins.maxReached": "You can pin up to 3 messages per conversation",
+  "pins.pinnedMessages": "Pinned messages",
+  "pins.pinnedCount": "{count}/3 pinned",
+  "pins.scrollToMessage": "Scroll to message"
 }

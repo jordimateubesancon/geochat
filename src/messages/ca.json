@@ -130,5 +130,18 @@
   "settings.reducedMotionDescription": "Desactivar animacions",
   "settings.reset": "Restablir valors predeterminats",
   "settings.ariaLabel": "Configuració d'accessibilitat",
-  "settings.closeAriaLabel": "Tancar configuració d'accessibilitat"
+  "settings.closeAriaLabel": "Tancar configuració d'accessibilitat",
+
+  "reactions.thumbsUp": "M'agrada",
+  "reactions.thumbsDown": "No m'agrada",
+  "reactions.viewReactors": "Veure qui ha reaccionat",
+  "reactions.reactorsTitle": "Reaccions",
+  "reactions.andMore": "+{count} més",
+
+  "pins.pin": "Fixar missatge",
+  "pins.unpin": "Desfixar missatge",
+  "pins.maxReached": "Pots fixar fins a 3 missatges per conversa",
+  "pins.pinnedMessages": "Missatges fixats",
+  "pins.pinnedCount": "{count}/3 fixats",
+  "pins.scrollToMessage": "Anar al missatge"
 }

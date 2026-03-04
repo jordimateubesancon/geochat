@@ -112,7 +112,18 @@
     "settings.reducedMotionDescription": "ef55b7f8a3",
     "settings.reset": "ddefe47d69",
     "settings.ariaLabel": "0e0bbc560c",
-    "settings.closeAriaLabel": "1b06260d1d"
+    "settings.closeAriaLabel": "1b06260d1d",
+    "reactions.thumbsUp": "c7e02c95fe",
+    "reactions.thumbsDown": "efc984777f",
+    "reactions.viewReactors": "5e37a38708",
+    "reactions.reactorsTitle": "16d1d6a2b0",
+    "reactions.andMore": "7a7938b5bc",
+    "pins.pin": "f04bd474e5",
+    "pins.unpin": "eb56239e94",
+    "pins.maxReached": "02370a7873",
+    "pins.pinnedMessages": "0615ab5a53",
+    "pins.pinnedCount": "fd2c4317a3",
+    "pins.scrollToMessage": "e5a2ac937f"
   },
   "fr": {
     "common.cancel": "77dfd2135f",
@@ -227,7 +238,18 @@
     "settings.reducedMotionDescription": "ef55b7f8a3",
     "settings.reset": "ddefe47d69",
     "settings.ariaLabel": "0e0bbc560c",
-    "settings.closeAriaLabel": "1b06260d1d"
+    "settings.closeAriaLabel": "1b06260d1d",
+    "reactions.thumbsUp": "c7e02c95fe",
+    "reactions.thumbsDown": "efc984777f",
+    "reactions.viewReactors": "5e37a38708",
+    "reactions.reactorsTitle": "16d1d6a2b0",
+    "reactions.andMore": "7a7938b5bc",
+    "pins.pin": "f04bd474e5",
+    "pins.unpin": "eb56239e94",
+    "pins.maxReached": "02370a7873",
+    "pins.pinnedMessages": "0615ab5a53",
+    "pins.pinnedCount": "fd2c4317a3",
+    "pins.scrollToMessage": "e5a2ac937f"
   },
   "ca": {
     "common.cancel": "77dfd2135f",
@@ -342,6 +364,17 @@
     "settings.reducedMotionDescription": "ef55b7f8a3",
     "settings.reset": "ddefe47d69",
     "settings.ariaLabel": "0e0bbc560c",
-    "settings.closeAriaLabel": "1b06260d1d"
+    "settings.closeAriaLabel": "1b06260d1d",
+    "reactions.thumbsUp": "c7e02c95fe",
+    "reactions.thumbsDown": "efc984777f",
+    "reactions.viewReactors": "5e37a38708",
+    "reactions.reactorsTitle": "16d1d6a2b0",
+    "reactions.andMore": "7a7938b5bc",
+    "pins.pin": "f04bd474e5",
+    "pins.unpin": "eb56239e94",
+    "pins.maxReached": "02370a7873",
+    "pins.pinnedMessages": "0615ab5a53",
+    "pins.pinnedCount": "fd2c4317a3",
+    "pins.scrollToMessage": "e5a2ac937f"
   }
 }

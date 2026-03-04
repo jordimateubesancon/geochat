@@ -20,6 +20,8 @@ Auto-generated from all feature plans. Last updated: 2026-02-23
 - N/A — no database changes, client-side rendering only (009-safe-external-links)
 - TypeScript 5.x (strict mode) + Next.js 14, React 18+ + Tailwind CSS 3, next-intl 4.8 (no new dependencies) (010-outdoor-accessibility)
 - localStorage (client-side preference persistence) (010-outdoor-accessibility)
+- TypeScript 5.x (strict mode) + Next.js 14, React 18+ + react-leaflet 4, Tailwind CSS 3, @supabase/supabase-js, next-intl 4.8, idb (011-reactions-and-pins)
+- Supabase (PostgreSQL + PostGIS) for reactions; localStorage for pins; IndexedDB for offline reaction queue (011-reactions-and-pins)
 
 - TypeScript 5.x (strict mode, no `any` types) + Next.js 14, React 18+, react-leaflet 4, (001-geochat-mvp)
 
@@ -63,9 +65,9 @@ Tracking state is stored in `src/messages/.tracking.json` (commit this file).
 TypeScript 5.x (strict mode, no `any` types): Follow standard conventions
 
 ## Recent Changes
+- 011-reactions-and-pins: Added TypeScript 5.x (strict mode) + Next.js 14, React 18+ + react-leaflet 4, Tailwind CSS 3, @supabase/supabase-js, next-intl 4.8, idb
 - 010-outdoor-accessibility: Added TypeScript 5.x (strict mode) + Next.js 14, React 18+ + Tailwind CSS 3, next-intl 4.8 (no new dependencies)
 - 009-safe-external-links: Added TypeScript 5.x (strict mode) + Next.js 14, React 18+ + react-leaflet 4, Tailwind CSS 3, @supabase/supabase-js, next-intl 4.8 (no new dependencies)
-- 008-offline-mode: Added TypeScript 5.x (strict mode) + Next.js 14 (App Router) + react 18, react-leaflet 4, @supabase/supabase-js 2.97, next-intl 4.8, idb (new)
 
 
 <!-- MANUAL ADDITIONS START -->

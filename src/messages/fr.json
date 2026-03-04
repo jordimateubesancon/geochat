@@ -130,5 +130,18 @@
   "settings.reducedMotionDescription": "Désactiver les animations",
   "settings.reset": "Réinitialiser par défaut",
   "settings.ariaLabel": "Paramètres d'accessibilité",
-  "settings.closeAriaLabel": "Fermer les paramètres d'accessibilité"
+  "settings.closeAriaLabel": "Fermer les paramètres d'accessibilité",
+
+  "reactions.thumbsUp": "J'aime",
+  "reactions.thumbsDown": "Je n'aime pas",
+  "reactions.viewReactors": "Voir qui a réagi",
+  "reactions.reactorsTitle": "Réactions",
+  "reactions.andMore": "+{count} de plus",
+
+  "pins.pin": "Épingler le message",
+  "pins.unpin": "Désépingler le message",
+  "pins.maxReached": "Vous pouvez épingler jusqu'à 3 messages par conversation",
+  "pins.pinnedMessages": "Messages épinglés",
+  "pins.pinnedCount": "{count}/3 épinglés",
+  "pins.scrollToMessage": "Aller au message"
 }
