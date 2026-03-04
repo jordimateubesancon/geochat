@@ -8,7 +8,7 @@ export default function Home() {
   const t = useTranslations();
   const { toggleSettings } = useSettings();
   return (
-    <main className="min-h-screen bg-stone-50">
+    <main className="h-dvh overflow-y-auto bg-stone-50">
       {/* Settings gear — top-left */}
       <button
         onClick={toggleSettings}
