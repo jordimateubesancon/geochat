@@ -28,20 +28,20 @@ export default function ReactionPopover({ names, onClose }: ReactionPopoverProps
   return (
     <div
       ref={ref}
-      className="absolute bottom-full left-0 z-10 mb-1 rounded-lg bg-white px-3 py-2 text-xs shadow-lg ring-1 ring-neutral-200"
+      className="absolute bottom-full left-0 z-10 mb-1 rounded-lg bg-white px-3 py-2 text-xs shadow-lg ring-1 ring-stone-200"
       role="tooltip"
     >
-      <div className="mb-1 font-semibold text-neutral-700">
+      <div className="mb-1 font-semibold text-stone-700">
         {t("reactions.reactorsTitle")}
       </div>
       <div className="space-y-0.5">
         {visible.map((name) => (
-          <div key={name} className="text-neutral-600">
+          <div key={name} className="text-stone-600">
             {name}
           </div>
         ))}
         {remaining > 0 && (
-          <div className="text-neutral-400">
+          <div className="text-stone-400">
             {t("reactions.andMore", { count: remaining })}
           </div>
         )}

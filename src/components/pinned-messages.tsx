@@ -21,7 +21,7 @@ export default function PinnedMessages({
   if (pins.length === 0) return null;
 
   return (
-    <div className="border-b border-neutral-200 bg-amber-50/50 px-4 py-2">
+    <div className="border-b border-stone-200 bg-amber-50/50 px-4 py-2">
       <div className="mb-1.5 flex items-center justify-between">
         <div className="flex items-center gap-1.5 text-xs font-semibold text-amber-700">
           <svg
@@ -56,10 +56,10 @@ export default function PinnedMessages({
               className="min-w-0 flex-1 text-left"
               aria-label={t("pins.scrollToMessage")}
             >
-              <div className="text-xs font-medium text-neutral-700">
+              <div className="text-xs font-medium text-stone-700">
                 {pin.author_name}
               </div>
-              <div className="truncate text-xs text-neutral-500">
+              <div className="truncate text-xs text-stone-500">
                 {pin.body}
               </div>
             </button>
@@ -69,7 +69,7 @@ export default function PinnedMessages({
                 onUnpin(pin.id);
               }}
               aria-label={t("pins.unpin")}
-              className="shrink-0 rounded p-0.5 text-neutral-400 opacity-0 transition-opacity hover:text-neutral-600 group-hover:opacity-100"
+              className="shrink-0 rounded p-0.5 text-stone-400 opacity-0 transition-opacity hover:text-stone-600 group-hover:opacity-100"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

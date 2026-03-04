@@ -140,7 +140,7 @@ export default function MessageList({
 
   if (loading) {
     return (
-      <div className="flex flex-1 items-center justify-center text-sm text-neutral-400">
+      <div className="flex flex-1 items-center justify-center text-sm text-stone-400">
         {t("messageList.loading")}
       </div>
     );
@@ -148,7 +148,7 @@ export default function MessageList({
 
   if (messages.length === 0) {
     return (
-      <div className="flex flex-1 items-center justify-center text-sm text-neutral-400">
+      <div className="flex flex-1 items-center justify-center text-sm text-stone-400">
         {t("messageList.empty")}
       </div>
     );
@@ -173,13 +173,13 @@ export default function MessageList({
         aria-label={t("messageList.ariaLabel")}
       >
         {loadingOlder && (
-          <div className="mb-3 text-center text-xs text-neutral-400">
+          <div className="mb-3 text-center text-xs text-stone-400">
             {t("messageList.loadingOlder")}
           </div>
         )}
 
         {!hasOlder && messages.length > 0 && (
-          <div className="mb-3 text-center text-xs text-neutral-400">
+          <div className="mb-3 text-center text-xs text-stone-400">
             {t("messageList.beginning")}
           </div>
         )}
@@ -201,8 +201,8 @@ export default function MessageList({
                 <div
                   className={`relative max-w-[80%] rounded-lg px-3 py-2 ${
                     isOwn
-                      ? "bg-blue-500 text-white"
-                      : "bg-neutral-100 text-neutral-900"
+                      ? "bg-geo-700 text-white"
+                      : "bg-stone-100 text-stone-900"
                   }`}
                 >
                   {/* Pin button */}
@@ -215,7 +215,7 @@ export default function MessageList({
                     className={`absolute -top-1 ${isOwn ? "-left-6" : "-right-6"} rounded p-0.5 transition-opacity ${
                       pinned
                         ? "text-amber-500 opacity-100"
-                        : "text-neutral-400 opacity-0 hover:text-neutral-600 group-hover:opacity-100"
+                        : "text-stone-400 opacity-0 hover:text-stone-600 group-hover:opacity-100"
                     }`}
                   >
                     <svg
@@ -236,7 +236,7 @@ export default function MessageList({
                   </button>
 
                   {!isOwn && (
-                    <div className="mb-0.5 text-xs font-semibold text-neutral-600">
+                    <div className="mb-0.5 text-xs font-semibold text-stone-600">
                       {msg.author_name}
                     </div>
                   )}
@@ -245,7 +245,7 @@ export default function MessageList({
                   </div>
                   <div
                     className={`mt-1 text-xs ${
-                      isOwn ? "text-blue-100" : "text-neutral-500"
+                      isOwn ? "text-geo-200" : "text-stone-500"
                     }`}
                   >
                     {formatRelativeTime(msg.created_at)}
@@ -267,11 +267,11 @@ export default function MessageList({
             .filter((pm) => !messages.some((m) => m.id === pm.id))
             .map((pm) => (
               <div key={pm.id} className="flex justify-end">
-                <div className="max-w-[80%] rounded-lg bg-blue-500/60 px-3 py-2 text-white">
+                <div className="max-w-[80%] rounded-lg bg-geo-700/60 px-3 py-2 text-white">
                   <div className="whitespace-pre-wrap break-words text-sm">
                     <LinkifiedText text={pm.body} variant="own" />
                   </div>
-                  <div className="mt-1 flex items-center gap-1.5 text-xs text-blue-100">
+                  <div className="mt-1 flex items-center gap-1.5 text-xs text-geo-200">
                     {pm.status === "pending" && (
                       <>
                         <span className="inline-block h-3 w-3">&#9201;</span>

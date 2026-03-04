@@ -108,10 +108,10 @@ export default function NearbyWarning({
         className="mx-3 w-full max-w-md rounded-lg bg-white p-4 shadow-xl sm:mx-4 sm:p-6"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="mb-2 text-lg font-semibold text-neutral-900">
+        <h2 className="mb-2 text-lg font-semibold text-stone-900">
           {t("nearbyWarning.title")}
         </h2>
-        <p className="mb-4 text-sm text-neutral-500">
+        <p className="mb-4 text-sm text-stone-500">
           {t("nearbyWarning.description", { count: conversations.length })}
         </p>
 
@@ -119,13 +119,13 @@ export default function NearbyWarning({
           {conversations.map((conv) => (
             <li key={conv.id}>
               <button
-                className="min-h-[44px] w-full rounded-md bg-neutral-50 px-3 py-2.5 text-left transition-colors hover:bg-neutral-100"
+                className="min-h-[44px] w-full rounded-md bg-stone-50 px-3 py-2.5 text-left transition-colors hover:bg-stone-100"
                 onClick={() => handleConversationClick(conv)}
               >
-                <div className="font-medium text-neutral-900">
+                <div className="font-medium text-stone-900">
                   {conv.title}
                 </div>
-                <div className="text-xs text-neutral-500">
+                <div className="text-xs text-stone-500">
                   {formatDistance(
                     conv.latitude,
                     conv.longitude,
@@ -141,14 +141,14 @@ export default function NearbyWarning({
 
         <div className="flex flex-col-reverse gap-2 sm:flex-row sm:gap-3">
           <button
-            className="flex-1 rounded-md bg-neutral-100 px-4 py-2.5 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-200"
+            className="flex-1 rounded-md bg-stone-100 px-4 py-2.5 text-sm font-medium text-stone-700 transition-colors hover:bg-stone-200"
             onClick={onCancel}
             aria-label={t("nearbyWarning.cancelAriaLabel")}
           >
             {t("common.cancel")}
           </button>
           <button
-            className="flex-1 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-500"
+            className="flex-1 rounded-md bg-geo-500 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-geo-600"
             onClick={onCreateAnyway}
             aria-label={t("nearbyWarning.createAriaLabel")}
           >

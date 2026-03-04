@@ -65,31 +65,31 @@ export default function LinkConfirmationDialog({
         className="mx-3 w-full max-w-md rounded-lg bg-white p-4 shadow-xl sm:mx-4 sm:p-6"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="mb-2 text-lg font-semibold text-neutral-900">
+        <h2 className="mb-2 text-lg font-semibold text-stone-900">
           {t("linkDialog.title")}
         </h2>
 
-        <p className="mb-3 text-sm text-neutral-600">
+        <p className="mb-3 text-sm text-stone-600">
           {t("linkDialog.description")}
         </p>
 
-        <div className="mb-4 rounded-md bg-neutral-100 px-3 py-2">
-          <div className="mb-1 text-xs font-medium text-neutral-500">
+        <div className="mb-4 rounded-md bg-stone-100 px-3 py-2">
+          <div className="mb-1 text-xs font-medium text-stone-500">
             {t("linkDialog.url")}
           </div>
-          <div className="break-all text-sm text-neutral-900">{url}</div>
+          <div className="break-all text-sm text-stone-900">{url}</div>
         </div>
 
         <div className="flex flex-col-reverse gap-2 sm:flex-row sm:gap-3">
           <button
             ref={cancelRef}
-            className="flex-1 rounded-md bg-neutral-100 px-4 py-2.5 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-200"
+            className="flex-1 rounded-md bg-stone-100 px-4 py-2.5 text-sm font-medium text-stone-700 transition-colors hover:bg-stone-200"
             onClick={onCancel}
           >
             {t("common.cancel")}
           </button>
           <button
-            className="flex-1 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-500"
+            className="flex-1 rounded-md bg-geo-500 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-geo-600"
             onClick={onOpen}
           >
             {t("linkDialog.open")}

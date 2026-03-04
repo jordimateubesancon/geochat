@@ -94,11 +94,11 @@ export default function AccessibilitySettingsPanel({
         <div className="flex h-full flex-col overflow-y-auto px-5 pt-5 pb-5">
           {/* Header */}
           <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-base font-semibold text-neutral-900">{t("settings.title")}</h2>
+            <h2 className="text-base font-semibold text-stone-900">{t("settings.title")}</h2>
             <button
               onClick={onClose}
               aria-label={t("settings.closeAriaLabel")}
-              className="rounded-md p-1.5 text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-600"
+              className="rounded-md p-1.5 text-stone-400 transition-colors hover:bg-stone-100 hover:text-stone-600"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -122,21 +122,21 @@ export default function AccessibilitySettingsPanel({
           <div className="mb-5">
             <button
               onClick={() => setHighContrast(!preferences.highContrast)}
-              className="flex w-full items-center justify-between rounded-lg px-3 py-3 transition-colors hover:bg-neutral-50"
+              className="flex w-full items-center justify-between rounded-lg px-3 py-3 transition-colors hover:bg-stone-50"
               role="switch"
               aria-checked={preferences.highContrast}
             >
               <div className="text-left">
-                <div className="text-sm font-medium text-neutral-900">
+                <div className="text-sm font-medium text-stone-900">
                   {t("settings.highContrast")}
                 </div>
-                <div className="text-xs text-neutral-500">
+                <div className="text-xs text-stone-500">
                   {t("settings.highContrastDescription")}
                 </div>
               </div>
               <div
                 className={`relative h-6 w-11 flex-shrink-0 rounded-full transition-colors ${
-                  preferences.highContrast ? "bg-blue-500" : "bg-neutral-300"
+                  preferences.highContrast ? "bg-geo-500" : "bg-stone-300"
                 }`}
               >
                 <div
@@ -150,7 +150,7 @@ export default function AccessibilitySettingsPanel({
 
           {/* Text Size Selector */}
           <div className="mb-5">
-            <div className="mb-2 px-3 text-sm font-medium text-neutral-900">
+            <div className="mb-2 px-3 text-sm font-medium text-stone-900">
               {t("settings.textSize")}
             </div>
             <div className="flex gap-2 px-3">
@@ -160,8 +160,8 @@ export default function AccessibilitySettingsPanel({
                   onClick={() => setTextSize(size)}
                   className={`flex-1 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
                     preferences.textSize === size
-                      ? "bg-blue-500 text-white"
-                      : "bg-neutral-100 text-neutral-700 hover:bg-neutral-200"
+                      ? "bg-geo-500 text-white"
+                      : "bg-stone-100 text-stone-700 hover:bg-stone-200"
                   }`}
                   aria-pressed={preferences.textSize === size}
                 >
@@ -175,21 +175,21 @@ export default function AccessibilitySettingsPanel({
           <div className="mb-5">
             <button
               onClick={() => setReducedMotion(!preferences.reducedMotion)}
-              className="flex w-full items-center justify-between rounded-lg px-3 py-3 transition-colors hover:bg-neutral-50"
+              className="flex w-full items-center justify-between rounded-lg px-3 py-3 transition-colors hover:bg-stone-50"
               role="switch"
               aria-checked={preferences.reducedMotion}
             >
               <div className="text-left">
-                <div className="text-sm font-medium text-neutral-900">
+                <div className="text-sm font-medium text-stone-900">
                   {t("settings.reducedMotion")}
                 </div>
-                <div className="text-xs text-neutral-500">
+                <div className="text-xs text-stone-500">
                   {t("settings.reducedMotionDescription")}
                 </div>
               </div>
               <div
                 className={`relative h-6 w-11 flex-shrink-0 rounded-full transition-colors ${
-                  preferences.reducedMotion ? "bg-blue-500" : "bg-neutral-300"
+                  preferences.reducedMotion ? "bg-geo-500" : "bg-stone-300"
                 }`}
               >
                 <div
@@ -205,7 +205,7 @@ export default function AccessibilitySettingsPanel({
           <div className="mt-auto px-3">
             <button
               onClick={resetToDefaults}
-              className="w-full rounded-lg border border-neutral-300 px-4 py-2.5 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50"
+              className="w-full rounded-lg border border-stone-300 px-4 py-2.5 text-sm font-medium text-stone-700 transition-colors hover:bg-stone-50"
             >
               {t("settings.reset")}
             </button>

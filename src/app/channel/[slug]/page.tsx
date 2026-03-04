@@ -36,8 +36,8 @@ export default function ChannelPage() {
 
   if (loading || !channel) {
     return (
-      <div className="flex h-screen w-screen items-center justify-center bg-neutral-100">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-neutral-300 border-t-blue-500" />
+      <div className="flex h-screen w-screen items-center justify-center bg-stone-100">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-stone-300 border-t-geo-500" />
       </div>
     );
   }

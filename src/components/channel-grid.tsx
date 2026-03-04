@@ -14,7 +14,7 @@ export default function ChannelGrid() {
         {Array.from({ length: 6 }).map((_, i) => (
           <div
             key={i}
-            className="h-32 animate-pulse rounded-xl border border-neutral-200 bg-neutral-100"
+            className="h-32 animate-pulse rounded-xl border border-stone-200 bg-stone-100"
           />
         ))}
       </div>
@@ -31,7 +31,7 @@ export default function ChannelGrid() {
 
   if (channels.length === 0) {
     return (
-      <div className="rounded-lg bg-neutral-50 p-8 text-center text-sm text-neutral-500">
+      <div className="rounded-lg bg-stone-50 p-8 text-center text-sm text-stone-500">
         {t("channelGrid.empty")}
       </div>
     );

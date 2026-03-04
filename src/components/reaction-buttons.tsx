@@ -47,8 +47,8 @@ export default function ReactionButtons({
         aria-label={t("reactions.thumbsUp")}
         className={`inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-xs transition-colors ${
           userReaction === "thumbs_up"
-            ? "bg-blue-100 text-blue-600"
-            : "bg-neutral-100 text-neutral-500 hover:bg-neutral-200"
+            ? "bg-geo-100 text-geo-600"
+            : "bg-stone-100 text-stone-500 hover:bg-stone-200"
         }`}
       >
         <svg
@@ -96,7 +96,7 @@ export default function ReactionButtons({
         className={`inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-xs transition-colors ${
           userReaction === "thumbs_down"
             ? "bg-red-100 text-red-600"
-            : "bg-neutral-100 text-neutral-500 hover:bg-neutral-200"
+            : "bg-stone-100 text-stone-500 hover:bg-stone-200"
         }`}
       >
         <svg

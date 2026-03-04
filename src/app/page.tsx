@@ -8,7 +8,7 @@ export default function Home() {
   const t = useTranslations();
   const { toggleSettings } = useSettings();
   return (
-    <main className="min-h-screen bg-neutral-50">
+    <main className="min-h-screen bg-stone-50">
       {/* Settings gear — top-left */}
       <button
         onClick={toggleSettings}
@@ -25,7 +25,7 @@ export default function Home() {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="text-neutral-600"
+          className="text-stone-600"
           aria-hidden="true"
         >
           <circle cx="12" cy="12" r="3" />
@@ -35,10 +35,12 @@ export default function Home() {
 
       <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
         <div className="mb-8 text-center">
-          <h1 className="text-2xl font-bold text-neutral-900 sm:text-3xl">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo.png" alt="GeoChat logo" className="mx-auto mb-3 h-16 w-auto sm:h-20" />
+          <h1 className="font-heading text-2xl font-extrabold text-stone-900 sm:text-3xl">
             GeoChat
           </h1>
-          <p className="mt-2 text-sm text-neutral-500">
+          <p className="mt-2 text-sm text-stone-500">
             {t("home.subtitle")}
           </p>
         </div>
