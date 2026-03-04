@@ -117,5 +117,18 @@
   "linkDialog.description": "Estàs a punt d'obrir un enllaç extern. Si us plau, verifica l'URL abans de continuar.",
   "linkDialog.url": "URL:",
   "linkDialog.open": "Obrir enllaç",
-  "linkDialog.ariaLabel": "Confirmació d'enllaç extern"
+  "linkDialog.ariaLabel": "Confirmació d'enllaç extern",
+
+  "settings.title": "Accessibilitat",
+  "settings.highContrast": "Alt contrast",
+  "settings.highContrastDescription": "Augmentar el contrast per a visibilitat exterior",
+  "settings.textSize": "Mida del text",
+  "settings.textSizeDefault": "Predeterminada",
+  "settings.textSizeLarge": "Gran",
+  "settings.textSizeExtraLarge": "Extra gran",
+  "settings.reducedMotion": "Reduir moviment",
+  "settings.reducedMotionDescription": "Desactivar animacions",
+  "settings.reset": "Restablir valors predeterminats",
+  "settings.ariaLabel": "Configuració d'accessibilitat",
+  "settings.closeAriaLabel": "Tancar configuració d'accessibilitat"
 }

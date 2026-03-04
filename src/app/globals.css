@@ -11,6 +11,197 @@ body {
   touch-action: manipulation;
 }
 
+/* ==========================================================================
+   Accessibility: Default touch targets (FR-004)
+   Note: Only applied to the app's interactive elements, not third-party
+   widgets (Leaflet controls, attribution links, etc.)
+   ========================================================================== */
+
+/* ==========================================================================
+   Accessibility: Text size scaling
+   ========================================================================== */
+[data-text-size="large"] {
+  font-size: 20px;
+}
+
+[data-text-size="extra-large"] {
+  font-size: 24px;
+}
+
+/* Touch target minimums — scoped to avoid breaking third-party widgets */
+[data-text-size="large"] button:not(.leaflet-control *):not(.leaflet-control-attribution *),
+[data-text-size="large"] input,
+[data-text-size="large"] textarea {
+  min-height: 48px;
+  min-width: 48px;
+}
+
+[data-text-size="extra-large"] button:not(.leaflet-control *):not(.leaflet-control-attribution *),
+[data-text-size="extra-large"] input,
+[data-text-size="extra-large"] textarea {
+  min-height: 56px;
+  min-width: 56px;
+}
+
+/* ==========================================================================
+   Accessibility: Reduced motion
+   ========================================================================== */
+[data-motion="reduced"] *,
+[data-motion="reduced"] *::before,
+[data-motion="reduced"] *::after {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+  scroll-behavior: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   Accessibility: High contrast mode (WCAG AAA 7:1)
+   ========================================================================== */
+[data-contrast="high"] {
+  --hc-bg: #ffffff;
+  --hc-text: #000000;
+  --hc-border: #000000;
+  --hc-own-bg: #e0f0ff;
+  --hc-own-text: #1e3a5f;
+  --hc-other-bg: #ffffff;
+  --hc-other-text: #000000;
+  --hc-link: #0000ee;
+}
+
+[data-contrast="high"] body {
+  background-color: var(--hc-bg);
+  color: var(--hc-text);
+}
+
+[data-contrast="high"] button,
+[data-contrast="high"] input,
+[data-contrast="high"] textarea,
+[data-contrast="high"] [role="button"],
+[data-contrast="high"] a {
+  border: 2px solid var(--hc-border);
+}
+
+/* Remove all transparency/opacity in high-contrast mode */
+[data-contrast="high"] .bg-white\/80,
+[data-contrast="high"] .bg-white\/90,
+[data-contrast="high"] .bg-white\/95 {
+  background-color: #ffffff !important;
+}
+
+[data-contrast="high"] .bg-black\/60,
+[data-contrast="high"] .bg-black\/80 {
+  background-color: #000000 !important;
+}
+
+/* High-contrast text overrides */
+[data-contrast="high"] .text-neutral-400,
+[data-contrast="high"] .text-neutral-500,
+[data-contrast="high"] .text-neutral-600,
+[data-contrast="high"] .text-neutral-700 {
+  color: #000000 !important;
+}
+
+[data-contrast="high"] .text-neutral-900 {
+  color: #000000 !important;
+}
+
+/* High-contrast backgrounds */
+[data-contrast="high"] .bg-neutral-100,
+[data-contrast="high"] .bg-neutral-50 {
+  background-color: #ffffff !important;
+  border: 2px solid #000000;
+}
+
+/* Own message bubbles - high contrast */
+[data-contrast="high"] .bg-blue-500 {
+  background-color: var(--hc-own-bg) !important;
+  color: var(--hc-own-text) !important;
+  border: 2px solid var(--hc-own-text);
+}
+
+[data-contrast="high"] .bg-blue-500\/60 {
+  background-color: var(--hc-own-bg) !important;
+  color: var(--hc-own-text) !important;
+  border: 2px solid var(--hc-own-text);
+}
+
+[data-contrast="high"] .bg-blue-500 .text-white,
+[data-contrast="high"] .bg-blue-500\/60 .text-white {
+  color: var(--hc-own-text) !important;
+}
+
+[data-contrast="high"] .bg-blue-500 .text-blue-100,
+[data-contrast="high"] .bg-blue-500\/60 .text-blue-100 {
+  color: var(--hc-own-text) !important;
+}
+
+/* Other message bubbles - high contrast */
+[data-contrast="high"] .bg-neutral-100 {
+  background-color: var(--hc-other-bg) !important;
+  color: var(--hc-other-text) !important;
+}
+
+/* High-contrast links */
+[data-contrast="high"] .underline {
+  color: var(--hc-link) !important;
+  font-weight: 700;
+}
+
+/* High-contrast borders on panels/dialogs */
+[data-contrast="high"] .shadow-lg,
+[data-contrast="high"] .shadow-2xl {
+  border: 2px solid #000000;
+}
+
+/* High-contrast border on existing borders */
+[data-contrast="high"] .border-neutral-200 {
+  border-color: #000000 !important;
+}
+
+[data-contrast="high"] .border-red-200 {
+  border-color: #000000 !important;
+}
+
+/* Bold text in high-contrast mode */
+[data-contrast="high"] .text-sm,
+[data-contrast="high"] .text-xs {
+  font-weight: 700;
+}
+
+/* High-contrast toast overrides */
+[data-contrast="high"] .bg-red-50\/90 {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+}
+
+/* High-contrast top bar / backdrop elements */
+[data-contrast="high"] .backdrop-blur-sm {
+  backdrop-filter: none;
+  background-color: #ffffff !important;
+  border: 2px solid #000000;
+}
+
+/* High-contrast map marker popup */
+[data-contrast="high"] .leaflet-popup-content-wrapper {
+  border: 2px solid #000000 !important;
+}
+
+/* High-contrast channel grid cards */
+[data-contrast="high"] .rounded-xl {
+  border: 2px solid #000000;
+}
+
 /* Compact Leaflet attribution on small screens to avoid overlapping zoom controls */
 @media (max-width: 639px) {
   .leaflet-control-attribution {

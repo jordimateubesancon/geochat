@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import type { Message } from "@/types";
 import type { PendingMessage } from "@/lib/offline-db";
 import LinkifiedText from "@/components/linkified-text";
+import { useAccessibility } from "@/hooks/use-accessibility";
 
 function useFormatRelativeTime() {
   const t = useTranslations();
@@ -45,6 +46,7 @@ export default function MessageList({
 }: MessageListProps) {
   const t = useTranslations();
   const formatRelativeTime = useFormatRelativeTime();
+  const { preferences } = useAccessibility();
   const containerRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const prevMessageCountRef = useRef(0);
@@ -76,11 +78,11 @@ export default function MessageList({
           messages[prevMessageCountRef.current - 1]?.id;
 
       if (isNearBottomRef.current || addedAtBottom || loading) {
-        bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+        bottomRef.current?.scrollIntoView({ behavior: preferences.reducedMotion ? "auto" : "smooth" });
       }
     }
     prevMessageCountRef.current = messages.length;
-  }, [messages, loading]);
+  }, [messages, loading, preferences.reducedMotion]);
 
   // Scroll to bottom on initial load
   useEffect(() => {
