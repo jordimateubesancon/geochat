@@ -117,5 +117,18 @@
   "linkDialog.description": "Estás a punto de abrir un enlace externo. Por favor, verifica la URL antes de continuar.",
   "linkDialog.url": "URL:",
   "linkDialog.open": "Abrir enlace",
-  "linkDialog.ariaLabel": "Confirmación de enlace externo"
+  "linkDialog.ariaLabel": "Confirmación de enlace externo",
+
+  "settings.title": "Accesibilidad",
+  "settings.highContrast": "Alto contraste",
+  "settings.highContrastDescription": "Aumentar el contraste para visibilidad exterior",
+  "settings.textSize": "Tamaño del texto",
+  "settings.textSizeDefault": "Predeterminado",
+  "settings.textSizeLarge": "Grande",
+  "settings.textSizeExtraLarge": "Extra grande",
+  "settings.reducedMotion": "Reducir movimiento",
+  "settings.reducedMotionDescription": "Desactivar animaciones",
+  "settings.reset": "Restablecer valores predeterminados",
+  "settings.ariaLabel": "Configuración de accesibilidad",
+  "settings.closeAriaLabel": "Cerrar configuración de accesibilidad"
 }

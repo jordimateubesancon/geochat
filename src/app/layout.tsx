@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import I18nProvider from "@/components/i18n-provider";
 import OfflineIndicator from "@/components/offline-indicator";
 import SwRegister from "@/components/sw-register";
+import AccessibilityInit from "@/components/accessibility-init";
 import "./globals.css";
 
 export const viewport: Viewport = {
@@ -36,8 +37,10 @@ export default function RootLayout({
       <body className="bg-white text-neutral-900 antialiased">
         <SwRegister />
         <I18nProvider>
-          <OfflineIndicator />
-          {children}
+          <AccessibilityInit>
+            <OfflineIndicator />
+            {children}
+          </AccessibilityInit>
         </I18nProvider>
       </body>
     </html>

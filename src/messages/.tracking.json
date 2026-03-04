@@ -100,7 +100,19 @@
     "linkDialog.description": "32d88b6559",
     "linkDialog.url": "4274d554b3",
     "linkDialog.open": "d2de1a2831",
-    "linkDialog.ariaLabel": "6727b74fc3"
+    "linkDialog.ariaLabel": "6727b74fc3",
+    "settings.title": "d660049bc1",
+    "settings.highContrast": "5add073ddb",
+    "settings.highContrastDescription": "594c01510c",
+    "settings.textSize": "3cc6e124a8",
+    "settings.textSizeDefault": "808d7dca8a",
+    "settings.textSizeLarge": "738fd1d245",
+    "settings.textSizeExtraLarge": "05128f46d8",
+    "settings.reducedMotion": "25a5aef562",
+    "settings.reducedMotionDescription": "ef55b7f8a3",
+    "settings.reset": "ddefe47d69",
+    "settings.ariaLabel": "0e0bbc560c",
+    "settings.closeAriaLabel": "1b06260d1d"
   },
   "fr": {
     "common.cancel": "77dfd2135f",
@@ -203,7 +215,19 @@
     "linkDialog.description": "32d88b6559",
     "linkDialog.url": "4274d554b3",
     "linkDialog.open": "d2de1a2831",
-    "linkDialog.ariaLabel": "6727b74fc3"
+    "linkDialog.ariaLabel": "6727b74fc3",
+    "settings.title": "d660049bc1",
+    "settings.highContrast": "5add073ddb",
+    "settings.highContrastDescription": "594c01510c",
+    "settings.textSize": "3cc6e124a8",
+    "settings.textSizeDefault": "808d7dca8a",
+    "settings.textSizeLarge": "738fd1d245",
+    "settings.textSizeExtraLarge": "05128f46d8",
+    "settings.reducedMotion": "25a5aef562",
+    "settings.reducedMotionDescription": "ef55b7f8a3",
+    "settings.reset": "ddefe47d69",
+    "settings.ariaLabel": "0e0bbc560c",
+    "settings.closeAriaLabel": "1b06260d1d"
   },
   "ca": {
     "common.cancel": "77dfd2135f",
@@ -306,6 +330,18 @@
     "linkDialog.description": "32d88b6559",
     "linkDialog.url": "4274d554b3",
     "linkDialog.open": "d2de1a2831",
-    "linkDialog.ariaLabel": "6727b74fc3"
+    "linkDialog.ariaLabel": "6727b74fc3",
+    "settings.title": "d660049bc1",
+    "settings.highContrast": "5add073ddb",
+    "settings.highContrastDescription": "594c01510c",
+    "settings.textSize": "3cc6e124a8",
+    "settings.textSizeDefault": "808d7dca8a",
+    "settings.textSizeLarge": "738fd1d245",
+    "settings.textSizeExtraLarge": "05128f46d8",
+    "settings.reducedMotion": "25a5aef562",
+    "settings.reducedMotionDescription": "ef55b7f8a3",
+    "settings.reset": "ddefe47d69",
+    "settings.ariaLabel": "0e0bbc560c",
+    "settings.closeAriaLabel": "1b06260d1d"
   }
 }

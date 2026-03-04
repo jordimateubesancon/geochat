@@ -200,6 +200,7 @@ export default function MapInner({ channelId, channelName, channelSlug, initialC
     setToolboxOpen((prev) => !prev);
   }, []);
 
+
   const handleLocationSelect = useCallback(
     (
       lat: number,
