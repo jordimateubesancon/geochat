@@ -111,5 +111,11 @@
   "offline.messageFailed": "Error en enviar",
   "offline.messageRetry": "Reintentar",
   "offline.createDisabled": "Crear converses requereix connexi\u00f3 a internet",
-  "offline.syncComplete": "Missatges sincronitzats"
+  "offline.syncComplete": "Missatges sincronitzats",
+
+  "linkDialog.title": "Obrir enllaç extern",
+  "linkDialog.description": "Estàs a punt d'obrir un enllaç extern. Si us plau, verifica l'URL abans de continuar.",
+  "linkDialog.url": "URL:",
+  "linkDialog.open": "Obrir enllaç",
+  "linkDialog.ariaLabel": "Confirmació d'enllaç extern"
 }

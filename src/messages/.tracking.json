@@ -95,7 +95,12 @@
     "offline.messageFailed": "cb4ce1779d",
     "offline.messageRetry": "9f5cd8a2e8",
     "offline.createDisabled": "c2ff8a83f8",
-    "offline.syncComplete": "6ececdc111"
+    "offline.syncComplete": "6ececdc111",
+    "linkDialog.title": "eb6234484a",
+    "linkDialog.description": "32d88b6559",
+    "linkDialog.url": "4274d554b3",
+    "linkDialog.open": "d2de1a2831",
+    "linkDialog.ariaLabel": "6727b74fc3"
   },
   "fr": {
     "common.cancel": "77dfd2135f",
@@ -193,7 +198,12 @@
     "offline.messageFailed": "cb4ce1779d",
     "offline.messageRetry": "9f5cd8a2e8",
     "offline.createDisabled": "c2ff8a83f8",
-    "offline.syncComplete": "6ececdc111"
+    "offline.syncComplete": "6ececdc111",
+    "linkDialog.title": "eb6234484a",
+    "linkDialog.description": "32d88b6559",
+    "linkDialog.url": "4274d554b3",
+    "linkDialog.open": "d2de1a2831",
+    "linkDialog.ariaLabel": "6727b74fc3"
   },
   "ca": {
     "common.cancel": "77dfd2135f",
@@ -291,6 +301,11 @@
     "offline.messageFailed": "cb4ce1779d",
     "offline.messageRetry": "9f5cd8a2e8",
     "offline.createDisabled": "c2ff8a83f8",
-    "offline.syncComplete": "6ececdc111"
+    "offline.syncComplete": "6ececdc111",
+    "linkDialog.title": "eb6234484a",
+    "linkDialog.description": "32d88b6559",
+    "linkDialog.url": "4274d554b3",
+    "linkDialog.open": "d2de1a2831",
+    "linkDialog.ariaLabel": "6727b74fc3"
   }
 }
