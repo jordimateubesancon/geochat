@@ -1,6 +1,21 @@
+import { useMemo } from "react";
+import L from "leaflet";
 import { Marker as LeafletMarker, Tooltip } from "react-leaflet";
 import { useTranslations } from "next-intl";
 import type { Conversation } from "@/types";
+
+function useLogoIcon() {
+  return useMemo(
+    () =>
+      new L.Icon({
+        iconUrl: "/logo.png",
+        iconSize: [48, 48],
+        iconAnchor: [24, 38],
+        tooltipAnchor: [0, -38],
+      }),
+    []
+  );
+}
 
 function useFormatRelativeTime() {
   const t = useTranslations();
@@ -35,17 +50,19 @@ export default function ConversationMarker({
 }: ConversationMarkerProps) {
   const t = useTranslations();
   const formatRelativeTime = useFormatRelativeTime();
+  const icon = useLogoIcon();
   return (
     <LeafletMarker
       position={[conversation.latitude, conversation.longitude]}
+      icon={icon}
       eventHandlers={{
         click: () => onClick(conversation),
       }}
     >
-      <Tooltip direction="top" offset={[0, -10]} permanent={false}>
+      <Tooltip direction="top" offset={[0, -38]} permanent={false}>
         <div className="text-sm">
           <div className="font-semibold">{conversation.title}</div>
-          <div className="text-xs text-neutral-500">
+          <div className="text-xs text-stone-500">
             {t("marker.messages", { count: conversation.message_count })} ·{" "}
             {formatRelativeTime(conversation.last_message_at)}
           </div>

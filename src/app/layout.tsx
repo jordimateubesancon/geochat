@@ -1,9 +1,17 @@
 import type { Metadata, Viewport } from "next";
+import { Nunito } from "next/font/google";
 import I18nProvider from "@/components/i18n-provider";
 import OfflineIndicator from "@/components/offline-indicator";
 import SwRegister from "@/components/sw-register";
 import AccessibilityInit from "@/components/accessibility-init";
 import "./globals.css";
+
+const nunito = Nunito({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  display: "swap",
+  variable: "--font-heading",
+});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -33,8 +41,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="bg-white text-neutral-900 antialiased">
+    <html lang="en" className={nunito.variable} suppressHydrationWarning>
+      <body className="bg-white text-stone-900 antialiased">
         <SwRegister />
         <I18nProvider>
           <AccessibilityInit>

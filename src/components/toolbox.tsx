@@ -37,11 +37,11 @@ export default function Toolbox({ open, onToggle, children }: ToolboxProps) {
         <div className="flex h-full flex-col overflow-y-auto px-4 pt-4 pb-4">
           {/* Panel header with close button */}
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-neutral-900">{t("common.tools")}</h2>
+            <h2 className="text-sm font-semibold text-stone-900">{t("common.tools")}</h2>
             <button
               onClick={onToggle}
               aria-label={t("topBar.closeTools")}
-              className="rounded-md p-1 text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-600"
+              className="rounded-md p-1 text-stone-400 transition-colors hover:bg-stone-100 hover:text-stone-600"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

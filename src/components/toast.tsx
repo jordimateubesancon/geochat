@@ -26,7 +26,7 @@ export function ToastContainer({ toasts, onDismiss }: ToastContainerProps) {
           className={`pointer-events-auto flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm shadow-lg ${
             toast.type === "error"
               ? "border border-red-200 bg-red-50/90 text-red-800"
-              : "border border-neutral-200 bg-white/90 text-neutral-800"
+              : "border border-stone-200 bg-white/90 text-stone-800"
           }`}
           role="alert"
         >

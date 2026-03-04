@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 const MapInner = dynamic(() => import("./map-inner"), {
   ssr: false,
   loading: () => (
-    <div className="h-dvh w-dvw bg-neutral-100 animate-pulse" />
+    <div className="h-dvh w-dvw bg-stone-100 animate-pulse" />
   ),
 });
 

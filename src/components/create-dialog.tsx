@@ -100,18 +100,18 @@ export default function CreateDialog({
         className="mx-3 w-full max-w-md rounded-lg bg-white p-4 shadow-xl sm:mx-4 sm:p-6"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="mb-4 text-lg font-semibold text-neutral-900">
+        <h2 className="mb-4 text-lg font-semibold text-stone-900">
           {t("createDialog.title")}
         </h2>
 
-        <div className="mb-3 rounded-md bg-neutral-100 px-3 py-2 text-xs text-neutral-500">
+        <div className="mb-3 rounded-md bg-stone-100 px-3 py-2 text-xs text-stone-500">
           {t("createDialog.location", { lat: lat.toFixed(4), lng: lng.toFixed(4) })}
         </div>
 
         <div className="mb-3">
           <label
             htmlFor="conv-title"
-            className="mb-1 block text-sm font-medium text-neutral-600"
+            className="mb-1 block text-sm font-medium text-stone-600"
           >
             {t("createDialog.titleLabel")}
           </label>
@@ -124,10 +124,10 @@ export default function CreateDialog({
               setTitle(e.target.value.slice(0, TITLE_MAX))
             }
             placeholder={t("createDialog.titlePlaceholder")}
-            className="w-full rounded-md border border-neutral-300 bg-neutral-50 px-3 py-2 text-sm text-neutral-900 placeholder-neutral-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full rounded-md border border-stone-300 bg-stone-50 px-3 py-2 text-sm text-stone-900 placeholder-stone-400 focus:border-geo-400 focus:outline-none focus:ring-1 focus:ring-geo-400"
             aria-label={t("createDialog.titleAriaLabel")}
           />
-          <div className="mt-1 text-right text-xs text-neutral-400">
+          <div className="mt-1 text-right text-xs text-stone-400">
             {title.length}/{TITLE_MAX}
           </div>
         </div>
@@ -135,7 +135,7 @@ export default function CreateDialog({
         <div className="mb-4">
           <label
             htmlFor="conv-body"
-            className="mb-1 block text-sm font-medium text-neutral-600"
+            className="mb-1 block text-sm font-medium text-stone-600"
           >
             {t("createDialog.bodyLabel")}
           </label>
@@ -148,10 +148,10 @@ export default function CreateDialog({
             onKeyDown={handleBodyKeyDown}
             placeholder={t("createDialog.bodyPlaceholder")}
             rows={3}
-            className="w-full resize-none rounded-md border border-neutral-300 bg-neutral-50 px-3 py-2 text-sm text-neutral-900 placeholder-neutral-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full resize-none rounded-md border border-stone-300 bg-stone-50 px-3 py-2 text-sm text-stone-900 placeholder-stone-400 focus:border-geo-400 focus:outline-none focus:ring-1 focus:ring-geo-400"
             aria-label={t("createDialog.bodyAriaLabel")}
           />
-          <div className="mt-1 text-right text-xs text-neutral-400">
+          <div className="mt-1 text-right text-xs text-stone-400">
             {body.length}/{BODY_MAX}
           </div>
         </div>
@@ -164,14 +164,14 @@ export default function CreateDialog({
 
         <div className="flex flex-col-reverse gap-2 sm:flex-row sm:gap-3">
           <button
-            className="flex-1 rounded-md bg-neutral-100 px-4 py-2.5 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-200"
+            className="flex-1 rounded-md bg-stone-100 px-4 py-2.5 text-sm font-medium text-stone-700 transition-colors hover:bg-stone-200"
             onClick={onCancel}
             aria-label={t("createDialog.cancelAriaLabel")}
           >
             {t("common.cancel")}
           </button>
           <button
-            className="flex-1 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex-1 rounded-md bg-geo-500 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-geo-600 disabled:cursor-not-allowed disabled:opacity-50"
             onClick={handleSubmit}
             disabled={!isValid || loading || !isOnline}
             aria-label={t("createDialog.createAriaLabel")}

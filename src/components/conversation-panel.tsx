@@ -133,22 +133,22 @@ export default function ConversationPanel({
     >
       <div
         ref={panelRef}
-        className="absolute bottom-0 right-0 top-0 flex w-full flex-col bg-white shadow-2xl md:max-w-md md:border-l md:border-neutral-200"
+        className="absolute bottom-0 right-0 top-0 flex w-full flex-col bg-white shadow-2xl md:max-w-md md:border-l md:border-stone-200"
         role="dialog"
         aria-modal="true"
         aria-label={t("conversationPanel.ariaLabel", { title: conversation.title })}
       >
         {/* Header */}
-        <div className="flex items-start justify-between border-b border-neutral-200 p-4">
+        <div className="flex items-start justify-between border-b border-stone-200 p-4">
           <div className="min-w-0 flex-1">
-            <h2 className="truncate text-lg font-semibold text-neutral-900">
+            <h2 className="truncate text-lg font-semibold text-stone-900">
               {conversation.title}
             </h2>
-            <div className="mt-1 text-xs text-neutral-400">
+            <div className="mt-1 text-xs text-stone-400">
               {conversation.latitude.toFixed(4)},{" "}
               {conversation.longitude.toFixed(4)}
             </div>
-            <div className="mt-0.5 text-xs text-neutral-400">
+            <div className="mt-0.5 text-xs text-stone-400">
               {t("conversationPanel.startedBy", { name: conversation.creator_name, time: formatRelativeTime(conversation.created_at) })}
             </div>
           </div>
@@ -163,7 +163,7 @@ export default function ConversationPanel({
             />
           <button
             onClick={onClose}
-            className="rounded-md p-1.5 text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-800"
+            className="rounded-md p-1.5 text-stone-500 transition-colors hover:bg-stone-100 hover:text-stone-800"
             aria-label={t("conversationPanel.closeAriaLabel")}
           >
             <svg

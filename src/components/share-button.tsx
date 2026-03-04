@@ -108,7 +108,7 @@ export default function ShareButton({
     <div ref={dropdownRef} className="relative">
       <button
         onClick={handleClick}
-        className="rounded-md p-1.5 text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-800"
+        className="rounded-md p-1.5 text-stone-500 transition-colors hover:bg-stone-100 hover:text-stone-800"
         aria-label={t("shareButton.ariaLabel")}
         aria-expanded={dropdownOpen}
         aria-haspopup="true"
@@ -134,12 +134,12 @@ export default function ShareButton({
 
       {dropdownOpen && (
         <div
-          className="absolute right-0 top-full z-10 mt-1 w-44 rounded-lg border border-neutral-200 bg-white py-1 shadow-lg"
+          className="absolute right-0 top-full z-10 mt-1 w-44 rounded-lg border border-stone-200 bg-white py-1 shadow-lg"
           role="menu"
         >
           <button
             onClick={handleCopyLink}
-            className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-neutral-700 hover:bg-neutral-50"
+            className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-stone-700 hover:bg-stone-50"
             role="menuitem"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -150,7 +150,7 @@ export default function ShareButton({
           </button>
           <button
             onClick={handleEmail}
-            className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-neutral-700 hover:bg-neutral-50"
+            className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-stone-700 hover:bg-stone-50"
             role="menuitem"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -161,7 +161,7 @@ export default function ShareButton({
           </button>
           <button
             onClick={handleWhatsApp}
-            className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-neutral-700 hover:bg-neutral-50"
+            className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-stone-700 hover:bg-stone-50"
             role="menuitem"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">

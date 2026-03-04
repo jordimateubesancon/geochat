@@ -332,7 +332,7 @@ export default function MapInner({ channelId, channelName, channelSlug, initialC
 
       {showHint && (
         <div className="pointer-events-none absolute bottom-20 left-0 right-0 z-[1000] text-center sm:bottom-8">
-          <span className="rounded-full bg-white/80 px-4 py-2 text-sm text-neutral-600 shadow-sm backdrop-blur-sm">
+          <span className="rounded-full bg-white/80 px-4 py-2 text-sm text-stone-600 shadow-sm backdrop-blur-sm">
             {t("mapInner.hint")}
           </span>
         </div>

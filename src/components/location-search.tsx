@@ -145,14 +145,14 @@ export default function LocationSearch({
   return (
     <div className="flex flex-col gap-2">
       {/* Segmented toggle */}
-      <div className="flex rounded-full bg-neutral-100 p-0.5">
+      <div className="flex rounded-full bg-stone-100 p-0.5">
         <button
           type="button"
           onClick={() => handleModeSwitch("places")}
           className={`flex-1 rounded-full px-3 py-1 text-xs font-medium transition-colors ${
             mode === "places"
-              ? "bg-white text-neutral-900 shadow-sm"
-              : "text-neutral-500 hover:text-neutral-700"
+              ? "bg-white text-stone-900 shadow-sm"
+              : "text-stone-500 hover:text-stone-700"
           }`}
         >
           {t("locationSearch.places")}
@@ -162,8 +162,8 @@ export default function LocationSearch({
           onClick={() => handleModeSwitch("chats")}
           className={`flex-1 rounded-full px-3 py-1 text-xs font-medium transition-colors ${
             mode === "chats"
-              ? "bg-white text-neutral-900 shadow-sm"
-              : "text-neutral-500 hover:text-neutral-700"
+              ? "bg-white text-stone-900 shadow-sm"
+              : "text-stone-500 hover:text-stone-700"
           }`}
         >
           {t("locationSearch.chats")}
@@ -187,11 +187,11 @@ export default function LocationSearch({
           aria-autocomplete="list"
           aria-controls={showResults ? "search-results" : undefined}
           aria-activedescendant={activeDescendant}
-          className="w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="w-full rounded-md border border-stone-200 bg-white px-3 py-2 text-sm text-stone-900 placeholder:text-stone-400 focus:border-geo-400 focus:outline-none focus:ring-1 focus:ring-geo-400"
         />
         {loading && (
           <div className="absolute right-3 top-1/2 -translate-y-1/2">
-            <div className="h-4 w-4 animate-spin rounded-full border-2 border-neutral-300 border-t-blue-500" />
+            <div className="h-4 w-4 animate-spin rounded-full border-2 border-stone-300 border-t-geo-500" />
           </div>
         )}
       </div>
@@ -202,7 +202,7 @@ export default function LocationSearch({
           id="search-results"
           role="listbox"
           aria-label="Search results"
-          className="flex flex-col overflow-hidden rounded-md border border-neutral-200 bg-white"
+          className="flex flex-col overflow-hidden rounded-md border border-stone-200 bg-white"
         >
           {activeResults.map((result, index) => (
             <li
@@ -210,10 +210,10 @@ export default function LocationSearch({
               id={`search-result-${index}`}
               role="option"
               aria-selected={index === highlightedIndex}
-              className={`cursor-pointer border-b border-neutral-100 px-3 py-2 text-sm last:border-b-0 ${
+              className={`cursor-pointer border-b border-stone-100 px-3 py-2 text-sm last:border-b-0 ${
                 index === highlightedIndex
-                  ? "bg-blue-50 text-blue-900"
-                  : "text-neutral-700 hover:bg-neutral-50"
+                  ? "bg-geo-50 text-geo-900"
+                  : "text-stone-700 hover:bg-stone-50"
               }`}
               onClick={() => handleSelect(index)}
               onMouseEnter={() => setHighlightedIndex(index)}
@@ -222,7 +222,7 @@ export default function LocationSearch({
                 {result.label}
               </span>
               {result.secondary && (
-                <span className="ml-2 text-xs text-neutral-400">
+                <span className="ml-2 text-xs text-stone-400">
                   by {result.secondary}
                 </span>
               )}
@@ -232,7 +232,7 @@ export default function LocationSearch({
       )}
 
       {showNoResults && (
-        <p className="px-1 text-sm text-neutral-500">{noResultsMessage}</p>
+        <p className="px-1 text-sm text-stone-500">{noResultsMessage}</p>
       )}
 
       {showError && (

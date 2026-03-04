@@ -30,14 +30,14 @@ export default function TopBar({ displayName, onSearchToggle, searchOpen, channe
         <div className="flex items-center gap-2 px-3 py-2">
           <Link
             href="/"
-            className="text-sm font-bold text-neutral-900 transition-colors hover:text-neutral-600"
+            className="font-heading text-sm font-extrabold text-stone-900 transition-colors hover:text-stone-600"
           >
             {t("topBar.appName")}
           </Link>
           {channelName && (
             <>
-              <span className="text-sm text-neutral-400" aria-hidden="true">/</span>
-              <span className="text-sm font-medium text-neutral-700">
+              <span className="text-sm text-stone-400" aria-hidden="true">/</span>
+              <span className="text-sm font-medium text-stone-700">
                 {channelName}
               </span>
             </>
@@ -46,7 +46,7 @@ export default function TopBar({ displayName, onSearchToggle, searchOpen, channe
 
         {/* Display name */}
         {displayName && (
-          <div className="flex items-center gap-1.5 border-t border-neutral-200/60 px-3 py-1.5">
+          <div className="flex items-center gap-1.5 border-t border-stone-200/60 px-3 py-1.5">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="14"
@@ -57,26 +57,26 @@ export default function TopBar({ displayName, onSearchToggle, searchOpen, channe
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="shrink-0 text-neutral-400"
+              className="shrink-0 text-stone-400"
               aria-hidden="true"
             >
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
               <circle cx="12" cy="7" r="4" />
             </svg>
-            <span className="text-sm text-neutral-500">
+            <span className="text-sm text-stone-500">
               {displayName}
             </span>
           </div>
         )}
 
         {/* Action buttons */}
-        <div className="flex items-center gap-1 border-t border-neutral-200/60 px-2 py-1.5">
+        <div className="flex items-center gap-1 border-t border-stone-200/60 px-2 py-1.5">
           {onSearchToggle && !searchOpen && (
             <button
               onClick={(e) => { e.stopPropagation(); onSearchToggle?.(); }}
               aria-label={t("topBar.openTools")}
               aria-expanded={false}
-              className="rounded-md p-2 transition-colors hover:bg-neutral-100"
+              className="rounded-md p-2 transition-colors hover:bg-stone-100"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -88,7 +88,7 @@ export default function TopBar({ displayName, onSearchToggle, searchOpen, channe
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="text-neutral-600"
+                className="text-stone-600"
                 aria-hidden="true"
               >
                 <circle cx="11" cy="11" r="8" />
@@ -99,7 +99,7 @@ export default function TopBar({ displayName, onSearchToggle, searchOpen, channe
           <button
             onClick={toggleSettings}
             aria-label={t("settings.ariaLabel")}
-            className="rounded-md p-2 transition-colors hover:bg-neutral-100"
+            className="rounded-md p-2 transition-colors hover:bg-stone-100"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -111,7 +111,7 @@ export default function TopBar({ displayName, onSearchToggle, searchOpen, channe
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="text-neutral-600"
+              className="text-stone-600"
               aria-hidden="true"
             >
               <circle cx="12" cy="12" r="3" />

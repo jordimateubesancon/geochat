@@ -71,11 +71,11 @@ body {
   --hc-bg: #ffffff;
   --hc-text: #000000;
   --hc-border: #000000;
-  --hc-own-bg: #e0f0ff;
-  --hc-own-text: #1e3a5f;
+  --hc-own-bg: #d4edbc;
+  --hc-own-text: #0d3513;
   --hc-other-bg: #ffffff;
   --hc-other-text: #000000;
-  --hc-link: #0000ee;
+  --hc-link: #1f5f2a;
 }
 
 [data-contrast="high"] body {
@@ -104,49 +104,50 @@ body {
 }
 
 /* High-contrast text overrides */
-[data-contrast="high"] .text-neutral-400,
-[data-contrast="high"] .text-neutral-500,
-[data-contrast="high"] .text-neutral-600,
-[data-contrast="high"] .text-neutral-700 {
+[data-contrast="high"] .text-stone-400,
+[data-contrast="high"] .text-stone-500,
+[data-contrast="high"] .text-stone-600,
+[data-contrast="high"] .text-stone-700 {
   color: #000000 !important;
 }
 
-[data-contrast="high"] .text-neutral-900 {
+[data-contrast="high"] .text-stone-800,
+[data-contrast="high"] .text-stone-900 {
   color: #000000 !important;
 }
 
 /* High-contrast backgrounds */
-[data-contrast="high"] .bg-neutral-100,
-[data-contrast="high"] .bg-neutral-50 {
+[data-contrast="high"] .bg-stone-100,
+[data-contrast="high"] .bg-stone-50 {
   background-color: #ffffff !important;
   border: 2px solid #000000;
 }
 
 /* Own message bubbles - high contrast */
-[data-contrast="high"] .bg-blue-500 {
+[data-contrast="high"] .bg-geo-700 {
   background-color: var(--hc-own-bg) !important;
   color: var(--hc-own-text) !important;
   border: 2px solid var(--hc-own-text);
 }
 
-[data-contrast="high"] .bg-blue-500\/60 {
+[data-contrast="high"] .bg-geo-700\/60 {
   background-color: var(--hc-own-bg) !important;
   color: var(--hc-own-text) !important;
   border: 2px solid var(--hc-own-text);
 }
 
-[data-contrast="high"] .bg-blue-500 .text-white,
-[data-contrast="high"] .bg-blue-500\/60 .text-white {
+[data-contrast="high"] .bg-geo-700 .text-white,
+[data-contrast="high"] .bg-geo-700\/60 .text-white {
   color: var(--hc-own-text) !important;
 }
 
-[data-contrast="high"] .bg-blue-500 .text-blue-100,
-[data-contrast="high"] .bg-blue-500\/60 .text-blue-100 {
+[data-contrast="high"] .bg-geo-700 .text-geo-200,
+[data-contrast="high"] .bg-geo-700\/60 .text-geo-200 {
   color: var(--hc-own-text) !important;
 }
 
 /* Other message bubbles - high contrast */
-[data-contrast="high"] .bg-neutral-100 {
+[data-contrast="high"] .bg-stone-100 {
   background-color: var(--hc-other-bg) !important;
   color: var(--hc-other-text) !important;
 }
@@ -164,7 +165,7 @@ body {
 }
 
 /* High-contrast border on existing borders */
-[data-contrast="high"] .border-neutral-200 {
+[data-contrast="high"] .border-stone-200 {
   border-color: #000000 !important;
 }
 
