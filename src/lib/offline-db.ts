@@ -25,6 +25,17 @@ export interface PendingMessage {
   status: "pending" | "sending" | "failed";
 }
 
+export interface PendingReaction {
+  id: string;
+  message_id: string;
+  conversation_id: string;
+  user_session_id: string;
+  user_name: string;
+  reaction_type: "thumbs_up" | "thumbs_down" | "remove";
+  status: "pending" | "sending" | "failed";
+  cached_at: number;
+}
+
 interface GeoChatDB extends DBSchema {
   channels: {
     key: string;
@@ -45,34 +56,49 @@ interface GeoChatDB extends DBSchema {
     value: PendingMessage;
     indexes: { conversation_id: string; status: string };
   };
+  pending_reactions: {
+    key: string;
+    value: PendingReaction;
+    indexes: { conversation_id: string; status: string };
+  };
 }
 
 // --- Database singleton ---
 
 const DB_NAME = "geochat-offline";
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 
 let dbPromise: Promise<IDBPDatabase<GeoChatDB>> | null = null;
 
 function getDB(): Promise<IDBPDatabase<GeoChatDB>> {
   if (!dbPromise) {
     dbPromise = openDB<GeoChatDB>(DB_NAME, DB_VERSION, {
-      upgrade(db) {
-        db.createObjectStore("channels", { keyPath: "id" });
+      upgrade(db, oldVersion) {
+        if (oldVersion < 1) {
+          db.createObjectStore("channels", { keyPath: "id" });
 
-        const convStore = db.createObjectStore("conversations", {
-          keyPath: "id",
-        });
-        convStore.createIndex("channel_id", "channel_id");
+          const convStore = db.createObjectStore("conversations", {
+            keyPath: "id",
+          });
+          convStore.createIndex("channel_id", "channel_id");
 
-        const msgStore = db.createObjectStore("messages", { keyPath: "id" });
-        msgStore.createIndex("conversation_id", "conversation_id");
+          const msgStore = db.createObjectStore("messages", { keyPath: "id" });
+          msgStore.createIndex("conversation_id", "conversation_id");
 
-        const pendingStore = db.createObjectStore("pending_messages", {
-          keyPath: "id",
-        });
-        pendingStore.createIndex("conversation_id", "conversation_id");
-        pendingStore.createIndex("status", "status");
+          const pendingStore = db.createObjectStore("pending_messages", {
+            keyPath: "id",
+          });
+          pendingStore.createIndex("conversation_id", "conversation_id");
+          pendingStore.createIndex("status", "status");
+        }
+
+        if (oldVersion < 2) {
+          const prStore = db.createObjectStore("pending_reactions", {
+            keyPath: "id",
+          });
+          prStore.createIndex("conversation_id", "conversation_id");
+          prStore.createIndex("status", "status");
+        }
       },
     });
   }
@@ -177,6 +203,39 @@ export async function updatePendingStatus(
 export async function deletePendingMessage(id: string): Promise<void> {
   const db = await getDB();
   await db.delete("pending_messages", id);
+}
+
+// --- Pending Reactions ---
+
+export async function addPendingReaction(
+  reaction: PendingReaction
+): Promise<void> {
+  const db = await getDB();
+  await db.put("pending_reactions", reaction);
+}
+
+export async function getPendingReactionsByStatus(
+  status: PendingReaction["status"]
+): Promise<PendingReaction[]> {
+  const db = await getDB();
+  return db.getAllFromIndex("pending_reactions", "status", status);
+}
+
+export async function deletePendingReaction(id: string): Promise<void> {
+  const db = await getDB();
+  await db.delete("pending_reactions", id);
+}
+
+export async function updatePendingReactionStatus(
+  id: string,
+  status: PendingReaction["status"]
+): Promise<void> {
+  const db = await getDB();
+  const reaction = await db.get("pending_reactions", id);
+  if (reaction) {
+    reaction.status = status;
+    await db.put("pending_reactions", reaction);
+  }
 }
 
 // --- Cleanup ---

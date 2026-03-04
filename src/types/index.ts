@@ -49,6 +49,24 @@ export interface MapBounds {
   max_lat: number;
 }
 
+export interface Reaction {
+  id: string;
+  message_id: string;
+  conversation_id: string;
+  user_session_id: string;
+  user_name: string;
+  reaction_type: "thumbs_up" | "thumbs_down";
+  created_at: string;
+}
+
+export interface PinnedMessage {
+  id: string;
+  author_name: string;
+  body: string;
+  created_at: string;
+  pinned_at: string;
+}
+
 export interface NominatimResult {
   place_id: number;
   display_name: string;
