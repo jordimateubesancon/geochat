@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import type { Message } from "@/types";
 import type { PendingMessage } from "@/lib/offline-db";
+import LinkifiedText from "@/components/linkified-text";
 
 function useFormatRelativeTime() {
   const t = useTranslations();
@@ -145,7 +146,7 @@ export default function MessageList({
                   </div>
                 )}
                 <div className="whitespace-pre-wrap break-words text-sm">
-                  {msg.body}
+                  <LinkifiedText text={msg.body} variant={isOwn ? "own" : "other"} />
                 </div>
                 <div
                   className={`mt-1 text-xs ${
@@ -165,7 +166,7 @@ export default function MessageList({
             <div key={pm.id} className="flex justify-end">
               <div className="max-w-[80%] rounded-lg bg-blue-500/60 px-3 py-2 text-white">
                 <div className="whitespace-pre-wrap break-words text-sm">
-                  {pm.body}
+                  <LinkifiedText text={pm.body} variant="own" />
                 </div>
                 <div className="mt-1 flex items-center gap-1.5 text-xs text-blue-100">
                   {pm.status === "pending" && (

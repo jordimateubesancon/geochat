@@ -111,5 +111,11 @@
   "offline.messageFailed": "Échec de l'envoi",
   "offline.messageRetry": "Réessayer",
   "offline.createDisabled": "La création de conversations nécessite une connexion internet",
-  "offline.syncComplete": "Messages synchronisés"
+  "offline.syncComplete": "Messages synchronisés",
+
+  "linkDialog.title": "Ouvrir un lien externe",
+  "linkDialog.description": "Vous êtes sur le point d'ouvrir un lien externe. Veuillez vérifier l'URL avant de continuer.",
+  "linkDialog.url": "URL :",
+  "linkDialog.open": "Ouvrir le lien",
+  "linkDialog.ariaLabel": "Confirmation de lien externe"
 }
