@@ -1,5 +1,10 @@
 import { openDB, type DBSchema, type IDBPDatabase } from "idb";
-import type { Channel, Conversation, Message } from "@/types";
+import type {
+  Channel,
+  Conversation,
+  Message,
+  CachedWeatherData,
+} from "@/types";
 
 // --- Schema ---
 
@@ -61,12 +66,20 @@ interface GeoChatDB extends DBSchema {
     value: PendingReaction;
     indexes: { conversation_id: string; status: string };
   };
+  weather: {
+    key: string;
+    value: CachedWeatherData;
+  };
+  historical_averages: {
+    key: string;
+    value: { key: string; averages: Record<string, number>; cachedAt: string };
+  };
 }
 
 // --- Database singleton ---
 
 const DB_NAME = "geochat-offline";
-const DB_VERSION = 2;
+const DB_VERSION = 3;
 
 let dbPromise: Promise<IDBPDatabase<GeoChatDB>> | null = null;
 
@@ -98,6 +111,11 @@ function getDB(): Promise<IDBPDatabase<GeoChatDB>> {
           });
           prStore.createIndex("conversation_id", "conversation_id");
           prStore.createIndex("status", "status");
+        }
+
+        if (oldVersion < 3) {
+          db.createObjectStore("weather", { keyPath: "conversationId" });
+          db.createObjectStore("historical_averages", { keyPath: "key" });
         }
       },
     });
@@ -236,6 +254,43 @@ export async function updatePendingReactionStatus(
     reaction.status = status;
     await db.put("pending_reactions", reaction);
   }
+}
+
+// --- Weather Cache ---
+
+export async function getCachedWeather(
+  conversationId: string
+): Promise<CachedWeatherData | undefined> {
+  const db = await getDB();
+  return db.get("weather", conversationId);
+}
+
+export async function putCachedWeather(
+  data: CachedWeatherData
+): Promise<void> {
+  const db = await getDB();
+  await db.put("weather", data);
+}
+
+// --- Historical Average Cache ---
+
+export async function getCachedHistoricalAvg(
+  key: string
+): Promise<{ key: string; averages: Record<string, number>; cachedAt: string } | undefined> {
+  const db = await getDB();
+  return db.get("historical_averages", key);
+}
+
+export async function putCachedHistoricalAvg(
+  key: string,
+  averages: Record<string, number>
+): Promise<void> {
+  const db = await getDB();
+  await db.put("historical_averages", {
+    key,
+    averages,
+    cachedAt: new Date().toISOString(),
+  });
 }
 
 // --- Cleanup ---

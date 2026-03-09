@@ -8,6 +8,7 @@ import { useUserSession } from "@/hooks/use-user-session";
 import MessageList from "@/components/message-list";
 import MessageInput from "@/components/message-input";
 import ShareButton from "@/components/share-button";
+import WeatherPanel from "@/components/weather-panel";
 import type { Conversation } from "@/types";
 
 function useFormatRelativeTime() {
@@ -183,6 +184,15 @@ export default function ConversationPanel({
           </button>
           </div>
         </div>
+
+        {/* Weather */}
+        {conversation.latitude != null && conversation.longitude != null && (
+          <WeatherPanel
+            conversationId={conversation.id}
+            latitude={conversation.latitude}
+            longitude={conversation.longitude}
+          />
+        )}
 
         {/* Messages */}
         <MessageList

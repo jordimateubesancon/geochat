@@ -74,3 +74,61 @@ export interface NominatimResult {
   lon: string;
   boundingbox: [string, string, string, string];
 }
+
+// --- Weather Panel (013) ---
+
+export type UnitSystem = "metric" | "imperial";
+
+export interface WeatherUnits {
+  temperature: "°C" | "°F";
+  windSpeed: "km/h" | "mph";
+  precipitation: "mm" | "in";
+}
+
+export interface WeatherPreferences {
+  unitOverride: UnitSystem | null;
+}
+
+export interface WeatherCurrent {
+  temperature: number;
+  weatherCode: number;
+  windSpeed: number;
+  precipitation: number;
+}
+
+export interface WeatherHourly {
+  time: string;
+  temperature: number;
+  precipitation: number;
+  windSpeed: number;
+  weatherCode: number;
+}
+
+export interface WeatherData {
+  conversationId: string;
+  latitude: number;
+  longitude: number;
+  timezone: string;
+  timezoneAbbreviation: string;
+  utcOffsetSeconds: number;
+  current: WeatherCurrent;
+  hourly: WeatherHourly[];
+  fetchedAt: string;
+}
+
+export interface WeatherDaySummary {
+  label: string;
+  date: string;
+  temperatureMin: number;
+  temperatureMax: number;
+  temperatureAvg: number;
+  weatherCode: number;
+  precipitation: number;
+  windSpeed: number;
+}
+
+export interface CachedWeatherData {
+  conversationId: string;
+  data: WeatherData;
+  cachedAt: string;
+}

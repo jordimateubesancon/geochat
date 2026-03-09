@@ -24,6 +24,8 @@ Auto-generated from all feature plans. Last updated: 2026-02-23
 - Supabase (PostgreSQL + PostGIS) for reactions; localStorage for pins; IndexedDB for offline reaction queue (011-reactions-and-pins)
 - TypeScript 5.x (strict mode) + Next.js 14, React 18+ + Tailwind CSS 3, next/font/google (built-in, for Nunito), next-intl 4.8 (existing) (012-brand-redesign)
 - N/A — no data changes (012-brand-redesign)
+- TypeScript 5.x (strict mode, no `any` types) + Next.js 14 (App Router), React 18+ + react-leaflet 4, Tailwind CSS 3, @supabase/supabase-js 2.97, next-intl 4.8, idb 8.x (all existing — no new dependencies) (013-weather-panel)
+- IndexedDB (client-side weather cache via `idb`), localStorage (unit preferences). No Supabase/PostgreSQL changes. (013-weather-panel)
 
 - TypeScript 5.x (strict mode, no `any` types) + Next.js 14, React 18+, react-leaflet 4, (001-geochat-mvp)
 
@@ -67,9 +69,9 @@ Tracking state is stored in `src/messages/.tracking.json` (commit this file).
 TypeScript 5.x (strict mode, no `any` types): Follow standard conventions
 
 ## Recent Changes
+- 013-weather-panel: Added TypeScript 5.x (strict mode, no `any` types) + Next.js 14 (App Router), React 18+ + react-leaflet 4, Tailwind CSS 3, @supabase/supabase-js 2.97, next-intl 4.8, idb 8.x (all existing — no new dependencies)
 - 012-brand-redesign: Added TypeScript 5.x (strict mode) + Next.js 14, React 18+ + Tailwind CSS 3, next/font/google (built-in, for Nunito), next-intl 4.8 (existing)
 - 011-reactions-and-pins: Added TypeScript 5.x (strict mode) + Next.js 14, React 18+ + react-leaflet 4, Tailwind CSS 3, @supabase/supabase-js, next-intl 4.8, idb
-- 010-outdoor-accessibility: Added TypeScript 5.x (strict mode) + Next.js 14, React 18+ + Tailwind CSS 3, next-intl 4.8 (no new dependencies)
 
 
 <!-- MANUAL ADDITIONS START -->
