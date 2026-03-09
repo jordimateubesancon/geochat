@@ -1,6 +1,6 @@
 # geochat Development Guidelines
 
-Auto-generated from all feature plans. Last updated: 2026-02-23
+Auto-generated from all feature plans. Last updated: 2026-03-09
 
 ## Active Technologies
 - TypeScript 5.x (strict mode) + Next.js 14, React 18+, react-leaflet 4, Tailwind CSS 3, @supabase/supabase-js (002-opentopomap-light-theme)
